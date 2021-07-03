@@ -100,7 +100,7 @@ class Paths
 		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
 			switch (songLowercase) {
 				case 'dad-battle': songLowercase = 'dadbattle';
-				case 'philly-nice': songLowercase = 'philly';
+					case 'philly-nice': songLowercase = 'philly';
 			}
 		return 'songs:assets/songs/${folder + songLowercase}/Voices.$SOUND_EXT';
 	}
