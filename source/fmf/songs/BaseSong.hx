@@ -532,11 +532,24 @@ class BaseSong
 	}
 
 //---------------------------------------------- Menu Character --------------------------------------------
-	
+
+
 	public function setDadMenuCharacter(dad:MenuCharacter)
 	{
-		//set active it
 		dad.visible = true;
+
+//---------------- Template ----------------
+
+		// var frames = Paths.getSparrowAtlas();
+		// dad.frames = frames;
+
+		// dad.animation.addByPrefix('dad', "Dad idle dance BLACK LINE", 24);
+		// dad.animation.play('dad');
+		// setMenuCharacter(dad, new CharacterSetting(-15, 230, 0.45));
+		// //set active it
+
+//------------------------------------------
+
 	}
 	
 	public function setBFMenuCharacter(bf:MenuCharacter)

@@ -151,6 +151,7 @@ class FreeplayState extends MusicBeatState
 		 */
 
 		Controller.init(this, FULL, A_B);
+		LoadingState.createBlackFadeOut(this);
 
 		super.create();
 	}
@@ -235,10 +236,12 @@ class FreeplayState extends MusicBeatState
 			var poop:String = Highscore.formatSong(songHighscore, curDifficulty);
 
 			trace(poop);
-			
-			var curSong = SongManager.songs[curSelected];
 
-			PlayState.SONG = Song.loadFromJson(poop, curSong.folder +  songLowercase);
+			var curSong = songs[curSelected];
+
+			PlayState.playingSong = SongManager.songs[curSong.week];
+			PlayState.SONG = Song.loadFromJson(poop, SongManager.songs[curSong.week].folder +  songLowercase);
+		
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
 			PlayState.storyWeek = songs[curSelected].week;
@@ -309,8 +312,11 @@ class FreeplayState extends MusicBeatState
 		// lerpScore = 0;
 		#end
 
+		var curSong = songs[curSelected];
+
+
 		#if PRELOAD_ALL
-		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName, PlayState.playingSong.folder), 0);
+		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName, SongManager.songs[curSong.week].folder), 0);
 		#end
 
 		var bullShit:Int = 0;

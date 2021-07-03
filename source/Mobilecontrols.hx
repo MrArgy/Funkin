@@ -220,6 +220,12 @@ class Mobilecontrols extends FlxSpriteGroup
 				hitboxisenabled = true;
 				add(_hb);
 
+			case 6: //custom
+				_pad = new FlxVirtualPad(RIGHT_FULL, NONE);
+				_pad.alpha = 0.75;
+				this.add(_pad);
+				_pad = config.loadcustom(_pad);
+
 
 			default: // right default
 				_pad = new FlxVirtualPad(RIGHT_FULL, NONE);

@@ -9,6 +9,10 @@ import openfl.display.FPS;
 import openfl.Lib;
 import fmf.characters.*;
 import fmf.songs.*;
+import ui.CustomControlsState;
+
+
+
 class OptionCategory
 {
 	private var _options:Array<Option> = new Array<Option>();
@@ -22,6 +26,10 @@ class OptionCategory
 		_options.push(opt);
 	}
 
+	public final function setOptions(opt:Array<Option>)
+	{
+		_options = opt;
+	}
 	
 	public final function removeOption(opt:Option)
 	{
@@ -67,6 +75,7 @@ class Option
 	public function getValue():String { return throw "stub!"; };
 	
 	// Returns whether the label is to be updated.
+	public function draw():Bool { return true; }
 	public function press():Bool { return throw "stub!"; }
 	private function updateDisplay():String { return throw "stub!"; }
 	public function left():Bool { return throw "stub!"; }
@@ -85,13 +94,20 @@ class MobileControl extends Option
 	
 	public override function press():Bool
 	{
-		right();
+		FlxG.save.data.mobileControl += 1;
+		if (FlxG.save.data.mobileControl > 6)
+		{
+			FlxG.save.data.mobileControl = 0;
+		}
+			
+		display = updateDisplay();
+
 		return true;
 	}
 
 	private override function updateDisplay():String
 	{
-		return "Mobile Control: " + getValueControlType();
+		return getValueControlType();
 	}
 
 	override function left():Bool {
@@ -101,23 +117,30 @@ class MobileControl extends Option
 
 		if(FlxG.save.data.mobileControl < 0)
 		{
-			FlxG.save.data.mobileControl = 5;
+			FlxG.save.data.mobileControl = 6;
 		}
 
-		updateDisplay();
+		OptionsMenu.instance.acceptPress();
+		display = updateDisplay();
+
 		return true;
+
 	}
 	override function right():Bool {
 
 
+
 		FlxG.save.data.mobileControl += 1;
 
-		if(FlxG.save.data.mobileControl > 5)
+		if(FlxG.save.data.mobileControl > 6)
 		{
 			FlxG.save.data.mobileControl = 0;
 		}
 
-		updateDisplay();
+		OptionsMenu.instance.acceptPress();
+		display = updateDisplay();
+
+
 		return true;
 	}
 	function getValueControlType():String
@@ -125,7 +148,7 @@ class MobileControl extends Option
 		return  controlTypeShort;
 	}
 	override function getValue():String {
-		return "Control method:  " + controlType;
+		return "Type:  " + controlType;
 	}
 
 	private var controlType(get, never):String;
@@ -148,6 +171,10 @@ class MobileControl extends Option
 					
 			case 5:
 				gamePad = "Hitbox";
+
+			case 6:
+				gamePad = "Custom";
+
 		}
 
 		return gamePad;
@@ -167,16 +194,48 @@ class MobileControl extends Option
 				gamePad = "Full";
 
 			case 3:
-				gamePad = "Split-N";
+				gamePad = "Split-Natural";
 
 			case 4:
-				gamePad = "Split-F";
+				gamePad = "Split-Flat";
 					
 			case 5:
 				gamePad = "Hitbox";
+			case 6: 
+				gamePad = "Custom";
 		}
 
 		return gamePad;
+	}
+}
+class CustomControlOption extends Option
+{
+	private var controls:Controls;
+
+	public override function draw():Bool
+	{
+		return  FlxG.save.data.mobileControl == 6;
+	}
+
+	public function new(controls:Controls)
+	{
+		super();
+		this.controls = controls;
+	}
+
+	public override function press():Bool
+	{
+		OptionsMenu.instance.lockState();
+		LoadingState.createBlackFadeIn(OptionsMenu.instance, function()
+		{
+			FlxG.switchState(new CustomControlsState());
+		});
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Settings";
 	}
 }
 
@@ -509,7 +568,7 @@ class ScrollSpeedOption extends Option
 
 	public override function press():Bool
 	{
-		return false;
+		return true;
 	}
 
 	private override function updateDisplay():String
