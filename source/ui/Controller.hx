@@ -19,6 +19,7 @@ class Controller
         if(_pad != null)
         {
             //remove old pad
+			_pad.destroy();
             _pad = null;
 
         }
@@ -40,6 +41,11 @@ class Controller
 
 		group.add(_pad);
     }
+
+	public function destroy()
+	{
+		_pad.destroy();
+	}
 
     public  static var ACCEPT(get, never):Bool;
 	static inline function get_ACCEPT()

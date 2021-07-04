@@ -1,5 +1,6 @@
-package fmf.songs;
+	package fmf.songs;
 
+import MenuCharacter.CharacterSetting;
 import flixel.FlxSprite;
 import fmf.characters.*;
 
@@ -67,4 +68,16 @@ class Matt extends SongPlayer
 		icon.animation.play("dad");
 	}
 
+	public override function setDadMenuCharacter(dad:MenuCharacter)
+	{
+		super.setDadMenuCharacter(dad);
+
+		var frames = Paths.getSparrowAtlas('matt/menucharacter', 'mods');
+		dad.frames = frames;
+
+		dad.animation.addByPrefix('dad', "Matt idle", 12);
+		dad.animation.play('dad');
+		setMenuCharacter(dad, new CharacterSetting(0, 40, 0.65));
+	
+	}
 }

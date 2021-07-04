@@ -30,8 +30,9 @@ class Character extends FlxSprite
 	}
 
 	private var danced:Bool = false;
-
 	private var isLockAnim:Bool;
+
+	
 
 	public function lockAnim(duration:Float)
 	{

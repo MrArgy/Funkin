@@ -26,17 +26,9 @@ class OptionsMenu extends MusicBeatState
 
 	var options:Array<OptionCategory> = [
 		new OptionCategory("Controls", [
-			new DFJKOption(controls),
 			new MobileControl("Adjust control on mobile"),
+			new CustomControlOption(controls),
 
-
-			#if desktop
-			new FPSCapOption("Cap your FPS"),
-			#end
-		
-			// new ResetButtonOption("Toggle pressing R to gameover."),
-			// new OffsetMenu("Get a note offset based off of your inputs!"),
-			// new CustomizeGameplay("Drag'n'Drop Gameplay Modules around to your preference")
 		]),
 		new OptionCategory("Utils", [
 			new BotPlay("Showcase your charts and mods with autoplay."),
@@ -47,28 +39,9 @@ class OptionsMenu extends MusicBeatState
 			new AccuracyDOption("Change how accuracy is calculated. (Accurate = Simple, Complex = Milisecond Based)"),
 			new Judgement("Customize your Hit Timings (LEFT or RIGHT)"),
 		])
-		// 	#if desktop
-		// 	new DistractionsAndEffectsOption("Toggle stage distractions that can hinder your gameplay."),
-		// 	new RainbowFPSOption("Make the FPS Counter Rainbow"),
-		// 	new AccuracyOption("Display accuracy information."),
-		// 	new NPSDisplayOption("Shows your current Notes Per Second."),
-		// 	new SongPositionOption("Show the songs current position (as a bar)"),
-		// 	new CpuStrums("CPU's strumline lights up when a note hits it."),
-		// 	#else
-		// 	#end
-		// ]),
-		
-		// new OptionCategory("Misc", [
-		// 	#if desktop
-		// 	new FPSOption("Toggle the FPS Counter"),
-		// 	new ReplayOption("View replays"),
-		// 	#end
-		// 	new FlashingLightsOption("Toggle flashing lights that can cause epileptic seizures and strain."),
-		// 	new WatermarkOption("Enable and disable all watermarks from the engine."),
-		// 	new BotPlay("Showcase your charts and mods with autoplay.")
-		// ])
-		
 	];
+
+
 
 	public var acceptInput:Bool = true;
 
@@ -120,34 +93,109 @@ class OptionsMenu extends MusicBeatState
 
 		Controller.init(this, FULL, A_B);
 
+		LoadingState.createBlackFadeOut(this);
+
 		super.create();
 	}
 
 	var isCat:Bool = false;
 	
 
+	public function backPress()
+	{
+		FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
+
+		if (!isCat)
+			FlxG.switchState(new MainMenuState());
+		else if (Controller.BACK)
+		{
+			isCat = false;
+			grpControls.clear();
+			for (i in 0...options.length)
+				{
+					var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false);
+					controlLabel.isMenuItem = true;
+					controlLabel.targetY = i;
+					grpControls.add(controlLabel);
+					// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
+				}
+			curSelected = 0;
+		}
+	}
+
+
+
+
+	function drawCategories()
+	{
+		var catOptions = currentSelectedCat.getOptions();
+
+		var availableOptions = new Array<Option>();
+
+		for (i in catOptions)
+			if (i.draw())
+				availableOptions.push(i);
+
+		isCat = true;
+		grpControls.clear();
+		for (i in 0...availableOptions.length)
+		{
+			var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, availableOptions[i].getDisplay(), true, false);
+			controlLabel.isMenuItem = true;
+			controlLabel.targetY = i;
+			grpControls.add(controlLabel);
+			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
+		}
+
+	}
+
+	var isLocked:Bool;
+	public function lockState()
+	{
+		isLocked = true;
+		
+	}
+	public function acceptPress()
+	{
+		FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
+		if (isCat)
+		{
+			if (currentSelectedCat.getOptions()[curSelected].press())
+			{
+				if (isLocked)
+					return;
+
+				grpControls.remove(grpControls.members[curSelected]);
+				var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, currentSelectedCat.getOptions()[curSelected].getDisplay(), true, false);
+				ctrl.isMenuItem = true;
+				grpControls.add(ctrl);
+			}
+
+			if (currentSelectedCat.getName() == "Controls")
+				drawCategories();
+		}
+		else
+		{
+			currentSelectedCat = options[curSelected];
+			drawCategories();
+			curSelected = 0;
+		}
+		
+	}
+
 	override function update(elapsed:Float)
 	{
+		if (isLocked)
+			return;
+
 		super.update(elapsed);
 
 		if (acceptInput)
 		{
-			if (Controller.BACK && !isCat)
-				FlxG.switchState(new MainMenuState());
-			else if (Controller.BACK)
-			{
-				isCat = false;
-				grpControls.clear();
-				for (i in 0...options.length)
-					{
-						var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false);
-						controlLabel.isMenuItem = true;
-						controlLabel.targetY = i;
-						grpControls.add(controlLabel);
-						// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
-					}
-				curSelected = 0;
-			}
+			if (Controller.BACK)
+				backPress();
+
+
 			if (Controller.UP_P)
 				changeSelection(-1);
 			if (Controller.DOWN_P)
@@ -159,19 +207,30 @@ class OptionsMenu extends MusicBeatState
 				if (currentSelectedCat.getOptions()[curSelected].getAccept())
 				{
 					if (Controller.SHIFT)
+					{
+						if (Controller.RIGHT)
 						{
-							if (Controller.RIGHT)
-								currentSelectedCat.getOptions()[curSelected].right();
-							if (Controller.LEFT)
-								currentSelectedCat.getOptions()[curSelected].left();
+							currentSelectedCat.getOptions()[curSelected].right();
 						}
+						if (Controller.LEFT)
+						{
+							currentSelectedCat.getOptions()[curSelected].left();
+						}
+					}
 					else
 					{
 						if (Controller.RIGHT_P)
+						{
+							FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
 							currentSelectedCat.getOptions()[curSelected].right();
+						}
 						if (Controller.LEFT_P)
+						{
 							currentSelectedCat.getOptions()[curSelected].left();
+							FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
+						}
 					}
+
 				}
 				else
 				{
@@ -179,14 +238,26 @@ class OptionsMenu extends MusicBeatState
 					if (Controller.SHIFT)
 					{
 						if (Controller.RIGHT_P)
+						{
 							FlxG.save.data.offset += 0.1;
+							FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
+						}
 						else if (Controller.LEFT_P)
+						{
 							FlxG.save.data.offset -= 0.1;
+							FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
+						}
 					}
-					else if (Controller.RIGHT)
+					else if (Controller.RIGHT){
+						// FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
 						FlxG.save.data.offset += 0.1;
+
+					}
 					else if (Controller.LEFT)
+					{
+						// FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
 						FlxG.save.data.offset -= 0.1;
+					}
 					
 				
 				}
@@ -213,41 +284,15 @@ class OptionsMenu extends MusicBeatState
 
 			// if (Controller.RESET)
 					// FlxG.save.data.offset = 0;
-
 			if (Controller.ACCEPT)
-			{
-				if (isCat)
-				{
-					if (currentSelectedCat.getOptions()[curSelected].press()) {
-						grpControls.remove(grpControls.members[curSelected]);
-						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, currentSelectedCat.getOptions()[curSelected].getDisplay(), true, false);
-						ctrl.isMenuItem = true;
-						grpControls.add(ctrl);
-					}
-				}
-				else
-				{
-					currentSelectedCat = options[curSelected];
-					isCat = true;
-					grpControls.clear();
-					for (i in 0...currentSelectedCat.getOptions().length)
-						{
-							var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, currentSelectedCat.getOptions()[i].getDisplay(), true, false);
-							controlLabel.isMenuItem = true;
-							controlLabel.targetY = i;
-							grpControls.add(controlLabel);
-							// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
-						}
-					curSelected = 0;
-				}
-			}
+				acceptPress();
 		}
 		FlxG.save.flush();
 	}
 
 	var isSettingControl:Bool = false;
 
-	function changeSelection(change:Int = 0)
+	public function changeSelection(change:Int = 0)
 	{
 		#if !switch
 		// NGio.logEvent("Fresh");
