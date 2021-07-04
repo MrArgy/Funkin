@@ -1,5 +1,9 @@
 package;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.group.FlxGroup;
+import flixel.util.FlxColor;
 import lime.app.Promise;
 import lime.app.Future;
 import flixel.FlxG;
@@ -164,6 +168,50 @@ class LoadingState extends MusicBeatState
 			FlxG.sound.music.stop();
 		
 		return target;
+	}
+	static function zoomInAndFading()
+	{
+		FlxG.camera.stopFX();
+
+		new FlxTimer().start(0.016, function(tmr:FlxTimer)
+		{
+			FlxG.camera.zoom += 0.016;
+		}, 120);
+	}
+	
+	public static function createBlackFadeIn(group:FlxGroup, callback:Void->Void)
+	{
+		var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
+
+		blackScreen.cameras = [FlxG.camera];
+		blackScreen.alpha = 0;
+
+		group.add(blackScreen);
+		FlxTween.tween(blackScreen, {alpha: 1}, {});
+
+		new FlxTimer().start(1, function(tmr:FlxTimer)
+		{
+			callback();
+		});
+	}
+
+	public static function createBlackFadeOut(group:FlxGroup)
+	{
+		var blackShit:FlxSprite = new FlxSprite().makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+		blackShit.scrollFactor.set(0.5, 0.5);
+		group.add(blackShit);
+		new FlxTimer().start(1, function(t:FlxTimer)
+		{
+			FlxTween.tween(blackShit, {alpha: 0}, 0.5, {
+				ease: FlxEase.quartInOut,
+				onComplete: function(callback:FlxTween)
+				{
+					group.remove(blackShit);
+					blackShit = null;
+				}
+			});
+		});
+
 	}
 	
 	#if NO_PRELOAD_ALL

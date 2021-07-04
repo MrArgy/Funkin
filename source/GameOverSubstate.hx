@@ -46,7 +46,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				bf.setGraphicSize(Std.int(bf.width * 6));
 				bf.updateHitbox();
 				bf.antialiasing = false;
-				bf.flipX = true;
+				bf.flipX = false;
 				stageSuffix = '-pixel';
 		}
 		else
@@ -57,10 +57,10 @@ class GameOverSubstate extends MusicBeatSubstate
 				bf.animation.addByPrefix('firstDeath', "BF dies", 24, false);
 				bf.animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
 				bf.animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
-				bf.flipX = true;
+				
+				bf.flipX = false;
 
 		}
-
 
 
 		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);

@@ -21,17 +21,6 @@ class CharacterSetting
 
 class MenuCharacter extends FlxSprite
 {
-	public static var settings:Map<String, CharacterSetting> = [
-		'bf' => new CharacterSetting(0, -20, 1.0, true),
-		'gf' => new CharacterSetting(50, 80, 1.5, true),
-		'dad' => new CharacterSetting(-15, 130),
-		'spooky' => new CharacterSetting(20, 30),
-		'pico' => new CharacterSetting(0, 0, 1.0, true),
-		'mom' => new CharacterSetting(-30, 140, 0.85),
-		'parents-christmas' => new CharacterSetting(100, 130, 1.8),
-		'senpai' => new CharacterSetting(-40, -45, 1.4)
-	];
-
 	public var flipped:Bool = false;
 
 	public function new(x:Int, y:Int, scale:Float, flipped:Bool)

@@ -26,10 +26,10 @@ class SongManager
 		new SongData
 		(
 			{
-				folder: 'week1',
-				character: 'dad',
-				songTitle: 'Daddy Dearest',
-				songList: ['Bopeebo', 'Fresh', 'Dad Battle']
+				folder: 'week_matt',
+				character: 'matt',
+				songTitle: 'Matt',
+				songList: ['Light-it-up', 'Ruckus', 'Target-Practicle']
 			}
 		),
 		
