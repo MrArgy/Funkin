@@ -5,6 +5,14 @@ class KadeEngineData
 {
     public static function initSave()
     {
+
+		//yeah pc id
+		if (FlxG.save.data.pcId == null)
+		{
+			//default pc, boyfriend!
+			FlxG.save.data.pcId = 0;
+		}
+
         if (FlxG.save.data.newInput == null)
 			FlxG.save.data.newInput = true;
 

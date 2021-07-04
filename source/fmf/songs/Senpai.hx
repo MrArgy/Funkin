@@ -159,6 +159,11 @@ class Senpai extends SongPlayer
 		bf.flipX = true;
 	}
 
+	override function createBF()
+	{
+		createCustomBF();
+	}
+
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;

@@ -19,7 +19,7 @@ class BaseSong
 //---------------------------------------- VARIABLES -----------------------------------------------------
 
 	// characters shit
-	public var bf:Character;
+	public var bf:PlayableCharacter;
 	public var playState:PlayState;
 	public var gf:Character;
 	public var dad:Character;
@@ -250,82 +250,56 @@ class BaseSong
 
 	// bf place here for debug menu support
 	// bf skins
-	private function getBFTex():Void
+		
+	
+	// set BF difference behaviour
+	private function getVersion():PlayableCharacter
+	{
+		var pcId:Int = FlxG.save.data.pcId;
+
+		switch (pcId)
 		{
-			var tex = Paths.getSparrowAtlas('characters/BoyFriend_Assets');
-			bf.frames = tex;
-		}
-	
-		// create animation for BF
-		private function createBFAnimations():Void
-		{
-			bf.animation.addByPrefix('idle', 'BF idle dance', 24, false);
-			bf.animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
-			bf.animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
-			bf.animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
-			bf.animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
-			bf.animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
-			bf.animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, false);
-			bf.animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
-			bf.animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
-			bf.animation.addByPrefix('hey', 'BF HEY', 24, false);
-	
-			bf.animation.addByPrefix('scared', 'BF idle shaking', 24);
-		}
-	
-		// create animation offset for BF
-		private function createBFAnimationOffsets():Void
-		{
-			bf.addOffset('idle', -5);
-			bf.addOffset("singUP", -29, 27);
-			bf.addOffset("singRIGHT", -38, -7);
-			bf.addOffset("singLEFT", 12, -6);
-			bf.addOffset("singDOWN", -10, -50);
-	
-			bf.addOffset("singUPmiss", -29, 27);
-			bf.addOffset("singRIGHTmiss", -30, 21);
-			bf.addOffset("singLEFTmisss", 12, 24);
-			bf.addOffset("singDOWNmiss", -11, -19);
-			bf.addOffset("hey", 7, 4);
-			bf.addOffset('scared', -4);
-	
-			bf.playAnim('idle');
-			bf.flipX = true;
-	
-	
-			//i dunno why i should do this, LOl
-			bf.dance();
-			bf.flipX = !bf.flipX;
-	
-			// Doesn't flip for BF, since his are already in the right place???		{
-			var oldRight = bf.animation.getByName('singRIGHT').frames;
-			bf.animation.getByName('singRIGHT').frames = bf.animation.getByName('singLEFT').frames;
-			bf.animation.getByName('singLEFT').frames = oldRight;
-	
-			// IF THEY HAVE MISS ANIMATIONS??
-			if (bf.animation.getByName('singRIGHTmiss') != null)
+			case 1:
 			{
-				var oldMiss = bf.animation.getByName('singRIGHTmiss').frames;
-				bf.animation.getByName('singRIGHTmiss').frames = bf.animation.getByName('singLEFTmiss').frames;
-				bf.animation.getByName('singLEFTmiss').frames = oldMiss;
+				//hardcode scale
+				var miku:Miku = new Miku(650, 200);
+				return miku;
+
 			}
-	
+			default: return getDefaultPc();
 		}
-	
-		// set BF difference behaviour
-		private function getBFVersion():Character
-		{
-			return new Boyfriend(770, 450);
-		}
-	
-		// create BF
-		private function createBF():Void
-		{
-			bf = getBFVersion();
-			getBFTex();
-			createBFAnimations();
-			createBFAnimationOffsets();
-		}
+	}
+
+	private function getDefaultPc():PlayableCharacter
+	{
+		return new Boyfriend(770, 450);
+	}
+
+	// create BF
+	public function createBF():Void
+	{
+		bf = getVersion();
+		bf.createCharacter();
+
+	}
+
+	private function createCustomBF():Void
+	{
+		bf = getDefaultPc();
+
+		getBFTex();
+		createBFAnimations();
+		createBFAnimationOffsets();
+	}
+
+
+	//get texture of bf and set into bf itself
+	private  function getBFTex():Void {}
+	//create animations for bf
+	private  function createBFAnimations():Void{ }
+	//create animation offsets for bf
+	private  function createBFAnimationOffsets():Void{}
+
 
 //--------------------------------------------------------------------------------------------------------
 

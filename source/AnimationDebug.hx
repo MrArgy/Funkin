@@ -15,7 +15,7 @@ import fmf.songs.*;
  */
 class AnimationDebug extends FlxState
 {
-	var bf:Boyfriend;
+	var bf:PlayableCharacter;
 	var dad:Character;
 	var char:Character;
 	var textAnim:FlxText;
@@ -43,19 +43,24 @@ class AnimationDebug extends FlxState
 		if (daAnim == 'bf')
 			isDad = false;
 
-		if (isDad)
+		if (true)
 		{
-			dad = new Character(0, 0);
-			dad.screenCenter();
-			dad.debugMode = true;
-			add(dad);
+			
+		// 	dad = new Character(0, 0);
+		// 	dad.screenCenter();
+		// 	dad.debugMode = true;
+		// 	add(dad);
 
-			char = dad;
-			dad.flipX = false;
-		}
-		else
-		{
-			bf = new Boyfriend(0, 0);
+		// 	char = dad;
+		// 	dad.flipX = false;
+		// }
+		// else
+		// {
+			var song = SongPlayerManager.getCurrentSong(PlayState.CURRENT_SONG);
+
+			song.createBF();
+			bf = song.bf;
+			
 			bf.screenCenter();
 			bf.debugMode = true;
 			add(bf);

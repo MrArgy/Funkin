@@ -1,9 +1,16 @@
 package fmf.songs;
 
+import flixel.FlxG;
+
 
 //this class will handle which SongPlayer should be play
 class SongPlayerManager
 {
+	public static function getPcId():Int
+	{
+		var pcId:Int = FlxG.save.data.pcId;
+		return pcId;
+	}
 	public static function getCurrentSong(songName:String):SongPlayer
 	{
 		var songPlayer:SongPlayer = new Tutorial('gf');
