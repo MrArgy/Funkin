@@ -93,7 +93,7 @@ class PcOption extends Option
 		acceptValues = true;
 	}
 
-	var pcList:Array<String> = ['Boyfriend', 'Miku'];
+	var pcList:Array<String> = ['Boyfriend', 'Pico'];
 	
 	public override function press():Bool
 	{

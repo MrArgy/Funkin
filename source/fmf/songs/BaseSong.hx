@@ -262,8 +262,8 @@ class BaseSong
 			case 1:
 			{
 				//hardcode scale
-				var miku:Miku = new Miku(650, 200);
-				return miku;
+				return new Mommy(770, 200);
+
 
 			}
 			default: return getDefaultPc();
