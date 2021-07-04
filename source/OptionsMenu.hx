@@ -25,6 +25,11 @@ class OptionsMenu extends MusicBeatState
 	var curSelected:Int = 0;
 
 	var options:Array<OptionCategory> = [
+		new OptionCategory("Characters",
+		[
+			new PcOption("Select your playable character")
+		]),
+		
 		new OptionCategory("Controls", [
 			new MobileControl("Adjust control on mobile"),
 			new CustomControlOption(controls),

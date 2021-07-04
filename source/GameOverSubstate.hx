@@ -51,15 +51,28 @@ class GameOverSubstate extends MusicBeatSubstate
 		}
 		else
 		{
-				//okay now create normal bf
-				var tex = Paths.getSparrowAtlas('characters/BoyFriend_Dead_Assets');
-				bf.frames = tex;
-				bf.animation.addByPrefix('firstDeath', "BF dies", 24, false);
-				bf.animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
-				bf.animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
-				
-				bf.flipX = false;
+			
+			switch (SongPlayerManager.getPcId())
+			{
+				default:
+					{
+						// okay now create normal bf
+						var tex = Paths.getSparrowAtlas('characters/BoyFriend_Dead_Assets');
+						bf.frames = tex;
+						bf.animation.addByPrefix('firstDeath', "BF dies", 24, false);
+						bf.animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
+						bf.animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
+						bf.flipX = false;
+					}
 
+				// case 1://miku
+				// 	{
+				// 		// okay now create miku dead
+				// 		var miku = new Miku
+				// 	}
+
+			}
+		
 		}
 
 

@@ -82,6 +82,85 @@ class Option
 	public function right():Bool { return throw "stub!"; }
 }
 
+
+class PcOption extends Option
+{
+
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	var pcList:Array<String> = ['Boyfriend', 'Miku'];
+	
+	public override function press():Bool
+	{
+		FlxG.save.data.pcId += 1;
+		if (FlxG.save.data.pcId > pcList.length - 1)
+		{
+			FlxG.save.data.pcId = 0;
+		}
+			
+		display = updateDisplay();
+
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return getValue();
+	}
+
+	override function left():Bool {
+
+
+		FlxG.save.data.pcId -= 1;
+
+		if(FlxG.save.data.pcId < 0)
+		{
+			FlxG.save.data.pcId = pcList.length - 1;
+		}
+
+		OptionsMenu.instance.acceptPress();
+		display = updateDisplay();
+
+		return true;
+
+	}
+	override function right():Bool {
+
+
+
+		FlxG.save.data.pcId += 1;
+
+		if(FlxG.save.data.pcId > pcList.length - 1)
+		{
+			FlxG.save.data.pcId = 0;
+		}
+
+		OptionsMenu.instance.acceptPress();
+		display = updateDisplay();
+
+
+		return true;
+	}
+
+	override function getValue():String {
+		return getPc;
+	}
+
+	private var getPc(get, never):String;
+	private inline function get_getPc():String
+	{
+		return pcList[FlxG.save.data.pcId];
+	}
+
+}
+
+
+
 class MobileControl extends Option
 {
 
@@ -208,6 +287,8 @@ class MobileControl extends Option
 		return gamePad;
 	}
 }
+
+
 class CustomControlOption extends Option
 {
 	private var controls:Controls;

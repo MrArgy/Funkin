@@ -125,6 +125,12 @@ class WinterHorrorland extends SongPlayer
 		dad.playAnim('idle');
 	}
 
+	
+	override function createBF()
+	{
+		createCustomBF();
+	}
+
 	override function createCharacters()
 	{
 		super.createCharacters();
