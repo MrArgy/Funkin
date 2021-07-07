@@ -30,10 +30,10 @@ class Mommy extends Boyfriend
 	public override function createAnimations():Void
 	{
 		animation.addByPrefix('idle', "Mom Idle", 24, false);
-		animation.addByPrefix('singUP', "Mom Up Pose", 24, false);
-		animation.addByPrefix('singDOWN', "MOM DOWN POSE", 24, false);
-		animation.addByPrefix('singLEFT', 'Mom Left Pose', 24, false);
-		animation.addByPrefix('singRIGHT', 'Mom Pose Left', 24, false);
+		animation.addByPrefix('singUP', "Mom Up Pose0", 24, false);
+		animation.addByPrefix('singDOWN', "MOM DOWN POSE0", 24, false);
+		animation.addByPrefix('singLEFT', 'Mom Left Pose0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Mom Pose Left0', 24, false);
 
 
 		animation.addByPrefix('singUPmiss', 'Mom Up Pose miss', 1, false);
