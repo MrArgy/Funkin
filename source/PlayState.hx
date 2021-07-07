@@ -122,7 +122,7 @@ class PlayState extends MusicBeatState
 		return songPlayer.gf;
 	}
 
-	public static function boyfriend():Character
+	public static function boyfriend():PlayableCharacter
 	{
 		return songPlayer.bf;
 	}

@@ -20,34 +20,37 @@ class Pico extends Boyfriend
 	// create animation for BF
 	public override function createAnimations():Void
 	{
-		animation.addByPrefix('idle', 'BF idle dance', 24, false);
-		animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
-		animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
-		animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
-		animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
-		animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 48, false);
-		animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 48, false);
-		animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 48, false);
-		animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 48, false);
-		animation.addByPrefix('hey', 'BF HEY', 24, false);
-		animation.addByPrefix('scared', 'BF idle shaking', 24);
+		animation.addByPrefix('idle', 'Pico Idle Dance', 24, false);//
+
+		animation.addByPrefix('singUP', 'pico Up note0', 24, false);//
+		animation.addByPrefix('singLEFT', 'Pico NOTE LEFT0', 24, false);//
+		animation.addByPrefix('singRIGHT', 'Pico Note Right0', 24, false);//
+		animation.addByPrefix('singDOWN', 'Pico Down Note0', 24, false);//
+
+		animation.addByPrefix('singUPmiss', 'pico Up note miss', 24, false);//
+		animation.addByPrefix('singLEFTmiss', 'Pico NOTE LEFT miss', 24, false);//
+		animation.addByPrefix('singRIGHTmiss', 'Pico Note Right Miss', 24, false);//
+		animation.addByPrefix('singDOWNmiss', 'Pico Down Note MISS', 24, false);//
+	
+		animation.addByPrefix('hey', 'Pico Idle Dance', 24, false);
+		animation.addByPrefix('scared', 'Pico Idle Dance', 24);
 	}
 
 	// create animation offset for BF
 	public override function createAnimationOffsets():Void
 	{
 		addOffset('idle', -5, -2);
-		addOffset("singUP", -19, -1);
-		addOffset("singRIGHT", 32, -1);
-		addOffset("singLEFT", -30, 0);
-		addOffset("singDOWN", 17, 1);
+		addOffset("singUP", 4, 16);
+		addOffset("singRIGHT", 76, -15);
+		addOffset("singLEFT", -55, -5);
+		addOffset("singDOWN", 102, -88);
 
-		addOffset("singUPmiss", -16, 1);
-		addOffset("singRIGHTmiss", 31, -1);
-		addOffset("singLEFTmisss", 17, 0);
-		addOffset("singDOWNmiss", 15, 2);
-		addOffset("hey", 4, 0);
-		addOffset('scared', -4, -1);
+		addOffset("singUPmiss", 8, 49);
+		addOffset("singRIGHTmiss", 73, 17);
+		addOffset("singLEFTmiss", -56, 42);
+		addOffset("singDOWNmiss", 95, -48);
+		addOffset("hey", -5, -2);
+		addOffset('scared', -5, -2);
 
 		playAnim('idle');
 		flipX = true;
@@ -69,6 +72,5 @@ class Pico extends Boyfriend
 			animation.getByName('singLEFTmiss').frames = oldMiss;
 		}
 	}
-	
 
 }

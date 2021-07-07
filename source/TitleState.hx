@@ -88,7 +88,7 @@ class TitleState extends MusicBeatState
 		// trace('NEWGROUNDS LOL');
 		// #end
 
-		FlxG.save.bind('save1', 'data');
+		FlxG.save.bind('save2', 'data');
 
 		KadeEngineData.initSave();
 

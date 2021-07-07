@@ -25,6 +25,8 @@ class Miku extends Boyfriend
 		animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
 		animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
 		animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
+
+
 		animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 48, false);
 		animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 48, false);
 		animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 48, false);
@@ -44,7 +46,7 @@ class Miku extends Boyfriend
 
 		addOffset("singUPmiss", -16, 1);
 		addOffset("singRIGHTmiss", 31, -1);
-		addOffset("singLEFTmisss", 17, 0);
+		addOffset("singLEFTmiss", 17, 0);
 		addOffset("singDOWNmiss", 15, 2);
 		addOffset("hey", 4, 0);
 		addOffset('scared', -4, -1);

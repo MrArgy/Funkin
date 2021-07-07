@@ -33,19 +33,19 @@ class PlayableCharacter extends Character
 	public function createAnimationOffsets():Void
 	{
 		addOffset('idle', -5);
-		addOffset("singUP", -29, 27);
-		addOffset("singRIGHT", -38, -7);
-		addOffset("singLEFT", 12, -6);
-		addOffset("singDOWN", -10, -50);
+		addOffset("singUP", -39, 26);
+		addOffset("singRIGHT", -18, -7);
+		addOffset("singLEFT", -28, 6);
+		addOffset("singDOWN", -20, -50);
 
-		addOffset("singUPmiss", -29, 27);
-		addOffset("singRIGHTmiss", -30, 21);
-		addOffset("singLEFTmisss", 12, 24);
-		addOffset("singDOWNmiss", -11, -19);
-		addOffset("hey", 7, 4);
+		addOffset("singUPmiss", -43, 28);
+		addOffset("singRIGHTmiss", -20, 16);
+		addOffset("singLEFTmiss", -22, -17);
+		addOffset("singDOWNmiss", -15, -23);
+		addOffset("hey", -3, 4);
 		addOffset('scared', -4);
 
-		playAnim('idle');
+	playAnim('idle');
 		flipX = true;
 
 		// i dunno why i should do this, LOl
