@@ -1,47 +1,81 @@
 package fmf.songs;
 
+import flixel.animation.FlxAnimationController;
+import flixel.graphics.atlas.FlxAtlas;
 import flixel.FlxSprite;
 import MenuCharacter.CharacterSetting;
 import fmf.characters.*;
 
-class Whitty extends SongPlayer
+class Remorse extends SongPlayer
 {
 
     override function getDadTex()
 	{
-		var tex = Paths.getSparrowAtlas('whitty/WhittySprites', 'mods');
+		var tex = Paths.getSparrowAtlas('whitty/remorse/updike_assets', 'mods');
 		dad.frames = tex;
 	}
 
 
 	override function loadMap()
 	{
-		var bg:FlxSprite = new FlxSprite(-48, -448).loadGraphic(Paths.image('whitty/whittyBack', 'mods'));
+		var bg:FlxSprite = new FlxSprite(-600, -448).loadGraphic(Paths.image('whitty/remorse/wall', 'mods'));
 		bg.antialiasing = true;
-		// bg.active = false;
-		bg.scale.x = 1.3;
-		bg.scale.y = 1.3;
+		bg.scale.x = 1;
+		bg.scale.y = 1;
 		bg.scrollFactor.set(0.9, 0.9);
 		playState.add(bg);
 
-		var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('whitty/whittyFront', "mods"));
+		var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('whitty/remorse/light', "mods"));
 		stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 		stageFront.updateHitbox();
 		stageFront.antialiasing = true;
 		stageFront.scrollFactor.set(0.9, 0.9);
 		stageFront.active = false;
+		stageFront.alpha = 0.35;
+
 		playState.add(stageFront);
 
+	}
+
+
+	private function turnDadRemorse()
+	{
+		var animation = dad.animation;
+
+		animation.destroyAnimations();
+
+		animation.addByPrefix('idle', 'updingdong idle0', 24, false);
+		animation.addByPrefix('singUP', 'updingdong up note0', 24, false);
+		animation.addByPrefix('singRIGHT', 'updingdong right note0', 24, false);
+		animation.addByPrefix('singLEFT', 'updingdong left note0', 24, false);
+		animation.addByPrefix('singDOWN', 'updingdong down note0', 24, false);
+
+		animation.play('idle');
+	}
+
+	private function turnDadNormal()
+	{
+		var animation = dad.animation;
+		animation.addByPrefix('idle', 'updingdong idle', 24, false);
+		animation.addByPrefix('singUP', 'updingdong up note', 24, false);
+		animation.addByPrefix('singRIGHT', 'updingdong right note', 24, false);
+		animation.addByPrefix('singLEFT', 'updingdong left note', 24, false);
+		animation.addByPrefix('singDOWN', 'updingdong down note', 24, false);
+
+		animation.play('idle');
 	}
 
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Idle', 24, false);
-		animation.addByPrefix('singUP', 'Sing Up', 24, false);
-		animation.addByPrefix('singRIGHT', 'Sing Right', 24, false);
-		animation.addByPrefix('singLEFT', 'Sing Left', 24, false);
-		animation.addByPrefix('singDOWN', 'Sing Down', 24, false);
+
+		animation.addByPrefix('idle', 'updingdong idle0', 24, false);
+		animation.addByPrefix('singUP', 'updingdong up note0', 24, false);
+		animation.addByPrefix('singRIGHT', 'updingdong right note0', 24, false);
+		animation.addByPrefix('singLEFT', 'updingdong left note0', 24, false);
+		animation.addByPrefix('singDOWN', 'updingdong down note0', 24, false);
+
+	
 		dad.animation = animation;
 	}
 
@@ -59,7 +93,7 @@ class Whitty extends SongPlayer
 
 	override function getGFTex():Void
 	{
-		var tex = Paths.getSparrowAtlas('whitty/GF_Standing_Sway', 'mods');
+		var tex = Paths.getSparrowAtlas('whitty/remorse/gf_but_spicy', 'mods');
 		gf.frames = tex;
 
 	}
@@ -67,11 +101,9 @@ class Whitty extends SongPlayer
 	override function createGFAnimations()
 	{
 		var animation = gf.animation;
-		
 		animation.addByPrefix('sad', 'Sad', 24, false);
-		animation.addByPrefix('danceLeft', 'Idle Left', 24, false);
-		animation.addByPrefix('danceRight', 'Idle Right', 24, false);
-		animation.addByPrefix('scared', 'Scared', 24, false);
+		animation.addByPrefix('danceLeft', 'GF Dancing Beat 0', 24, false);
+		animation.addByPrefix('danceRight', 'GF Dancing Beat 0', 24, false);
 		gf.animation = animation;
 	}
 
@@ -81,7 +113,6 @@ class Whitty extends SongPlayer
 		gf.addOffset('sad', -140, -153);
 		gf.addOffset('danceLeft', -140, -153);
 		gf.addOffset('danceRight', -140, -153);
-		gf.addOffset('scared', -140, -110);
 
 		gf.playAnim('danceRight');
 		gf.dance();
