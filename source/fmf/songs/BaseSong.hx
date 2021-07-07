@@ -96,7 +96,7 @@ class BaseSong
 	}
 
 	// what character should we create
-	private function createCharacters():Void
+	public function createCharacters():Void
 	{
 		createGF();
 		createBF();

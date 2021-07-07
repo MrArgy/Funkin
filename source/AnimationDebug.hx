@@ -43,19 +43,22 @@ class AnimationDebug extends FlxState
 		if (daAnim == 'bf')
 			isDad = false;
 
-		if (true)
+		if (isDad)
 		{
-			
-		// 	dad = new Character(0, 0);
-		// 	dad.screenCenter();
-		// 	dad.debugMode = true;
-		// 	add(dad);
+			var song = SongPlayerManager.getCurrentSong(PlayState.CURRENT_SONG);
 
-		// 	char = dad;
-		// 	dad.flipX = false;
-		// }
-		// else
-		// {
+			song.createCharacters();
+
+			dad = song.dad;
+			dad.screenCenter();
+			dad.debugMode = true;
+			add(dad);
+
+			char = dad;
+			dad.flipX = false;
+		}
+		else
+		{
 			var song = SongPlayerManager.getCurrentSong(PlayState.CURRENT_SONG);
 
 			song.createBF();

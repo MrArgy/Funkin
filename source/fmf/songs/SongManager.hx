@@ -40,7 +40,7 @@ class SongManager
 				folder: 'week_whitty',
 				character: 'whitty',
 				songTitle: 'Whitty',
-				songList: ['Lo-fight', 'Overhead', 'Ballistic']
+				songList: ['Remorse', 'Overhead', 'Ballistic']
 			}
 		),
 		

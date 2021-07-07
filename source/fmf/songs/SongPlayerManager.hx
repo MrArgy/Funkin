@@ -58,6 +58,10 @@ class SongPlayerManager
 
 			case 'ballistic':
 				songPlayer = new Ballistic('ballistic');
+
+			case 'remorse':
+				songPlayer = new Remorse('remorse');
+				
 		}
 
 		return songPlayer;
