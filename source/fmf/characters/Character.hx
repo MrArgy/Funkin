@@ -34,6 +34,10 @@ class Character extends FlxSprite
 
 	
 
+	public function bindAnim()
+	{
+		isLockAnim = true;
+	}
 	public function lockAnim(duration:Float)
 	{
 		if (isLockAnim)

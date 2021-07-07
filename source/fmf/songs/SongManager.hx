@@ -23,13 +23,24 @@ class SongManager
 
 //-------------------------DADDY DEAREST---------------------
 
+		// new SongData
+		// (
+		// 	{
+		// 		folder: 'week_matt',
+		// 		character: 'matt',
+		// 		songTitle: 'Matt',
+		// 		songList: ['Light-it-up', 'Ruckus', 'Target-Practicle']
+		// 	}
+		// ),
+		
+
 		new SongData
 		(
 			{
-				folder: 'week_matt',
-				character: 'matt',
-				songTitle: 'Matt',
-				songList: ['Light-it-up', 'Ruckus', 'Target-Practicle']
+				folder: 'week_whitty',
+				character: 'whitty',
+				songTitle: 'Whitty',
+				songList: ['Lo-fight', 'Overhead', 'Ballistic']
 			}
 		),
 		

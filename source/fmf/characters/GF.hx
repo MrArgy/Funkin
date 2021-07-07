@@ -12,7 +12,7 @@ class GF extends Character
 
 	override function dance():Void
 	{
-		if (!animation.curAnim.name.startsWith('hair'))
+		if (animation.curAnim == null ||  !animation.curAnim.name.startsWith('hair'))
 		{
 			danced = !danced;
 
