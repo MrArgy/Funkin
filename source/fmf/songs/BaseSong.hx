@@ -262,7 +262,8 @@ class BaseSong
 			case 1:
 			{
 				//hardcode scale
-				return new IIMarky(700, 400);
+				return new Daddy(700, 200);
+				// return new IIMarky(700, 400);
 				// return new Mommy(800, 200);
 				// return new Pico(700, 400);
 
