@@ -53,6 +53,11 @@ class SongPlayerManager
 			case 'light-it-up' | 'ruckus' | 'target-practice':
 				songPlayer = new Matt("matt");
 
+			case 'lo-fight' | 'overhead':
+				songPlayer = new Whitty('whitty');
+
+			case 'ballistic':
+				songPlayer = new Ballistic('ballistic');
 		}
 
 		return songPlayer;
