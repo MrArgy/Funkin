@@ -1,5 +1,10 @@
 package fmf.songs;
 
+import Options.DFJKOption;
+import flixel.system.debug.interaction.tools.Transform;
+import fmf.skins.*;
+import fmf.vfx.*;
+
 import MenuCharacter.CharacterSetting;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -17,6 +22,10 @@ import Song.SwagSong;
 class BaseSong
 {
 //---------------------------------------- VARIABLES -----------------------------------------------------
+
+	//skin
+	public var skin:Skin;
+	public var vfx:VFX;
 
 	// characters shit
 	public var bf:PlayableCharacter;
@@ -63,6 +72,9 @@ class BaseSong
 
 	function initVariables()
 	{
+		loadSkin();
+		loadVFX();
+		
 		camPos = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
 		// setCamPosition();
 	}
@@ -446,69 +458,72 @@ class BaseSong
 		icon.animation.play("dad");
 	}
 
-	// get arrow skin depending on song
-	public function getArrowSkin(i:Int, babyArrow:FlxSprite)
+	private function loadSkin()
 	{
-		babyArrow.frames = Paths.getSparrowAtlas('NOTE_assets');
-		babyArrow.animation.addByPrefix('green', 'arrowUP');
-		babyArrow.animation.addByPrefix('blue', 'arrowDOWN');
-		babyArrow.animation.addByPrefix('purple', 'arrowLEFT');
-		babyArrow.animation.addByPrefix('red', 'arrowRIGHT');
-
-		babyArrow.antialiasing = true;
-		babyArrow.setGraphicSize(Std.int(babyArrow.width * 0.7));
-
-		switch (Math.abs(i))
+		// load skin
+		var skinId:Int = FlxG.save.data.skinId;
+		switch (skinId)
 		{
-			case 0:
-				babyArrow.x += Note.swagWidth * 0;
-				babyArrow.animation.addByPrefix('static', 'arrowLEFT');
-				babyArrow.animation.addByPrefix('pressed', 'left press', 24, false);
-				babyArrow.animation.addByPrefix('confirm', 'left confirm', 24, false);
 			case 1:
-				babyArrow.x += Note.swagWidth * 1;
-				babyArrow.animation.addByPrefix('static', 'arrowDOWN');
-				babyArrow.animation.addByPrefix('pressed', 'down press', 24, false);
-				babyArrow.animation.addByPrefix('confirm', 'down confirm', 24, false);
+				skin = new AgotiSkin("agoti");
 			case 2:
-				babyArrow.x += Note.swagWidth * 2;
-				babyArrow.animation.addByPrefix('static', 'arrowUP');
-				babyArrow.animation.addByPrefix('pressed', 'up press', 24, false);
-				babyArrow.animation.addByPrefix('confirm', 'up confirm', 24, false);
+				skin = new TrollgeSkin("trollge");
 			case 3:
-				babyArrow.x += Note.swagWidth * 3;
-				babyArrow.animation.addByPrefix('static', 'arrowRIGHT');
-				babyArrow.animation.addByPrefix('pressed', 'right press', 24, false);
-				babyArrow.animation.addByPrefix('confirm', 'right confirm', 24, false);
+				skin = new TabiSkin("tabi");
+			case 4:
+				skin = new GFSkin("gf");
+			case 5:
+				skin = new SarvSkin("sarv");
+			case 6:
+				skin = new DarkSarvSkin("dark-sarv");
+			case 7:
+				skin = new RuvSkin("ruv");
+			case 8:
+				skin = new LuciSarvSkin("luci-sarv");
+			case 9:
+				skin = new SeleverSkin("selever");
+			case 10:
+				skin = new TextSkin('text');
+			case 11:
+				skin = new SquareSkin('square');
+			case 12:
+				skin = new SharpSkin('sharp');
+			case 13:
+				skin = new DFJKSkin('dfjk');
+			case 14:
+				skin = new DDRSkin('ddr');
+			
+			default:
+				skin = new Skin("default");
 		}
+	}
+
+
+	private function loadVFX()
+	{
+		vfx = new VFX("default");
 	}
 
 	// get note skin depending on song
 	public function getNoteSkin(note:Note)
 	{
-		note.frames = Paths.getSparrowAtlas('NOTE_assets');
-
-		note.animation.addByPrefix('greenScroll', 'green0');
-		note.animation.addByPrefix('redScroll', 'red0');
-		note.animation.addByPrefix('blueScroll', 'blue0');
-		note.animation.addByPrefix('purpleScroll', 'purple0');
-
-		note.animation.addByPrefix('purpleholdend', 'pruple end hold');
-		note.animation.addByPrefix('greenholdend', 'green hold end');
-		note.animation.addByPrefix('redholdend', 'red hold end');
-		note.animation.addByPrefix('blueholdend', 'blue hold end');
-
-		note.animation.addByPrefix('purplehold', 'purple hold piece');
-		note.animation.addByPrefix('greenhold', 'green hold piece');
-		note.animation.addByPrefix('redhold', 'red hold piece');
-		note.animation.addByPrefix('bluehold', 'blue hold piece');
-
-		note.setGraphicSize(Std.int(note.width * 0.7));
-		note.updateHitbox();
-		note.antialiasing = true;
+		skin.getNoteSkin(note);
 	}
 
-//---------------------------------------------- Menu Character --------------------------------------------
+	// get arrow skin depending on song
+	public function getArrowSkin(i:Int, babyArrow:FlxSprite)
+	{
+		skin.getArrowSkin(i, babyArrow);
+	}
+
+	// get arrow skin depending on song
+	public function getVFX(i:Int, fx:FlxSprite)
+	{
+		vfx.getVFX(i, fx);
+	}
+			
+	
+//---------------------------------------------- Mxxxenu Character --------------------------------------------
 
 
 	public function setDadMenuCharacter(dad:MenuCharacter)
