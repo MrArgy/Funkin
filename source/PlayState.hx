@@ -2518,6 +2518,7 @@ class PlayState extends MusicBeatState
 			{
 				if (Math.abs(note.noteData) == spr.ID)
 				{
+					spr.alpha = 1;
 					spr.animation.play('hit', true);
 				}
 			});

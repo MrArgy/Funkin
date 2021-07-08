@@ -3,7 +3,7 @@ package fmf.vfx;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxSprite;
 
-class FramesEffect extends VFX
+class MadEffect extends VFX
 {
 	// get vfx depending on selection & song
 	private function getArray(num:Int):Array<Int>
@@ -18,7 +18,7 @@ class FramesEffect extends VFX
 
 	private function getEffectPath():String
 	{
-		return  'note_effects/fire';
+		return  'note_effects/mad';
 	}
 
 	public override function getVFX(i:Int, vfx:FlxSprite)

@@ -501,7 +501,7 @@ class BaseSong
 
 	private function loadVFX()
 	{
-		vfx = new AgotiEffect("agoti");
+		vfx = new DustEffect("agoti");
 	}
 
 	// get note skin depending on song
