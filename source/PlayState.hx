@@ -145,6 +145,9 @@ class PlayState extends MusicBeatState
 	public static var playerStrums:FlxTypedGroup<FlxSprite> = null;
 	public static var cpuStrums:FlxTypedGroup<FlxSprite> = null;
 
+	public static var effectStrums:FlxTypedGroup<FlxSprite> = null;
+
+
 	public var camZooming:Bool = false;
 
 	private var curSong:String = "";
@@ -404,7 +407,9 @@ class PlayState extends MusicBeatState
 		add(strumLineNotes);
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
+		effectStrums = new FlxTypedGroup<FlxSprite>();
 		cpuStrums = new FlxTypedGroup<FlxSprite>();
+
 
 		// startCountdown();
 
@@ -533,8 +538,10 @@ class PlayState extends MusicBeatState
 
 		// iconP1.y = healthBar.y;
 		// iconP2.y = healthBar.y;
+		add(effectStrums);
 
 
+		effectStrums.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
@@ -841,7 +848,7 @@ class PlayState extends MusicBeatState
 		for (i in 0...4)
 		{
 			var babyArrow:FlxSprite = new FlxSprite(0, strumLine.y);
-
+			
 
 			// get arrow skin depending on song playing
 			songPlayer.getArrowSkin(i, babyArrow);
@@ -872,6 +879,16 @@ class PlayState extends MusicBeatState
 			{
 				spr.centerOffsets(); // CPU arrows start out slightly off-center
 			});
+
+			if (player == 1)
+			{
+				var vfx:FlxSprite = new FlxSprite(0, strumLine.y);
+				vfx.x = babyArrow.x;
+				vfx.y = babyArrow.y + 10;
+				vfx.centerOffsets();
+				songPlayer.getVFX(i, vfx);
+				effectStrums.add(vfx);
+			}
 
 			strumLineNotes.add(babyArrow);
 		}
@@ -1497,26 +1514,7 @@ class PlayState extends MusicBeatState
 						case 0:
 							dad().playAnim('singLEFT' + altAnim, true);
 					}
-		
-
-					if (FlxG.save.data.cpuStrums)
-					{
-						cpuStrums.forEach(function(spr:FlxSprite)
-						{
-							if (Math.abs(daNote.noteData) == spr.ID)
-							{
-								spr.animation.play('confirm', true);
-							}
-							if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
-							{
-								spr.centerOffsets();
-								spr.offset.x -= 13;
-								spr.offset.y -= 13;
-							}
-							else
-								spr.centerOffsets();
-						});
-					}
+	
 
 					#if windows
 					if (luaModchart != null)
@@ -1593,6 +1591,14 @@ class PlayState extends MusicBeatState
 				}
 			});
 		}
+
+		effectStrums.forEach(function(spr:FlxSprite)
+		{
+			if (spr.animation.finished)
+			{
+				spr.alpha = 0;
+			}
+		});
 
 		if (!inCutscene)
 			keyShit();
@@ -2285,6 +2291,8 @@ class PlayState extends MusicBeatState
 				spr.centerOffsets();
 		});	
 
+
+
 	}
 
 	function noteMiss(direction:Int = 1, daNote:Note):Void
@@ -2482,8 +2490,21 @@ class PlayState extends MusicBeatState
 				if (Math.abs(note.noteData) == spr.ID)
 				{
 					spr.animation.play('confirm', true);
+					
 				}
 			});
+
+			
+			effectStrums.forEach(function(spr:FlxSprite)
+			{
+				if (Math.abs(note.noteData) == spr.ID)
+				{
+					spr.alpha = 1;
+					spr.animation.play('hit', true);
+				}
+
+			});
+
 
 			note.wasGoodHit = true;
 			vocals.volume = 1;

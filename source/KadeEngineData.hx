@@ -13,6 +13,18 @@ class KadeEngineData
 			FlxG.save.data.pcId = 0;
 		}
 
+		if (FlxG.save.data.skinId == null)
+		{
+			// default pc, boyfriend!
+			FlxG.save.data.skinId = 0;
+		}
+		
+		if (FlxG.save.data.vfxId == null)
+		{
+			// default pc, boyfriend!
+			FlxG.save.data.vfxId = 0;
+		}
+	
         if (FlxG.save.data.newInput == null)
 			FlxG.save.data.newInput = true;
 

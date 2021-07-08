@@ -159,6 +159,184 @@ class PcOption extends Option
 
 }
 
+class VFXOption extends Option
+{
+
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	var skins:Array<String> =
+	 [
+		'None',
+		'Agoti-Spark'
+	
+	  ];	
+	
+	public override function press():Bool
+	{
+		FlxG.save.data.vfxId += 1;
+		if (FlxG.save.data.vfxId > skins.length - 1)
+		{
+			FlxG.save.data.vfxId = 0;
+		}
+			
+		display = updateDisplay();
+
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return getValue();
+	}
+
+	override function left():Bool {
+
+
+		FlxG.save.data.vfxId -= 1;
+
+		if(FlxG.save.data.vfxId < 0)
+		{
+			FlxG.save.data.vfxId = skins.length - 1;
+		}
+
+		OptionsMenu.instance.acceptPress();
+		display = updateDisplay();
+
+		return true;
+
+	}
+	override function right():Bool {
+
+
+
+		FlxG.save.data.vfxId += 1;
+
+		if(FlxG.save.data.vfxId > skins.length - 1)
+		{
+			FlxG.save.data.vfxId = 0;
+		}
+
+		OptionsMenu.instance.acceptPress();
+		display = updateDisplay();
+
+
+		return true;
+	}
+
+	override function getValue():String {
+		return getPc;
+	}
+
+	private var getPc(get, never):String;
+	private inline function get_getPc():String
+	{
+		return skins[FlxG.save.data.vfxId];
+	}
+
+}
+
+
+
+
+
+class SkinOption extends Option
+{
+
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	var skins:Array<String> =
+	 [
+		'Default',
+		'Agoti', 
+		'Trollge',
+		'Tabi',
+		'GF',
+		'Sarv',
+		'Dark-Sarv',
+		'Ruv',
+		'Luci-Sarv',
+		'Selever',
+		'Text', 
+		'Square',
+		'Sharp', 
+		'DFJK',
+		'DDR',
+	  ];	
+	
+	public override function press():Bool
+	{
+		FlxG.save.data.skinId += 1;
+		if (FlxG.save.data.skinId > skins.length - 1)
+		{
+			FlxG.save.data.skinId = 0;
+		}
+			
+		display = updateDisplay();
+
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return getValue();
+	}
+
+	override function left():Bool {
+
+
+		FlxG.save.data.skinId -= 1;
+
+		if(FlxG.save.data.skinId < 0)
+		{
+			FlxG.save.data.skinId = skins.length - 1;
+		}
+
+		OptionsMenu.instance.acceptPress();
+		display = updateDisplay();
+
+		return true;
+
+	}
+	override function right():Bool {
+
+
+
+		FlxG.save.data.skinId += 1;
+
+		if(FlxG.save.data.skinId > skins.length - 1)
+		{
+			FlxG.save.data.skinId = 0;
+		}
+
+		OptionsMenu.instance.acceptPress();
+		display = updateDisplay();
+
+
+		return true;
+	}
+
+	override function getValue():String {
+		return getPc;
+	}
+
+	private var getPc(get, never):String;
+	private inline function get_getPc():String
+	{
+		return skins[FlxG.save.data.skinId];
+	}
+
+}
+
 
 
 class MobileControl extends Option

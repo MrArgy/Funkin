@@ -1,5 +1,6 @@
 package;
 
+import fmf.skins.*;
 import ui.Controller;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -29,7 +30,15 @@ class OptionsMenu extends MusicBeatState
 		[
 			new PcOption("Select your playable character")
 		]),
-		
+		new OptionCategory("Skins",
+		[
+			new SkinOption("Select your skin theme")
+		]),
+		new OptionCategory("Effects",
+		[
+			new VFXOption("Select your virtual notes effect")
+		]),
+
 		new OptionCategory("Controls", [
 			new MobileControl("Adjust control on mobile"),
 			new CustomControlOption(controls),
