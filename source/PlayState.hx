@@ -1515,6 +1515,25 @@ class PlayState extends MusicBeatState
 							dad().playAnim('singLEFT' + altAnim, true);
 					}
 	
+					//enemy note highlight
+					if (FlxG.save.data.cpuStrums)
+					{
+						cpuStrums.forEach(function(spr:FlxSprite)
+						{
+							if (Math.abs(daNote.noteData) == spr.ID)
+							{
+								spr.animation.play('confirm', true);
+							}
+							if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+							{
+								spr.centerOffsets();
+								spr.offset.x -= 13;
+								spr.offset.y -= 13;
+							}
+							else
+								spr.centerOffsets();
+						});
+					}
 
 					#if windows
 					if (luaModchart != null)
@@ -2499,10 +2518,8 @@ class PlayState extends MusicBeatState
 			{
 				if (Math.abs(note.noteData) == spr.ID)
 				{
-					spr.alpha = 1;
 					spr.animation.play('hit', true);
 				}
-
 			});
 
 

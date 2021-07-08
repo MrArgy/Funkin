@@ -74,7 +74,7 @@ class BaseSong
 	{
 		loadSkin();
 		loadVFX();
-		
+
 		camPos = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
 		// setCamPosition();
 	}
@@ -501,7 +501,7 @@ class BaseSong
 
 	private function loadVFX()
 	{
-		vfx = new VFX("default");
+		vfx = new AgotiEffect("agoti");
 	}
 
 	// get note skin depending on song
