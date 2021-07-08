@@ -3,7 +3,7 @@ package fmf.vfx;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxSprite;
 
-class FireEffect extends VFX
+class FramesEffect extends VFX
 {
 	// get vfx depending on selection & song
 	private function getArray(num:Int):Array<Int>
@@ -16,21 +16,26 @@ class FireEffect extends VFX
 		return result;
 	}
 
+	private function getEffectPath():String
+	{
+		return  'note_effects/fire';
+	}
+
 	public override function getVFX(i:Int, vfx:FlxSprite)
 	{
 		switch (i)
 		{
 			case 0:
-				vfx.loadGraphic(Paths.image('note_effects/fire/left', 'mods'), true, 256, 256);
+				vfx.loadGraphic(Paths.image(getEffectPath() + '/left', 'mods'), true, 256, 256);
 
 			case 1:
-				vfx.loadGraphic(Paths.image('note_effects/fire/down', 'mods'), true, 256, 256);
+				vfx.loadGraphic(Paths.image(getEffectPath()  + '/down', 'mods'), true, 256, 256);
 
 			case 2:
-				vfx.loadGraphic(Paths.image('note_effects/fire/up', 'mods'), true, 256, 256);
+				vfx.loadGraphic(Paths.image(getEffectPath()  + '/up', 'mods'), true, 256, 256);
 
 			case 3:
-				vfx.loadGraphic(Paths.image('note_effects/fire/right', 'mods'), true, 256, 256);
+				vfx.loadGraphic(Paths.image(getEffectPath()  + '/right', 'mods'), true, 256, 256);
 
 		}
 
