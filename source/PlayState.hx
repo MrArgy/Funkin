@@ -2516,10 +2516,10 @@ class PlayState extends MusicBeatState
 			
 			effectStrums.forEach(function(spr:FlxSprite)
 			{
-				if (Math.abs(note.noteData) == spr.ID)
+				if (Math.abs(note.noteData) == spr.ID && spr.animation.finished)
 				{
-					spr.alpha = 1;
-					spr.animation.play('hit', true);
+						spr.alpha = 1;
+						spr.animation.play('hit', true);
 				}
 			});
 

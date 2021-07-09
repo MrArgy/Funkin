@@ -47,7 +47,7 @@ class AnimationDebug extends FlxState
 		{
 			var song = SongPlayerManager.getCurrentSong(PlayState.CURRENT_SONG);
 
-			song.createCharacters();
+			song.createDad();
 
 			dad = song.dad;
 			dad.screenCenter();
