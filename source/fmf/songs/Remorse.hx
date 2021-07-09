@@ -6,8 +6,12 @@ import flixel.FlxSprite;
 import MenuCharacter.CharacterSetting;
 import fmf.characters.*;
 
-class Remorse extends SongPlayer
-{
+class Remorse extends Whitty
+{	
+
+	var bgRemorse:FlxSprite;
+	var gfRemorse:FlxSprite;
+	var dadRemorse:FlxSprite;
 
     override function getDadTex()
 	{
@@ -25,44 +29,63 @@ class Remorse extends SongPlayer
 		bg.scrollFactor.set(0.9, 0.9);
 		playState.add(bg);
 
-		var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('whitty/remorse/light', "mods"));
-		stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-		stageFront.updateHitbox();
-		stageFront.antialiasing = true;
-		stageFront.scrollFactor.set(0.9, 0.9);
-		stageFront.active = false;
-		stageFront.alpha = 0.35;
+		bgRemorse = new FlxSprite(-600, -448).loadGraphic(Paths.image('whitty/remorse/wall-dark', 'mods'));
+		bgRemorse.antialiasing = true;
+		bgRemorse.scale.x = 1;
+		bgRemorse.scale.y = 1;
+		bgRemorse.scrollFactor.set(0.9, 0.9);
+		bgRemorse.alpha = 0;
+		playState.add(bgRemorse);
 
-		playState.add(stageFront);
 
 	}
 
 
 	private function turnDadRemorse()
 	{
-		var animation = dad.animation;
+		dad.animation.addByPrefix('idle', 'updingdong idle edgy', 24, false);
+		dad.animation.addByPrefix('singUP', 'updingdong up note edgy', 24, false);
+		dad.animation.addByPrefix('singRIGHT', 'updingdong right note edgy', 24, false);
+		dad.animation.addByPrefix('singLEFT', 'updingdong left note edgy', 24, false);
+		dad.animation.addByPrefix('singDOWN', 'updingdong down note edgy', 24, false);
 
-		animation.destroyAnimations();
+		dad.dance();
+	}
 
-		animation.addByPrefix('idle', 'updingdong idle0', 24, false);
-		animation.addByPrefix('singUP', 'updingdong up note0', 24, false);
-		animation.addByPrefix('singRIGHT', 'updingdong right note0', 24, false);
-		animation.addByPrefix('singLEFT', 'updingdong left note0', 24, false);
-		animation.addByPrefix('singDOWN', 'updingdong down note0', 24, false);
+	private function turnBGNormal()
+	{
+		bgRemorse.destroy();
+	}
 
-		animation.play('idle');
+	private function turnBGRemorse()
+	{
+		bgRemorse.alpha = 1;
+	}
+
+	private function turnGFRemorse()
+	{
+		gf.animation.addByPrefix('danceLeft', 'GF Dancing Beat edgy', 24, false);
+		gf.animation.addByPrefix('danceRight', 'GF Dancing Beat edgy', 24, false);
 	}
 
 	private function turnDadNormal()
 	{
-		var animation = dad.animation;
-		animation.addByPrefix('idle', 'updingdong idle', 24, false);
-		animation.addByPrefix('singUP', 'updingdong up note', 24, false);
-		animation.addByPrefix('singRIGHT', 'updingdong right note', 24, false);
-		animation.addByPrefix('singLEFT', 'updingdong left note', 24, false);
-		animation.addByPrefix('singDOWN', 'updingdong down note', 24, false);
+		dad.animation.addByPrefix('idle', 'updingdong idle0', 24, false);
+		dad.animation.addByPrefix('singUP', 'updingdong up note0', 24, false);
+		dad.animation.addByPrefix('singRIGHT', 'updingdong right note0', 24, false);
+		dad.animation.addByPrefix('singLEFT', 'updingdong left note0', 24, false);
+		dad.animation.addByPrefix('singDOWN', 'updingdong down note0', 24, false);
+		dad.dance();
 
-		animation.play('idle');
+	}
+
+	private function turnGFNormal()
+	{
+		gf.animation.addByPrefix('sad', 'Sad', 24, false);
+		gf.animation.addByPrefix('danceLeft', 'GF Dancing Beat 0', 24, false);
+		gf.animation.addByPrefix('danceRight', 'GF Dancing Beat 0', 24, false);
+
+		gf.dance();
 	}
 
 	override function createDadAnimations():Void
@@ -81,11 +104,11 @@ class Remorse extends SongPlayer
 
 	override function createDadAnimationOffsets():Void
 	{
-		dad.addOffset('idle', -63, 1);
-		dad.addOffset('singUP', 13, 48);
-		dad.addOffset('singRIGHT', -81, 37);
-		dad.addOffset('singLEFT', -46, -20);
-		dad.addOffset('singDOWN', -80, -40);
+		dad.addOffset('idle', -69, 6);
+		dad.addOffset('singUP', -69, 5);
+		dad.addOffset('singRIGHT', -69, 4);
+		dad.addOffset('singLEFT', -71, 5);
+		dad.addOffset('singDOWN', -68, -6);
 
 		dad.dance();
 
@@ -122,16 +145,21 @@ class Remorse extends SongPlayer
 
 	}
 
-	override function createDad()
+	override function midSongEventUpdate(curBeat:Int)
 	{
-        dad = new Dad(0, 125);
-		getDadTex();
-		createDadAnimations();
-		createDadAnimationOffsets();
-		dad.dance();
-
-    }
-
+		switch (curBeat)
+		{
+			case 224:
+				turnDadRemorse();
+				turnGFRemorse();
+				turnBGRemorse();
+			case 256:
+				turnDadNormal();
+				turnGFNormal();
+				turnBGNormal();
+		}
+	}
+	
 	public override function getDadIcon(icon:HealthIcon)
 	{
 		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
@@ -139,15 +167,4 @@ class Remorse extends SongPlayer
 		icon.animation.play("dad");
 	}
 
-	public override function setDadMenuCharacter(dad:MenuCharacter)
-	{
-		super.setDadMenuCharacter(dad);
-
-		var frames = Paths.getSparrowAtlas('whitty/whitty', 'mods');
-		dad.frames = frames;
-
-		dad.animation.addByPrefix('dad', "Whitty idle dance BLACK LINE", 24);
-		dad.animation.play('dad');
-		setMenuCharacter(dad, new CharacterSetting(-200, 25, 1));
-	}
 }

@@ -108,7 +108,7 @@ class BaseSong
 	}
 
 	// what character should we create
-	public function createCharacters():Void
+	private function createCharacters():Void
 	{
 		createGF();
 		createBF();
@@ -245,7 +245,7 @@ class BaseSong
 	}
 
 	// create dad
-	private function createDad()
+	public function createDad()
 	{
 		dad = getDadVersion();
 		getDadTex();
@@ -501,7 +501,7 @@ class BaseSong
 
 	private function loadVFX()
 	{
-		vfx = new DustEffect("agoti");
+		vfx = new MadEffect("agoti");
 	}
 
 	// get note skin depending on song
