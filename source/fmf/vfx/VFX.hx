@@ -7,7 +7,7 @@ class VFX
 {
 
 	public var label:String;
-	public function new(skin:String)
+	public function new(skin:String = 'none')
 	{
         this.label = skin;
     }

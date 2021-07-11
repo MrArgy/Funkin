@@ -21,6 +21,11 @@ class MadEffect extends VFX
 		return  'note_effects/mad';
 	}
 
+	private function getFrames():Int
+	{
+		return 60;
+	}
+
 	public override function getVFX(i:Int, vfx:FlxSprite)
 	{
 		switch (i)
@@ -40,7 +45,7 @@ class MadEffect extends VFX
 		}
 
 		vfx.ID = i;
-		vfx.animation.add('hit', getArray(60), 90, false);
+		vfx.animation.add('hit', getArray(getFrames()), 60, false);
 
 		vfx.x -= 75;
 		vfx.y -= 75;

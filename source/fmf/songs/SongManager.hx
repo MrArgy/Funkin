@@ -32,7 +32,15 @@ class SongManager
 		// 		songList: ['Light-it-up', 'Ruckus', 'Target-Practicle']
 		// 	}
 		// ),
-		
+		new SongData
+		(
+			{
+				folder: 'week_agoti',
+				character: 'agoti',
+				songTitle: 'A.G.O.T.I',
+				songList: ['Screenplay', 'Parasite', 'AGOTI', "Guns"]
+			}
+		),
 
 		new SongData
 		(
@@ -40,7 +48,7 @@ class SongManager
 				folder: 'week_whitty',
 				character: 'whitty',
 				songTitle: 'Whitty',
-				songList: ['Remorse', 'Overhead', 'Ballistic']
+				songList: ['Lo-fight', 'Overhead', 'Ballistic', "Remorse"]
 			}
 		),
 		

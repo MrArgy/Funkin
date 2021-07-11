@@ -23,7 +23,7 @@ class SongPlayer extends  BaseSong
 	private override function loadMap():Void{ super.loadMap();}
 
 	//create characters, basically it will create gf, bf, dad 
-	public override function createCharacters():Void{ super.createCharacters();}
+	private override function createCharacters():Void{ super.createCharacters();}
 
 //------------------------------------------------------------------------------------------------------
 
