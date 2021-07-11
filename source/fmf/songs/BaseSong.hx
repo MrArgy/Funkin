@@ -55,7 +55,7 @@ class BaseSong
 //------------------------------------------ INITIALIE ---------------------------------------------------
 
 	// init song with a familar name to identity
-	public function new(songLabel:String)
+	public function new(songLabel:String = 'none')
 	{
 		this.songLabel = songLabel;
 	}
@@ -501,7 +501,29 @@ class BaseSong
 
 	private function loadVFX()
 	{
-		vfx = new MadEffect("agoti");
+		var vfxId:Int = FlxG.save.data.vfxId;
+
+		switch (vfxId)
+		{
+			case 0:
+				vfx = new VFX("none");
+			case 1:
+				vfx = new AgotiEffect("agoti");
+			case 2:
+				vfx = new DustEffect("dust");
+			case 3:
+				vfx = new HoleEffect("hole");
+			case 4:
+				vfx = new MadEffect("mad");
+			case 5:
+				vfx = new RaizenEffect("raizen");
+			case 6:
+				vfx = new StarDreamEffect("stardream");
+			case 7:
+				vfx = new ThunderEffect("thunder");
+			case 8:
+				vfx = new WaterEffect("water");
+		}
 	}
 
 	// get note skin depending on song
@@ -589,5 +611,19 @@ class BaseSong
 
 //--------------------------------------------------------------------------------------------------------
 
+
+//-------------SHIT----------------
+// get vfx depending on selection & song
+	private function getArray(from:Int = 0, num:Int):Array<Int>
+	{
+		var result:Array<Int> = new Array<Int>();
+		for (i in from...num)
+		{
+			result.push(i);
+		}
+		return result;
+	}
+
+//------------------------------------
 
 }

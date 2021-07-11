@@ -1,5 +1,6 @@
 package fmf.songs;
 
+import js.html.Response;
 import flixel.FlxG;
 
 
@@ -61,8 +62,16 @@ class SongPlayerManager
 
 			case 'remorse':
 				songPlayer = new Remorse('remorse');
+
+			case 'screenplay' | 'parasite' | 'guns':
+				songPlayer = new Agoti("agoti");
+
+			case 'agoti':
+				songPlayer = new AgotiCrazy("agoti-crazy");
 				
 		}
+
+		songPlayer = new Trueform("ye");
 
 		return songPlayer;
 	}

@@ -172,7 +172,15 @@ class VFXOption extends Option
 	var skins:Array<String> =
 	 [
 		'None',
-		'Spark',
+		'Aogtispark',
+		'Dust',
+		'Hole',
+		'Mad',
+		'Raizen',
+		'Stardream',
+		'Thunder',
+		'Water'
+
 	  ];	
 	
 	public override function press():Bool

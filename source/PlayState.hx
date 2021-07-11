@@ -379,8 +379,8 @@ class PlayState extends MusicBeatState
 		songPlayer.init(this);
 
 		// no need create dialogue shit in freeplay, yay
-		if (isStoryMode)
-			songPlayer.createDialogue(startCountdown);
+		// if (isStoryMode)
+			// songPlayer.createDialogue(startCountdown);
 
 		songPlayer.applyCamPosition();
 
@@ -565,7 +565,8 @@ class PlayState extends MusicBeatState
 
 		if (isStoryMode)
 		{
-			songPlayer.showDialogue();
+			startCountdown();
+			// songPlayer.showDialogue();
 		}
 		else
 		{
@@ -2199,7 +2200,7 @@ class PlayState extends MusicBeatState
 				}
 			});
 
-			trace('\nCURRENT LINE:\n' + directionsAccounted);
+			// trace('\nCURRENT LINE:\n' + directionsAccounted);
 
 			for (note in dumbNotes)
 			{
