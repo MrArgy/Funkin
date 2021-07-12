@@ -46,6 +46,16 @@ class SongManager
 		new SongData
 		(
 			{
+				folder: 'week_tricky',
+				character: 'tricky',
+				songTitle: 'TRICKY',
+				songList: ['Improbable-Outset', 'Madness', 'Hellclown', "Expurgation"]
+			}
+		),
+
+		new SongData
+		(
+			{
 				folder: 'week_agoti',
 				character: 'agoti',
 				songTitle: 'A.G.O.T.I',

@@ -56,6 +56,7 @@ class Agoti extends SongPlayer
 		stageFront.scale.x = 1.5;
 		stageFront.scale.y = 1.5;
 		playState.add(stageFront);
+		
 	}
 
 	override function createDadAnimations():Void
