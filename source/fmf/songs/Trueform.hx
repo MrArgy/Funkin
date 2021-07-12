@@ -13,33 +13,10 @@ class Trueform extends Tutorial
 
 	override function loadMap()
 	{
-
-		var dumbShit = new FlxSprite(-1000, -300).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.WHITE);
+		var dumbShit = new FlxSprite(-1000, -300).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
 		dumbShit.scrollFactor.set(1, 1);
 		dumbShit.cameras = [playState.camGame];
 		playState.add(dumbShit);
-
-
-		var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront'));
-		stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-		stageFront.updateHitbox();
-		stageFront.antialiasing = true;
-		stageFront.scrollFactor.set(0.9, 0.9);
-		stageFront.active = false;
-		playState.add(stageFront);
-
-
-		hole = new FlxSprite(-650, 600);
-		hole.loadGraphic(Paths.image('trueform/gfshit', 'mods'), true, 512, 512);
-		hole.scrollFactor.set(0.9, 0.9);
-
-		hole.animation.add('shit', getArray(0, 16), 16, true);
-		hole.animation.play('shit', true);
-
-
-
-
-
 	}
 
 	override function getDadTex()

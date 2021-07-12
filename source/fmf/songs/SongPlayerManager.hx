@@ -51,7 +51,7 @@ class SongPlayerManager
 			case 'thorns':
 				songPlayer = new SenpaiEvil("school");
 
-			case 'light-it-up' | 'ruckus' | 'target-practice':
+			case 'light-it-up' | 'ruckus':
 				songPlayer = new Matt("matt");
 
 			case 'lo-fight' | 'overhead':
@@ -68,10 +68,25 @@ class SongPlayerManager
 
 			case 'agoti':
 				songPlayer = new AgotiCrazy("agoti-crazy");
+
+			case 'eeeaaaooo':
+				songPlayer = new Eeeeaaaooo("tf");
+
+			case 'target-practice':
+				songPlayer = new TargetPractice("target-practice");
+
+			case 'foolhardy':
+				songPlayer = new Foolhardy("foolhardy");
+
+			case 'manifest':
+				songPlayer = new Manifest('sky');
+
+			case 'incident':
+				songPlayer = new Incident();
 				
 		}
 
-		songPlayer = new Trueform("ye");
+		// songPlayer = new Eeeeaaaooo("ye");
 
 		return songPlayer;
 	}
