@@ -50,7 +50,7 @@ class Agoti extends SongPlayer
 
 		var stageFront:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('agoti/Void_Front'));
 
-		stageFront.x -= 500;
+		stageFront.x -= 250;
 		stageFront.y -= 200;
 
 		stageFront.scale.x = 1.5;

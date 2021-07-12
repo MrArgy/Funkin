@@ -28,7 +28,6 @@ class AgotiCrazy extends Agoti
 		var bg:FlxSprite = new FlxSprite(-400, -200).loadGraphic(Paths.image('agoti/Pillar_1'));
 		bg.antialiasing = true;
 
-
 		var fx = bg.width / 2;
 		bg.x -= fx;
 		bg.y += -400;
@@ -39,20 +38,47 @@ class AgotiCrazy extends Agoti
 
 		bg.scrollFactor.set(0.9, 0.9);
 
-
-
 		bg.x -= 150;
 		bg.y += 0;
 		playState.add(bg);
 
+		var bg1:FlxSprite = new FlxSprite();
+		var tex1 =  Paths.getSparrowAtlas('agoti/Pillar_BG_Stage');
 
-		var stageFront:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('agoti/Void_Front'));
+		bg1.frames = tex1;
+		bg1.animation.addByPrefix('init', 'Pillar_BG_Stage', 15, true);
+		bg1.animation.play('init');
 
-		stageFront.x -= 500;
-		stageFront.y -= 200; 
 
-		stageFront.scale.x = 1.5;
-		stageFront.scale.y = 1.5;
+		var fx = bg1.width / 2;
+		bg1.x -= fx;
+		bg1.y += -400;
+		
+		bg1.antialiasing = true;
+		bg1.y += 500;
+		bg1.x += 650;
+
+		bg1.scale.x = 4;
+		bg1.scale.y = 4;
+
+		bg1.scrollFactor.set(0.9, 0.9);
+
+		playState.add(bg1);
+
+		var stageFront:FlxSprite = new FlxSprite(0, 0);
+
+		var tex2 =  Paths.getSparrowAtlas('agoti/LoudSpeaker_Moving');
+		stageFront.frames = tex2;
+
+		stageFront.animation.addByPrefix('init', 'StereoMoving', 15, true);
+		stageFront.animation.play('init');
+		stageFront.x -= 100;
+		stageFront.y += 1000;
+		
+		stageFront.scale.x = 2;
+		stageFront.scale.y = 2;
+		stageFront.scrollFactor.set(0.9, 0.9);
+
 		playState.add(stageFront);
 
 
@@ -99,6 +125,12 @@ class AgotiCrazy extends Agoti
 		dad.dance();
 
     }
+
+	override function createCharacters()
+	{
+		super.createCharacters();
+		gf.y -= 200;
+	}
 
 	public override function getDadIcon(icon:HealthIcon)
 	{
