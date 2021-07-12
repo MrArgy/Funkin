@@ -277,6 +277,7 @@ class PlayState extends MusicBeatState
 				songLowercase = 'dadbattle';
 			case 'philly-nice':
 				songLowercase = 'philly';
+
 		}
 
 		#if windows

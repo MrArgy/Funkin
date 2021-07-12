@@ -319,7 +319,7 @@ class StoryMenuState extends MusicBeatState
 
 			PlayState.storyPlaylist = SongManager.songs[curWeek].copySongList;
 			PlayState.playingSong = SongManager.songs[curWeek];
-
+			
 			PlayState.isStoryMode = true;
 			selectedWeek = true;
 

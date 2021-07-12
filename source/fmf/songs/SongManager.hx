@@ -29,9 +29,20 @@ class SongManager
 		// 		folder: 'week_matt',
 		// 		character: 'matt',
 		// 		songTitle: 'Matt',
-		// 		songList: ['Light-it-up', 'Ruckus', 'Target-Practicle']
+		// 		songList: ['Light-it-ups', 'Ruckus', 'Target-Practicle']
 		// 	}
 		// ),
+
+		new SongData
+		(
+			{
+				folder: 'week_trueform',
+				character: 'gf',
+				songTitle: 'T.R.U.E.F.O.R.M',
+				songList: ['Eeeaaaooo', 'Target-Practice', 'Foolhardy', "Manifest", 'Incident']
+			}
+		),
+
 		new SongData
 		(
 			{

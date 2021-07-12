@@ -9,7 +9,7 @@ class Tutorial extends SongPlayer
 	{
 		super.createCharacters();
 		gf.alpha = 0;
-        dad.scrollFactor.set(0.95, 0.95);
+		dad.scrollFactor.set(0.95, 0.95);
 	}
 
 	public override function setDadMenuCharacter(dad:MenuCharacter)
@@ -30,5 +30,4 @@ class Tutorial extends SongPlayer
 			dad.playAnim('cheer', true);
 		}
 	}
-
 }
