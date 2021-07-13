@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:06193640b09a2554e99bb493d55daddb:0d72a2326bfa5057c3ed1a6bd637460d:76af408be6b8fb021187e726b8998cee$ -->
+<TextureAtlas imagePath="tikyben.png" width="4096" height="4096">
+    <SubTexture name="Phase 3 Tricky Idle0000" x="715" y="726" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0002" x="1425" y="726" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0004" x="2135" y="726" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0006" x="2845" y="726" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0008" x="1" y="1489" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0010" x="711" y="1489" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0012" x="1421" y="1489" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0014" x="2131" y="1489" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0016" x="2841" y="1489" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0018" x="1" y="2252" width="708" height="761"/>
+    <SubTexture name="Phase 3 Tricky Idle0020" x="711" y="2252" width="708" height="761"/>
+    <SubTexture name="Proper Down0000" x="1" y="726" width="712" height="736"/>
+    <SubTexture name="Proper Down0002" x="2885" y="1" width="712" height="723"/>
+    <SubTexture name="Proper Down0004" x="1447" y="1" width="712" height="701"/>
+    <SubTexture name="Proper Left0000" x="1421" y="2252" width="719" height="801"/>
+    <SubTexture name="Proper Left0002" x="2142" y="2252" width="698" height="819"/>
+    <SubTexture name="Proper Left0004" x="2842" y="2252" width="676" height="819"/>
+    <SubTexture name="Proper Right0000" x="1" y="1" width="738" height="679"/>
+    <SubTexture name="Proper Right0002" x="2161" y="1" width="722" height="715"/>
+    <SubTexture name="Proper Right0004" x="741" y="1" width="704" height="690"/>
+    <SubTexture name="Proper Up0000" x="1" y="3073" width="777" height="893"/>
+    <SubTexture name="Proper Up0002" x="780" y="3073" width="774" height="917"/>
+    <SubTexture name="Proper Up0004" x="1556" y="3073" width="774" height="922"/>
+</TextureAtlas>

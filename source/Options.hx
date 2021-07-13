@@ -180,7 +180,6 @@ class VFXOption extends Option
 		'Stardream',
 		'Thunder',
 		'Water'
-
 	  ];	
 	
 	public override function press():Bool

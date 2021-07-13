@@ -113,6 +113,7 @@ class BaseSong
 		createGF();
 		createBF();
 		createDad();
+	
 
 		gf.scrollFactor.set(0.95, 0.95);
 
@@ -252,8 +253,11 @@ class BaseSong
 		createDadAnimations();
 		createDadAnimationOffsets();
 
-		dad.x = gf.x;
-		dad.y = gf.y;
+		if (gf != null) //incase animation debug, just ignore
+		{
+			dad.x = gf.x;
+			dad.y = gf.y;
+		}
 	}
 
 //--------------------------------------------------------------------------------------------------------

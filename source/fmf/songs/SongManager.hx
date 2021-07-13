@@ -33,15 +33,7 @@ class SongManager
 		// 	}
 		// ),
 
-		new SongData
-		(
-			{
-				folder: 'week_trueform',
-				character: 'gf',
-				songTitle: 'T.R.U.E.F.O.R.M',
-				songList: ['Eeeaaaooo', 'Target-Practice', 'Foolhardy', "Manifest", 'Incident']
-			}
-		),
+	
 
 		new SongData
 		(
@@ -49,7 +41,7 @@ class SongManager
 				folder: 'week_tricky',
 				character: 'tricky',
 				songTitle: 'TRICKY',
-				songList: ['Improbable-Outset', 'Madness', 'Hellclown', "Expurgation"]
+				songList: ['Improbable-Outset', 'Madness', 'Hellclown', "Expurgation", "Reality-Bender"]
 			}
 		),
 
@@ -70,6 +62,16 @@ class SongManager
 				character: 'whitty',
 				songTitle: 'Whitty',
 				songList: ['Lo-fight', 'Overhead', 'Ballistic', "Remorse"]
+			}
+		),
+
+		new SongData
+		(
+			{
+				folder: 'week_trueform',
+				character: 'gf',
+				songTitle: 'T.R.U.E.F.O.R.M',
+				songList: ['Eeeaaaooo', 'Target-Practice', 'Foolhardy', "Manifest", 'Incident']
 			}
 		),
 		

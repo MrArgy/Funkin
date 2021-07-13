@@ -31,7 +31,7 @@ class SongPlayer extends  BaseSong
 
 	// update function
 	public function update(elapsed:Float):Void {}
-	
+
 	// mid song event update
 	public function midSongEventUpdate(curBeat:Int):Void{} 
 
