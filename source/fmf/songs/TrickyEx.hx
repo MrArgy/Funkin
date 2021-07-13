@@ -15,6 +15,26 @@ class TrickyEx extends SongPlayer
 		dad.frames = frames;
 	}
 
+
+	override function loadMap()
+	{
+		playState.defaultCamZoom = 0.8;
+
+		var bg:FlxSprite = new FlxSprite(-400, -200).loadGraphic(Paths.image('clown/fourth/bg', 'mods'));
+		bg.antialiasing = true;
+		bg.scale.y = 3;
+		bg.scale.x = 3;
+		playState.add(bg);
+
+		var fg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('clown/fourth/daBackground', 'mods'));
+		fg.antialiasing = true;
+		fg.x = -900;
+		fg.y = -175;
+		fg.scale.y = 1;
+		fg.scale.x = 1;
+		playState.add(fg);
+	}
+
 	override function getGFVersion():Character
 	{
 		return new GFTricky(400, 250);
@@ -35,27 +55,6 @@ class TrickyEx extends SongPlayer
 	{
 		gf.addOffset('danceRight', -140, -153);
 		gf.playAnim('danceRight');
-	}
-
-	override function loadMap()
-	{
-		playState.defaultCamZoom = 0.8;
-
-		var bg:FlxSprite = new FlxSprite(-400, -200).loadGraphic(Paths.image('clown/fourth/bg', 'mods'));
-		bg.antialiasing = true;
-		bg.scale.y = 3;
-		bg.scale.x = 3;
-		playState.add(bg);
-
-		var fg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('clown/fourth/daBackground', 'mods'));
-		fg.antialiasing = true;
-		fg.x = -900;
-		fg.y = -175;
-		fg.scale.y = 1;
-		fg.scale.x = 1;
-		playState.add(fg);
-
-
 	}
 
 	override function createDadAnimations():Void
@@ -90,8 +89,20 @@ class TrickyEx extends SongPlayer
 	public override function createCharacters()
 	{
 		super.createCharacters();
-		bf.x += 100;
-		bf.y += 50;
+		dad.x -= 450;
+		dad.y += 100;
+
+		var hole = new FlxSprite(0, 0).loadGraphic(Paths.image('clown/fourth/Spawnhole_Ground_BACK', 'mods'));
+		// fg.animation.play('idle');
+		hole.antialiasing = true;
+		// bg.active = false;
+		hole.x = dad.x;
+		hole.y = dad.y + 400;
+
+		hole.scale.y = 1.5;
+		hole.scale.x = 1;
+		playState.add(hole);
+
 	}
 
 	public override function getDadIcon(icon:HealthIcon)

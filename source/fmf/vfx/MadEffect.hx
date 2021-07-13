@@ -44,7 +44,7 @@ class MadEffect extends VFX
 
 		}
 
-		vfx.ID = i;
+		vfx.ID = i; 
 		vfx.animation.add('hit', getArray(getFrames()), 60, false);
 
 		vfx.x -= 75;

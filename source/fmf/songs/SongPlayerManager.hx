@@ -83,7 +83,23 @@ class SongPlayerManager
 
 			case 'incident':
 				songPlayer = new Incident();
+
+			case 'improbable-outset':
+				songPlayer = new TrickyMask();
+			
+			case 'madness':
+				songPlayer = new Tricky();
+			
+			case 'hellclown':
+				songPlayer = new TrickyHell();
+
+			case 'expurgation':
+				songPlayer = new TrickyEx();
+
+			case 'reality-bender':
+				songPlayer = new TrickyBen();
 				
+
 		}
 
 		// songPlayer = new Eeeeaaaooo("ye");

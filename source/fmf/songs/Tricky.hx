@@ -6,7 +6,7 @@ import flixel.FlxSprite;
 import MenuCharacter.CharacterSetting;
 import fmf.characters.*;
 
-class Tricky extends SongPlayer
+class Tricky extends TrickyMask
 {
 
     override function getDadTex()
@@ -15,27 +15,6 @@ class Tricky extends SongPlayer
 		dad.frames = tex;
 	}
 
-
-	override function loadMap()
-	{
-		var bg:FlxSprite = new FlxSprite(-400, -200).loadGraphic(Paths.image('clown/red', 'mods'));
-		bg.antialiasing = true;
-		bg.scale.y = 1;
-		bg.scale.x = 1;
-		playState.add(bg);
-
-		var fg:FlxSprite = new FlxSprite();
-		fg.frames =  Paths.getSparrowAtlas('clown/tricky_floor', 'mods');
-		fg.animation.addByPrefix('idle', 'Symbol 1');
-		fg.antialiasing = true;
-
-		fg.y = 600;
-		fg.x = 150;
-		fg.scale.y = 1.75;
-		fg.scale.x = 1.75;
-		playState.add(fg);
-
-	}
 
 	override function createDadAnimations():Void
 	{
@@ -52,11 +31,11 @@ class Tricky extends SongPlayer
 	{
 			
 	
-		dad.addOffset('idle', -10, 4);
-		dad.addOffset('singRIGHT', 2, -46);
-		dad.addOffset('singLEFT', 77, 0);
-		dad.addOffset('singUP', 34, 15);
-		dad.addOffset('singDOWN', 4, -9);
+		dad.addOffset('idle', -10, 3);
+		dad.addOffset('singRIGHT', 0, -71);
+		dad.addOffset('singLEFT', 98, -1);
+		dad.addOffset('singUP', 52, 7);
+		dad.addOffset('singDOWN', 9, -23);
 
 		dad.dance();
 
@@ -67,13 +46,6 @@ class Tricky extends SongPlayer
 		dad.scale.y = 1.5;
 
 
-	}
-
-	public override function createCharacters()
-	{
-		super.createCharacters();
-		bf.x += 100;
-		bf.y += 50;
 	}
 
 	public override function getDadIcon(icon:HealthIcon)

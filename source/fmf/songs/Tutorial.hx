@@ -8,6 +8,7 @@ class Tutorial extends SongPlayer
 	override function createCharacters():Void
 	{
 		super.createCharacters();
+		
 		gf.alpha = 0;
 		dad.scrollFactor.set(0.95, 0.95);
 	}

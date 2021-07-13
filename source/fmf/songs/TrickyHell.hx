@@ -21,8 +21,9 @@ class TrickyHell extends SongPlayer
 		var bg:FlxSprite = new FlxSprite(-400, -200).loadGraphic(Paths.image('clown/red', 'mods'));
 		bg.antialiasing = true;
 
-		bg.scale.y = 1;
-		bg.scale.x = 1;
+
+		bg.scale.y = 2.5;
+		bg.scale.x = 2.5;
 		playState.add(bg);
 		
 		var stageFront:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('clown/hellclown/island_but_red', 'mods'));
@@ -33,7 +34,6 @@ class TrickyHell extends SongPlayer
 		stageFront.scale.x = 3;
 		stageFront.scale.y = 3;
 		playState.add(stageFront);
-		
 
 	}
 
@@ -70,6 +70,9 @@ class TrickyHell extends SongPlayer
 		super.createCharacters();
 		bf.x += 100;
 		bf.y += 50;
+
+		dad.x -= 650;
+		dad.y += 150;
 	}
 
 	public override function getDadIcon(icon:HealthIcon)
@@ -77,6 +80,12 @@ class TrickyHell extends SongPlayer
 		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
 		icon.animation.add('dad', [17, 18], 0, false, false);
 		icon.animation.play("dad");
+	}
+
+	override function updateCamFollowDad()
+	{
+		super.updateCamFollowDad();
+		playState.camFollow.y = dad.getMidpoint().y - 250;
 	}
 
 	public override function setDadMenuCharacter(dad:MenuCharacter)

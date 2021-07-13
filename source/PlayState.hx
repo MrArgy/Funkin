@@ -483,11 +483,11 @@ class PlayState extends MusicBeatState
 		// Add Kade Engine watermark
 		kadeEngineWatermark = new FlxText(4, healthBarBG.y
 			+ 50, 0,
-			CURRENT_SONG
+			SONG.song
 			+ " "
-			+ (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy")
-			+ (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""),
-			16);
+			+ (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy"));
+
+			// + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""));
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
 		add(kadeEngineWatermark);

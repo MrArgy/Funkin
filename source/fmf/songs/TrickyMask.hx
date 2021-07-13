@@ -50,13 +50,11 @@ class TrickyMask extends SongPlayer
 
 	override function createDadAnimationOffsets():Void
 	{
-			
-	
-		dad.addOffset('idle', -3, 4);
-		dad.addOffset('singUP', 35, 24);
-		dad.addOffset('singRIGHT', 4, -24);
-		dad.addOffset('singLEFT', 102, 16);
-		dad.addOffset('singDOWN', 10, -15);
+		dad.addOffset('idle', -7, -1);
+		dad.addOffset('singUP', 44, 24);
+		dad.addOffset('singRIGHT', -3, -38); 
+		dad.addOffset('singLEFT', 130, 23);
+		dad.addOffset('singDOWN', 9, -26);
 		
 		dad.x += 3;
 		dad.y -= 4;
@@ -72,6 +70,9 @@ class TrickyMask extends SongPlayer
 		super.createCharacters();
 		bf.x += 100;
 		bf.y += 50;
+
+		dad.y += 175;
+		dad.x -= 200;
 	}
 
 	public override function getDadIcon(icon:HealthIcon)
