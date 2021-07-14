@@ -88,20 +88,27 @@ class TrickyEx extends SongPlayer
 
 	public override function createCharacters()
 	{
-		super.createCharacters();
+
+		createGF();
+		createBF();
+		createDad();
+		
+		gf.scrollFactor.set(0.95, 0.95);
+
+		playState.add(gf);
+		playState.add(bf);
+		
 		dad.x -= 450;
 		dad.y += 100;
 
 		var hole = new FlxSprite(0, 0).loadGraphic(Paths.image('clown/fourth/Spawnhole_Ground_BACK', 'mods'));
-		// fg.animation.play('idle');
 		hole.antialiasing = true;
-		// bg.active = false;
 		hole.x = dad.x;
 		hole.y = dad.y + 400;
-
 		hole.scale.y = 1.5;
 		hole.scale.x = 1;
 		playState.add(hole);
+		playState.add(dad);
 
 	}
 
