@@ -52,9 +52,9 @@ class Kapi extends SongPlayer
 
 		dad.addOffset('idle');
 		dad.addOffset("singUP", 1, -8);
-		dad.addOffset("singRIGHT", 0, -45);
-		dad.addOffset("singLEFT", 0, 30);
-		dad.addOffset("singDOWN", 0, -110);
+		dad.addOffset("singRIGHT", 0, -54);
+		dad.addOffset("singLEFT", 0, 31);
+		dad.addOffset("singDOWN", 0, -109);
 
 		dad.dance();
 
