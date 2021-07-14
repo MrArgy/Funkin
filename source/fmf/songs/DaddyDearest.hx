@@ -20,7 +20,6 @@ class DaddyDearest extends SongPlayer
 		animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24);
 		animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24);
 		animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24);
-
 		dad.animation = animation;
 	}
 

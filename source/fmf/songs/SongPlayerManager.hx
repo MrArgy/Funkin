@@ -98,7 +98,10 @@ class SongPlayerManager
 
 			case 'reality-bender':
 				songPlayer = new TrickyBen();
-				
+
+			case 'wocky':
+				songPlayer = new Kapi();
+
 
 		}
 
