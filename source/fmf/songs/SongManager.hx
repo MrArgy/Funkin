@@ -40,7 +40,7 @@ class SongManager
 				folder: 'week_kapi',
 				character: 'kapi',
 				songTitle: 'KAPI',
-				songList: ['Wocky']
+				songList: ['Wocky', 'Beathoven', "Nyaw", 'Flatzone']
 			}
 		),
 

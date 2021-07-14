@@ -449,6 +449,8 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		
 		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
+		healthBarBG.setGraphicSize(Std.int(healthBarBG.width * 0.75));
+
 		healthBarBG.color = FlxColor.BLACK;
 		healthBarBG.alpha = 0.85;
 
@@ -466,6 +468,9 @@ class PlayState extends MusicBeatState
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		healthBar.createFilledBar(0x000000FF, FlxColor.RED);
+
+		healthBar.setGraphicSize(Std.int(healthBar.width * 0.75));
+
 		// healthBar.alpha = 0;
 
 		// healthBar

@@ -18,7 +18,10 @@ class Kapi extends SongPlayer
 
 	override function loadMap()
 	{
-		var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('kapi/stageback', 'mods'));
+		var daBG = PlayState.CURRENT_SONG == 'wocky' ? "stageback" : 'sunset';
+
+
+		var bg:FlxSprite = new FlxSprite(-500, -200).loadGraphic(Paths.image('kapi/' + daBG, 'mods'));
 		bg.antialiasing = true;
 		bg.scrollFactor.set(0.9, 0.9);
 		bg.active = false;
@@ -79,10 +82,10 @@ class Kapi extends SongPlayer
 		gf.addOffset('danceLeft', 0, -9);
 		gf.addOffset('danceRight', 0, -9);
 
-		gf.scale.x = 0.6;
-		gf.scale.y = 0.6;
+		gf.scale.x = 0.65;
+		gf.scale.y = 0.65;
 
-		gf.y  -= 100;	
+		gf.y -= 25;	
 		gf.x += 75;	
 
 	}
@@ -102,8 +105,12 @@ class Kapi extends SongPlayer
 		super.createCharacters();
 
 		dad.x += 200;
-		dad.y += 200;
-		gf.y += 50;
+		dad.y += 250;
+
+		dad.scale.x = 0.75;
+		dad.scale.y = 0.75;
+
+		gf.y -= 25;
 
 		bf.x += 100;
 		bf.y += 50;
