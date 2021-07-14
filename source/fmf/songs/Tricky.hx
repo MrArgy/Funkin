@@ -51,7 +51,7 @@ class Tricky extends TrickyMask
 	public override function getDadIcon(icon:HealthIcon)
 	{
 		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
-		icon.animation.add('dad', [17, 18], 0, false, false);
+		icon.animation.add('dad', [46, 47], 0, false, false);
 		icon.animation.play("dad");
 	}
 

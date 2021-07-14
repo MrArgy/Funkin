@@ -162,8 +162,8 @@ class Remorse extends Whitty
 	
 	public override function getDadIcon(icon:HealthIcon)
 	{
-		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
-		icon.animation.add('dad', [17, 18], 0, false, false);
+		icon.loadGraphic(Paths.image('whitty/remorse/updike_icons', 'mods'), true, 172, 126);
+		icon.animation.add('dad', [0, 1], 0, false, false);
 		icon.animation.play("dad");
 	}
 

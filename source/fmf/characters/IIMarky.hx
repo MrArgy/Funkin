@@ -72,8 +72,8 @@ class IIMarky extends Boyfriend
 			animation.getByName('singLEFTmiss').frames = oldMiss;
 		}
 
-		this.scale.x = 0.75;
-		this.scale.y = 0.75;
+		this.scale.x = 0.85;
+		this.scale.y = 0.85;
 	}
 
 }

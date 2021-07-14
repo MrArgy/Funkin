@@ -47,7 +47,6 @@ class KapiFan extends Kapi
 		dad.dance();
 	}
 
-
 	override function createCharacters()
 	{
 		super.createCharacters();
@@ -58,6 +57,14 @@ class KapiFan extends Kapi
 		bf.y += 75;
 		dad.y += 25;
 
+	}
+
+
+	public override function getDadIcon(icon:HealthIcon)
+	{
+		icon.loadGraphic(Paths.image('kapi/iconGrid', 'mods'), true, 150, 150);
+		icon.animation.add('dad', [2, 3], 0, false, false);
+		icon.animation.play("dad");
 	}
 
 }

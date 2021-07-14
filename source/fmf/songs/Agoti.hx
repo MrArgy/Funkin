@@ -27,7 +27,7 @@ class Agoti extends SongPlayer
 
 		var bg:FlxSprite = new FlxSprite();
 
-		var tex = Paths.getSparrowAtlas('agoti/The_void');
+		var tex = Paths.getSparrowAtlas('agoti/The_void', 'mods');
 
 		bg.frames = tex;
 		bg.animation.addByPrefix('init', 'VoidShift', 24, true);
@@ -48,7 +48,7 @@ class Agoti extends SongPlayer
 
 		playState.add(bg);
 
-		var stageFront:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('agoti/Void_Front'));
+		var stageFront:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('agoti/Void_Front', 'mods'));
 
 		stageFront.x -= 250;
 		stageFront.y -= 200;
@@ -157,7 +157,7 @@ class Agoti extends SongPlayer
 	public override function getDadIcon(icon:HealthIcon)
 	{
 		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
-		icon.animation.add('dad', [17, 18], 0, false, false);
+		icon.animation.add('dad', [50, 51], 0, false, false);
 		icon.animation.play("dad");
 	}
 

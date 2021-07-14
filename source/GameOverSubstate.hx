@@ -1,5 +1,6 @@
 package;
 
+import ui.Controller;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
@@ -21,7 +22,6 @@ class GameOverSubstate extends MusicBeatSubstate
 		var daStage = PlayState.curStage;
 		var daBf:String = '';
 		
-
 		super();
 
 		Conductor.songPosition = 0;
@@ -30,24 +30,24 @@ class GameOverSubstate extends MusicBeatSubstate
 		add(bf);
 		if (PlayState.songPlayer.songLabel == 'school')
 		{
-				//okay now create pixel shit bf
-				bf.frames = Paths.getSparrowAtlas('characters/bfPixelsDEAD');
-				bf.animation.addByPrefix('singUP', "BF Dies pixel", 24, false);
-				bf.animation.addByPrefix('firstDeath', "BF Dies pixel", 24, false);
-				bf.animation.addByPrefix('deathLoop', "Retry Loop", 24, true);
-				bf.animation.addByPrefix('deathConfirm', "RETRY CONFIRM", 24, false);
-				bf.animation.play('firstDeath');
+			// okay now create pixel shit bf
+			bf.frames = Paths.getSparrowAtlas('characters/bfPixelsDEAD');
+			bf.animation.addByPrefix('singUP', "BF Dies pixel", 24, false);
+			bf.animation.addByPrefix('firstDeath', "BF Dies pixel", 24, false);
+			bf.animation.addByPrefix('deathLoop', "Retry Loop", 24, true);
+			bf.animation.addByPrefix('deathConfirm', "RETRY CONFIRM", 24, false);
+			bf.animation.play('firstDeath');
 
-				bf.addOffset('firstDeath');
-				bf.addOffset('deathLoop', -37);
-				bf.addOffset('deathConfirm', -37);
-				bf.playAnim('firstDeath');
-				// pixel bullshit
-				bf.setGraphicSize(Std.int(bf.width * 6));
-				bf.updateHitbox();
-				bf.antialiasing = false;
-				bf.flipX = false;
-				stageSuffix = '-pixel';
+			bf.addOffset('firstDeath');
+			bf.addOffset('deathLoop', -37);
+			bf.addOffset('deathConfirm', -37);
+			bf.playAnim('firstDeath');
+			// pixel bullshit
+			bf.setGraphicSize(Std.int(bf.width * 6));
+			bf.updateHitbox();
+			bf.antialiasing = false;
+			bf.flipX = false;
+			stageSuffix = '-pixel';
 		}
 		else
 		{
@@ -88,26 +88,32 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.target = null;
 
 		bf.playAnim('firstDeath');
+
+		#if debug
+		Controller.init(this, NONE, A_B);
+		Controller._pad.cameras = [PlayState.instance.camHUD];
+
+		#end
+
+		#if mobile
+		Controller.init(this, NONE, A_B);
+		Controller._pad.cameras = [PlayState.instance.camHUD];
+
+		#end
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		if (controls.ACCEPT)
+		if (Controller.ACCEPT)
 		{
 			endBullshit();
 		}
 
-		if (controls.BACK)
+		if (Controller.BACK)
 		{
-			FlxG.sound.music.stop();
-
-			if (PlayState.isStoryMode)
-				FlxG.switchState(new StoryMenuState());
-			else
-				FlxG.switchState(new FreeplayState());
-			PlayState.loadRep = false;
+			endBullshit(false);
 		}
 
 		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.curFrame == 12)
@@ -129,13 +135,11 @@ class GameOverSubstate extends MusicBeatSubstate
 	override function beatHit()
 	{
 		super.beatHit();
-
-		FlxG.log.add('beat');
 	}
 
 	var isEnding:Bool = false;
 
-	function endBullshit():Void
+	function endBullshit(retry:Bool = true):Void
 	{
 		if (!isEnding)
 		{
@@ -143,11 +147,21 @@ class GameOverSubstate extends MusicBeatSubstate
 			bf.playAnim('deathConfirm', true);
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.music('gameOverEnd' + stageSuffix));
+
+			//shit here
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
 			{
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
-					LoadingState.loadAndSwitchState(new PlayState());
+					if (retry)
+						LoadingState.loadAndSwitchState(new PlayState());
+					else
+					{
+						if (PlayState.isStoryMode)
+							FlxG.switchState(new StoryMenuState());
+						else
+							FlxG.switchState(new FreeplayState());
+					}
 				});
 			});
 		}

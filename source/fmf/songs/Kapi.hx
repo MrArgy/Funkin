@@ -114,12 +114,16 @@ class Kapi extends SongPlayer
 
 		bf.x += 100;
 		bf.y += 50;
+
+		bf.scale.x *= 0.75;
+		bf.scale.y *= 0.75;
+
 	}
 
 	public override function getDadIcon(icon:HealthIcon)
 	{
-		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
-		icon.animation.add('dad', [17, 18], 0, false, false);
+		icon.loadGraphic(Paths.image('kapi/iconGrid', 'mods'), true, 150, 150);
+		icon.animation.add('dad', [12, 13], 0, false, false);
 		icon.animation.play("dad");
 	}
 

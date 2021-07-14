@@ -554,7 +554,7 @@ class BaseSong
 
 	public function setDadMenuCharacter(dad:MenuCharacter)
 	{
-		dad.visible = true;
+		dad.visible = false;//temporary disable it
 
 //---------------- Template ----------------
 

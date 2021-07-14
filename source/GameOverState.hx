@@ -23,12 +23,14 @@ class GameOverState extends FlxTransitionableState
 
 	override function create()
 	{
-			var loser:FlxSprite = new FlxSprite(100, 100);
-			var loseTex = Paths.getSparrowAtlas('lose');
-			loser.frames = loseTex;
-			loser.animation.addByPrefix('lose', 'lose', 24, false);
-			loser.animation.play('lose');
-			add(loser);
+		PlayState.instance.restartGame = true;
+
+		var loser:FlxSprite = new FlxSprite(100, 100);
+		var loseTex = Paths.getSparrowAtlas('lose');
+		loser.frames = loseTex;
+		loser.animation.addByPrefix('lose', 'lose', 24, false);
+		loser.animation.play('lose');
+		add(loser);
 
 		var bf:Boyfriend = new Boyfriend(bfX, bfY);
 		// bf.scrollFactor.set();
@@ -53,6 +55,15 @@ class GameOverState extends FlxTransitionableState
 	}
 
 	private var fading:Bool = false;
+
+	override function destroy()
+	{
+		pauseMusic.destroy();
+		super.destroy();
+	}
+
+		
+
 
 	override function update(elapsed:Float)
 	{

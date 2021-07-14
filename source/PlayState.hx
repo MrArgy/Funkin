@@ -127,8 +127,8 @@ class PlayState extends MusicBeatState
 		return songPlayer.bf;
 	}
 
-	// public static var gf:Character;
-	// public static var boyfriend:Boyfriend;
+	public var restartGame:Bool;
+	
 	public var notes:FlxTypedGroup<Note>;
 
 	private var unspawnNotes:Array<Note> = [];
@@ -622,6 +622,8 @@ class PlayState extends MusicBeatState
 		Controller._pad.cameras = [camHUD];
 
 
+		createBlackFadeOut();
+
 		super.create();
 	}
 
@@ -688,10 +690,6 @@ class PlayState extends MusicBeatState
 
 		if (kudoradoHandsome)
 		{
-			remove(songPosBG);
-			remove(songPosBar);
-			remove(songName);
-
 			songPosBG = new FlxSprite(0, 10).loadGraphic(Paths.image('healthBar', 'shared'));
 			songPosBG.color = FlxColor.BLACK;
 
@@ -715,7 +713,11 @@ class PlayState extends MusicBeatState
 			songName.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			songName.scrollFactor.set();
 			add(songName);
-			songName.cameras = [camHUD];
+
+
+			FlxTween.tween(songPosBG, {alpha: 1}, 0.5, {});
+			FlxTween.tween(songPosBar, {alpha: 1}, 0.5, {});
+			FlxTween.tween(songName, {alpha: 1}, 0.5, {});
 
 			songPosBG.cameras = [camHUD];
 			songPosBar.cameras = [camHUD];
@@ -974,18 +976,22 @@ class PlayState extends MusicBeatState
 		super.destroy();
 	}
 
+
 	override function closeSubState()
 	{
 		if (paused)
 		{
-			if (FlxG.sound.music != null && !startingSong)
+			if (!restartGame)
 			{
-				resyncVocals();
-			}
+				if (FlxG.sound.music != null && !startingSong)
+				{
+					resyncVocals();
+				}
 
-			if (!startTimer.finished)
-				startTimer.active = true;
-			paused = false;
+				if (!startTimer.finished)
+					startTimer.active = true;
+				paused = false;
+			}
 
 			#if windows
 			if (startTimer.finished)
@@ -1056,6 +1062,25 @@ class PlayState extends MusicBeatState
 	var maxNPS:Int = 0;
 
 	public static var songRate = 1.5;
+
+	public function switchState(callback:Void->Void)
+	{
+		restartGame = true;
+		camHUD.visible = true;
+
+		var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
+
+		blackScreen.cameras = [camHUD];
+		blackScreen.alpha = 0;
+		add(blackScreen);
+
+		FlxTween.tween(blackScreen, {alpha: 1}, {});
+		new FlxTimer().start(1.1, function(tmr:FlxTimer)
+		{
+			//place shit here
+			callback();
+		});
+	}
 
 	override public function update(elapsed:Float)
 	{
@@ -1734,8 +1759,7 @@ class PlayState extends MusicBeatState
 					transIn = FlxTransitionableState.defaultTransIn;
 					transOut = FlxTransitionableState.defaultTransOut;
 
-					FlxG.switchState(new StoryMenuState());
-
+					backHome();
 					#if windows
 					if (luaModchart != null)
 					{
@@ -1798,8 +1822,8 @@ class PlayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('Lights_Shut_off'));
 					}
 
-					FlxTransitionableState.skipNextTransIn = true;
-					FlxTransitionableState.skipNextTransOut = true;
+					// FlxTransitionableState.skipNextTransIn = true;
+					// FlxTransitionableState.skipNextTransOut = true;
 					prevCamFollow = camFollow;
 
 					SONG = Song.loadFromJson(nextSongLowercase + difficulty, playingSong.folder + storyPlaylist[0]);
@@ -1807,7 +1831,9 @@ class PlayState extends MusicBeatState
 
 					FlxG.sound.music.stop();
 
-					LoadingState.loadAndSwitchState(new PlayState());
+					moveNext();
+
+					// LoadingState.loadAndSwitchState(new PlayState());
 				}
 			}
 			else
@@ -1816,6 +1842,21 @@ class PlayState extends MusicBeatState
 				FlxG.switchState(new FreeplayState());
 			}
 		}
+	}
+
+	function backHome()
+	{
+		createBlackFadeIn(function()
+		{
+			FlxG.switchState(new StoryMenuState());
+		});
+	}
+	function moveNext()
+	{
+		createBlackFadeIn(function()
+		{
+			LoadingState.loadAndSwitchState(new PlayState());
+		});
 	}
 
 	function zoomInAndFading()
@@ -1829,30 +1870,44 @@ class PlayState extends MusicBeatState
 		}, 120);
 	}
 
-	function createBlackFade(callback:Void->Void)
+	function createBlackFadeIn(callback:Void->Void)
 	{
 
 		zoomInAndFading();
+
+		camHUD.visible = true;
 
 		var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
 
 		blackScreen.cameras = [camHUD];
 		blackScreen.alpha = 0;
-
 		add(blackScreen);
-		FlxTween.tween(blackScreen, {alpha: 1}, {});
 
-		new FlxTimer().start(2, function (tmr:FlxTimer) {
+		FlxTween.tween(blackScreen, {alpha: 1}, {});
+		new FlxTimer().start(2, function(tmr:FlxTimer)
+		{
+			//place shit here
 			callback();
 		});
 	
 	}
 
-
-	function finishGame()
+	private function createBlackFadeOut()
 	{
-
+		var blackShit:FlxSprite = new FlxSprite().makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+		blackShit.scrollFactor.set(0.5, 0.5);
+		blackShit.cameras = [camHUD];
+		add(blackShit);
+		FlxTween.tween(blackShit, {alpha: 0}, 0.5, {
+			ease: FlxEase.quartInOut,
+			onComplete: function(callback:FlxTween)
+			{
+				remove(blackShit);
+				blackShit = null;
+			}
+		});
 	}
+
 
 	var endingSong:Bool = false;
 

@@ -191,6 +191,7 @@ class LoadingState extends MusicBeatState
 
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
+			//shit here
 			callback();
 		});
 	}
@@ -200,7 +201,8 @@ class LoadingState extends MusicBeatState
 		var blackShit:FlxSprite = new FlxSprite().makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		blackShit.scrollFactor.set(0.5, 0.5);
 		group.add(blackShit);
-		new FlxTimer().start(1, function(t:FlxTimer)
+
+		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
 			FlxTween.tween(blackShit, {alpha: 0}, 0.5, {
 				ease: FlxEase.quartInOut,

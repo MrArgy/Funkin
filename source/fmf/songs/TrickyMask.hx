@@ -78,7 +78,7 @@ class TrickyMask extends SongPlayer
 	public override function getDadIcon(icon:HealthIcon)
 	{
 		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
-		icon.animation.add('dad', [17, 18], 0, false, false);
+		icon.animation.add('dad', [44, 45], 0, false, false);
 		icon.animation.play("dad");
 	}
 

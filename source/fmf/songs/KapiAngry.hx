@@ -58,6 +58,14 @@ class KapiAngry extends Kapi
 
 	}
 
+	override function createCharacters()
+	{
+		super.createCharacters();
+	
+		bf.scale.x *= 0.75;
+		bf.scale.y *= 0.75;
+	}
+
 	override function midSongEventUpdate(curBeat:Int)
 	{
 		switch (curBeat)
@@ -70,8 +78,8 @@ class KapiAngry extends Kapi
 
 	public override function getDadIcon(icon:HealthIcon)
 	{
-		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
-		icon.animation.add('dad', [17, 18], 0, false, false);
+		icon.loadGraphic(Paths.image('kapi/iconGrid', 'mods'), true, 150, 150);
+		icon.animation.add('dad', [22, 13], 0, false, false);
 		icon.animation.play("dad");
 	}
 }

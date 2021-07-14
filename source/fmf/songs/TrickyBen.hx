@@ -57,7 +57,7 @@ class TrickyBen extends TrickyHell
 		dad.addOffset('singRIGHT', 452, -194);
 		dad.addOffset('singLEFT', -70, 339);
 		dad.addOffset('singDOWN', 500, -30);
-		
+
 		dad.dance();
 
 		dad.dance();
@@ -76,7 +76,7 @@ class TrickyBen extends TrickyHell
 
 	public override function getDadIcon(icon:HealthIcon)
 	{
-		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
+		icon.loadGraphic(Paths.image('clown/ben', 'mods'), true, 115, 118);
 		icon.animation.add('dad', [17, 18], 0, false, false);
 		icon.animation.play("dad");
 	}
