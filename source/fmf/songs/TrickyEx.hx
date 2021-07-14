@@ -92,7 +92,7 @@ class TrickyEx extends SongPlayer
 		createGF();
 		createBF();
 		createDad();
-		
+
 		gf.scrollFactor.set(0.95, 0.95);
 
 		playState.add(gf);
@@ -111,6 +111,7 @@ class TrickyEx extends SongPlayer
 		playState.add(dad);
 
 	}
+
 
 	public override function getDadIcon(icon:HealthIcon)
 	{

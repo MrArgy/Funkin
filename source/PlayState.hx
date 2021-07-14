@@ -450,7 +450,8 @@ class PlayState extends MusicBeatState
 		
 		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
 		healthBarBG.color = FlxColor.BLACK;
-	
+		healthBarBG.alpha = 0.85;
+
 		if (FlxG.save.data.downscroll)
 			healthBarBG.y = 50;
 
@@ -696,7 +697,7 @@ class PlayState extends MusicBeatState
 			add(songPosBG);
 			songPosBG.cameras = [camHUD];
 			songPosBar = new FlxBar(songPosBG.x + 4, songPosBG.y + 4, LEFT_TO_RIGHT, Std.int(songPosBG.width - 8), Std.int(songPosBG.height - 8), this,
-				'songPositionBar', 0, 90000);
+				'songPositionBar', 0, songLength - 1000);
 			songPosBar.scrollFactor.set();
 			songPosBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.WHITE);
 			add(songPosBar);
@@ -1251,10 +1252,6 @@ class PlayState extends MusicBeatState
 		{
 			// Conductor.songPosition = FlxG.sound.music.time;
 			Conductor.songPosition += FlxG.elapsed * 1000;
-			/*@:privateAccess
-				{
-					FlxG.sound.music._channel.
-			}*/
 			songPositionBar = Conductor.songPosition;
 
 			if (!paused)
@@ -2598,6 +2595,8 @@ class PlayState extends MusicBeatState
 		#if windows
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
+
+	
 
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText
