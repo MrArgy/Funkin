@@ -178,6 +178,13 @@ class PlayState extends MusicBeatState
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
 
+
+	var scoreTxt:FlxText;
+	var missTxt:FlxText;
+	var accuracyTxt:FlxText;
+	var npsTxt:FlxText;
+
+
 	public static var offsetTesting:Bool = false;
 
 	var notesHitArray:Array<Date> = [];
@@ -197,7 +204,6 @@ class PlayState extends MusicBeatState
 	public var talking:Bool = true;
 	var songScore:Int = 0;
 	var songScoreDef:Int = 0;
-	var scoreTxt:FlxText;
 	var replayTxt:FlxText;
 
 	public static var campaignScore:Int = 0;
@@ -441,44 +447,69 @@ class PlayState extends MusicBeatState
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 
 		FlxG.fixedTimestep = false;
-
-		if (FlxG.save.data.songPosition) // I dont wanna talk about this code :(
-		{
-			songPosBG = new FlxSprite(0, 10).loadGraphic(Paths.image('healthBar'));
-			if (FlxG.save.data.downscroll)
-				songPosBG.y = FlxG.height * 0.9 + 45;
-			songPosBG.screenCenter(X);
-			songPosBG.scrollFactor.set();
-			add(songPosBG);
-
-			songPosBar = new FlxBar(songPosBG.x + 4, songPosBG.y + 4, LEFT_TO_RIGHT, Std.int(songPosBG.width - 8), Std.int(songPosBG.height - 8), this,
-				'songPositionBar', 0, 90000);
-			songPosBar.scrollFactor.set();
-			songPosBar.createFilledBar(FlxColor.GRAY, FlxColor.LIME);
-			add(songPosBar);
-
-			var songName = new FlxText(songPosBG.x + (songPosBG.width / 2) - 20, songPosBG.y, 0, CURRENT_SONG, 16);
-			if (FlxG.save.data.downscroll)
-				songName.y -= 3;
-			songName.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			songName.scrollFactor.set();
-			add(songName);
-			songName.cameras = [camHUD];
-		}
-
+		
 		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar'));
+		healthBarBG.color = FlxColor.BLACK;
+	
 		if (FlxG.save.data.downscroll)
 			healthBarBG.y = 50;
+
+
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
 		add(healthBarBG);
 
+
+
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
-		healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+		healthBar.createFilledBar(0x000000FF, FlxColor.RED);
+		// healthBar.alpha = 0;
+
 		// healthBar
 		add(healthBar);
+
+
+
+//------------------------mic c up copy ----------------------------
+
+		scoreTxt = new FlxText(healthBarBG.x - healthBarBG.width / 2, healthBarBG.y + 26, 0, "", 20);
+		if (FlxG.save.data.downscroll)
+			scoreTxt.y = healthBarBG.y - 18;
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
+		scoreTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+		scoreTxt.scrollFactor.set();
+		add(scoreTxt);
+
+		missTxt = new FlxText(scoreTxt.x, scoreTxt.y - 26, 0, "", 20);
+		if (FlxG.save.data.downscroll)
+			missTxt.y = scoreTxt.y + 26;
+		missTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
+		missTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+		missTxt.scrollFactor.set();
+		add(missTxt);
+
+		accuracyTxt = new FlxText(missTxt.x, missTxt.y - 26, 0, "", 20);
+		if (FlxG.save.data.downscroll)
+			accuracyTxt.y = missTxt.y + 26;
+		accuracyTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
+		accuracyTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+		accuracyTxt.scrollFactor.set();
+		add(accuracyTxt);
+
+		npsTxt = new FlxText(accuracyTxt.x, accuracyTxt.y - 26, 0, "", 20);
+		if (FlxG.save.data.downscroll)
+			npsTxt.y = accuracyTxt.y + 26;
+		npsTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, RIGHT);
+		npsTxt.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+		npsTxt.scrollFactor.set();
+		add(npsTxt);
+
+
+//-----------------------------------------------------------------------------
+
+
 
 		// Add Kade Engine watermark
 		kadeEngineWatermark = new FlxText(4, healthBarBG.y
@@ -490,21 +521,10 @@ class PlayState extends MusicBeatState
 			// + (Main.watermarks ? " - KE " + MainMenuState.kadeEngineVer : ""));
 		kadeEngineWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		kadeEngineWatermark.scrollFactor.set();
-		add(kadeEngineWatermark);
+		// add(kadeEngineWatermark);
 
 		if (FlxG.save.data.downscroll)
 			kadeEngineWatermark.y = FlxG.height * 0.9 + 45;
-
-		scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 50, 0, "", 20);
-		if (!FlxG.save.data.accuracyDisplay)
-			scoreTxt.x = healthBarBG.x + healthBarBG.width / 2;
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.scrollFactor.set();
-		if (offsetTesting)
-			scoreTxt.x += 300;
-		if (botPlayShit)
-			scoreTxt.x = FlxG.width / 2 - 20;
-		add(scoreTxt);
 
 		replayTxt = new FlxText(healthBarBG.x + healthBarBG.width / 2 - 75, healthBarBG.y + (FlxG.save.data.downscroll ? 100 : -100), 0, "REPLAY", 20);
 		replayTxt.setFormat(Paths.font("vcr.ttf"), 42, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -549,7 +569,12 @@ class PlayState extends MusicBeatState
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
+		
 		scoreTxt.cameras = [camHUD];
+		missTxt.cameras = [camHUD];
+		accuracyTxt.cameras = [camHUD];
+		npsTxt.cameras = [camHUD];
+
 		// doof.cameras = [camHUD];
 		if (FlxG.save.data.songPosition)
 		{
@@ -635,6 +660,7 @@ class PlayState extends MusicBeatState
 	var songTime:Float = 0;
 
 	var songStarted = false;
+	var kudoradoHandsome:Bool = true;
 
 	function startSong():Void
 	{
@@ -654,35 +680,36 @@ class PlayState extends MusicBeatState
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 
-		if (FlxG.save.data.songPosition)
+		if (kudoradoHandsome)
 		{
 			remove(songPosBG);
 			remove(songPosBar);
 			remove(songName);
 
-			songPosBG = new FlxSprite(0, 10).loadGraphic(Paths.image('healthBar'));
+			songPosBG = new FlxSprite(0, 10).loadGraphic(Paths.image('healthBar', 'shared'));
+			songPosBG.color = FlxColor.BLACK;
+
 			if (FlxG.save.data.downscroll)
 				songPosBG.y = FlxG.height * 0.9 + 45;
 			songPosBG.screenCenter(X);
 			songPosBG.scrollFactor.set();
 			add(songPosBG);
-
-			songPosBar = new FlxBar(songPosBG.x
-				+ 4, songPosBG.y
-				+ 4, LEFT_TO_RIGHT, Std.int(songPosBG.width - 8), Std.int(songPosBG.height - 8), this,
-				'songPositionBar', 0, songLength
-				- 1000);
-			songPosBar.numDivisions = 1000;
+			songPosBG.cameras = [camHUD];
+			songPosBar = new FlxBar(songPosBG.x + 4, songPosBG.y + 4, LEFT_TO_RIGHT, Std.int(songPosBG.width - 8), Std.int(songPosBG.height - 8), this,
+				'songPositionBar', 0, 90000);
 			songPosBar.scrollFactor.set();
-			songPosBar.createFilledBar(FlxColor.GRAY, FlxColor.LIME);
+			songPosBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.WHITE);
 			add(songPosBar);
+			songPosBar.cameras = [camHUD];
 
-			var songName = new FlxText(songPosBG.x + (songPosBG.width / 2) - 20, songPosBG.y, 0, CURRENT_SONG, 16);
+			var songName = new FlxText(songPosBG.x + (songPosBG.width / 2) - 20, songPosBG.y, 0, SONG.song, 16);
 			if (FlxG.save.data.downscroll)
 				songName.y -= 3;
+
 			songName.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			songName.scrollFactor.set();
 			add(songName);
+			songName.cameras = [camHUD];
 
 			songPosBG.cameras = [camHUD];
 			songPosBar.cameras = [camHUD];
@@ -983,6 +1010,13 @@ class PlayState extends MusicBeatState
 		super.closeSubState();
 	}
 
+	function truncateFloat(number:Float, precision:Int):Float
+	{
+		var num = number;
+		num = num * Math.pow(10, precision);
+		num = Math.round(num) / Math.pow(10, precision);
+		return num;
+	}
 	function resyncVocals():Void
 	{
 		vocals.pause();
@@ -1057,7 +1091,6 @@ class PlayState extends MusicBeatState
 				healthBar.visible = false;
 				iconP1.visible = false;
 				iconP2.visible = false;
-				scoreTxt.visible = false;
 			}
 			else
 			{
@@ -1066,7 +1099,6 @@ class PlayState extends MusicBeatState
 				healthBar.visible = true;
 				iconP1.visible = true;
 				iconP2.visible = true;
-				scoreTxt.visible = true;
 			}
 
 			var p1 = luaModchart.getVar("strumLine1Visible", 'bool');
@@ -1111,7 +1143,12 @@ class PlayState extends MusicBeatState
 		songPlayer.update(elapsed);
 		super.update(elapsed);
 
-		scoreTxt.text = Ratings.CalculateRanking(songScore, songScoreDef, nps, maxNPS, accuracy);
+		scoreTxt.text = "Score: " + songScore;
+		missTxt.text = "Misses: " + misses;
+		accuracyTxt.text = "Accuracy: " + truncateFloat(accuracy, 2) + "%";
+		npsTxt.text = "NPS: " + nps;
+
+
 		if (!FlxG.save.data.accuracyDisplay)
 			scoreTxt.text = "Score: " + songScore;
 
