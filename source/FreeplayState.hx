@@ -38,6 +38,7 @@ class FreeplayState extends MusicBeatState
 	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<HealthIcon> = [];
+	private var videoArray:Array<VideoIcon> = [];
 
 	override function create()
 	{
@@ -48,9 +49,11 @@ class FreeplayState extends MusicBeatState
 		for (i in SongManager.songs)
 		{
 			var wweekSongs:Array<String> = i.songList;
+			var firstSong:Bool = true;
 			for (song in wweekSongs)
 			{
-				addSong(song, weekNum);
+				addSong(song, weekNum, firstSong);
+				firstSong = false;
 			}
 
 			weekNum++;
@@ -96,9 +99,15 @@ class FreeplayState extends MusicBeatState
 
 			icon.sprTracker = songText;
 
+			var videoIcon:VideoIcon = new VideoIcon();
+			videoIcon.sprTracker = songText;
+
 			// using a FlxGroup is too much fuss!
+
+			videoArray.push(videoIcon);
 			iconArray.push(icon);
 			add(icon);
+			add(videoIcon);
 
 			// songText.x += 40;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
@@ -156,9 +165,9 @@ class FreeplayState extends MusicBeatState
 		super.create();
 	}
 
-	public function addSong(songName:String, weekNum:Int)
+	public function addSong(songName:String, weekNum:Int, firstSong:Bool)
 	{
-		songs.push(new SongMetadata(songName, weekNum));
+		songs.push(new SongMetadata(songName, weekNum, firstSong));
 	}
 
 	public function addWeek(songs:Array<String>, weekNum:Int, ?songCharacters:Array<String>)
@@ -167,10 +176,11 @@ class FreeplayState extends MusicBeatState
 			songCharacters = ['dad'];
 
 		var num:Int = 0;
+		var firstSong:Bool = true;
 		for (song in songs)
 		{
-			addSong(song, weekNum);
-
+			addSong(song, weekNum, firstSong);
+			firstSong = false;
 			if (songCharacters.length != 1)
 				num++;
 		}
@@ -321,12 +331,19 @@ class FreeplayState extends MusicBeatState
 
 		var bullShit:Int = 0;
 
+
 		for (i in 0...iconArray.length)
-		{
-			iconArray[i].alpha = 0.6;
+		{			
+			var unlocked:Bool =  songs[i].firstSong;
+			iconArray[i].alpha = unlocked ? 0.6 : 0;
+			videoArray[i].alpha = unlocked ? 0 : 0.6;
+
 		}
 
-		iconArray[curSelected].alpha = 1;
+		var unlocked:Bool =  songs[curSelected].firstSong;
+
+		iconArray[curSelected].alpha = unlocked ? 1 : 0;
+		videoArray[curSelected].alpha = unlocked ? 0 : 1;
 
 		for (item in grpSongs.members)
 		{
@@ -349,15 +366,17 @@ class SongMetadata
 {
 	public var songName:String = "";
 	public var week:Int = 0;
+	public var firstSong:Bool;
 
 	//we no longer need character per song,
 	// I'm using the SongManager to handle which character should be render
 	// public var songCharacter:String = "";
 
-	public function new(song:String, week:Int)
+	public function new(song:String, week:Int, firstSong:Bool)
 	{
 		this.songName = song;
 		this.week = week;
+		this.firstSong = firstSong;
 		// this.songCharacter = songCharacter;
 	}
 }

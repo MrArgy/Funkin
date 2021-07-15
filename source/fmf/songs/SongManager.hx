@@ -77,7 +77,7 @@ class SongManager
 				folder: 'week_trueform',
 				character: 'gf',
 				songTitle: 'T.R.U.E.F.A.C.E',
-				songList: ['Eeeaaaooo', 'Target-Practice', 'Foolhardy', "Manifest", 'Incident']
+				songList: ['Run', 'Eeeaaaooo', 'Target-Practice', 'Foolhardy', "Manifest", 'Incident']
 			}
 		}),
         

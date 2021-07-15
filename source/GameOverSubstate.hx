@@ -1,169 +1,205 @@
 package;
 
 import ui.Controller;
+import ui.FlxVirtualPad;
+import extension.admob.AdMob;
+import Controls.Control;
 import flixel.FlxG;
-import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.FlxSubState;
-import flixel.math.FlxPoint;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.input.keyboard.FlxKey;
+import flixel.system.FlxSound;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import fmf.characters.*;
-import fmf.songs.*;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
-	var bf:Character;
-	var camFollow:FlxObject;
+    var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var stageSuffix:String = "";
+    var menuItems:Array<String> = ['Revive', 'Restart Song', 'Exit to menu'];
+    var curSelected:Int = 0;
 
-	public function new(x:Float, y:Float)
-	{
-		var daStage = PlayState.curStage;
-		var daBf:String = '';
-		
-		super();
+    var pauseMusic:FlxSound;
 
-		Conductor.songPosition = 0;
+    var mode:String;
 
-		bf = new Character(x, y);
-		add(bf);
-		if (PlayState.songPlayer.songLabel == 'school')
-		{
-			// okay now create pixel shit bf
-			bf.frames = Paths.getSparrowAtlas('characters/bfPixelsDEAD');
-			bf.animation.addByPrefix('singUP', "BF Dies pixel", 24, false);
-			bf.animation.addByPrefix('firstDeath', "BF Dies pixel", 24, false);
-			bf.animation.addByPrefix('deathLoop', "Retry Loop", 24, true);
-			bf.animation.addByPrefix('deathConfirm', "RETRY CONFIRM", 24, false);
-			bf.animation.play('firstDeath');
 
-			bf.addOffset('firstDeath');
-			bf.addOffset('deathLoop', -37);
-			bf.addOffset('deathConfirm', -37);
-			bf.playAnim('firstDeath');
-			// pixel bullshit
-			bf.setGraphicSize(Std.int(bf.width * 6));
-			bf.updateHitbox();
-			bf.antialiasing = false;
-			bf.flipX = false;
-			stageSuffix = '-pixel';
-		}
-		else
-		{
-			
-			switch (SongPlayerManager.getPcId())
-			{
-				default:
+    public function new(x:Float, y:Float)
+    {
+
+        AdMob.hideBanner();
+
+        super();
+
+		PlayState.instance.pauseGame();
+
+
+        pauseMusic = new FlxSound().loadEmbedded(Paths.music('go', 'shared'), true, true);
+		pauseMusic.volume = 0;
+        pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
+       
+		FlxG.sound.list.add(pauseMusic);
+
+        var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+        bg.alpha = 0;
+        bg.scrollFactor.set();
+        add(bg);
+
+        var bg1:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('pauseBG'));
+        bg1.scrollFactor.x = 0;
+        bg1.scrollFactor.y = 0;
+        bg1.setGraphicSize(Std.int(bg.width * 1));
+        bg1.updateHitbox();
+        bg1.screenCenter();
+        bg1.antialiasing = true;
+        add(bg1);
+
+
+        var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
+        levelInfo.text += PlayState.SONG.song;
+        levelInfo.scrollFactor.set();
+        levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
+        levelInfo.updateHitbox();
+        add(levelInfo);
+
+        var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
+        levelDifficulty.text += CoolUtil.difficultyString();
+        levelDifficulty.scrollFactor.set();
+        levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
+        levelDifficulty.updateHitbox();
+        add(levelDifficulty);
+
+        levelDifficulty.alpha = 0;
+        levelInfo.alpha = 0;
+
+        levelInfo.x = FlxG.width - (levelInfo.width + 20);
+        levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
+
+        FlxTween.tween(bg, {alpha: 0.85}, 0.4, {ease: FlxEase.quartInOut});
+        FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
+        FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
+
+        grpMenuShit = new FlxTypedGroup<Alphabet>();
+        add(grpMenuShit);
+
+        for (i in 0...menuItems.length)
+        {
+            var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menuItems[i], true, false);
+            songText.isMenuItem = true;
+            songText.targetY = i;
+            grpMenuShit.add(songText);
+
+            songText.screenCenter(X);
+        }
+
+        changeSelection();
+
+
+        cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+
+        Controller.init(this, UP_DOWN, A_B);
+        Controller._pad.cameras = [PlayState.instance.camHUD];
+
+		LoadingState.createBlackFadeOut(this, PlayState.instance.camHUD);
+
+    }
+
+    override function update(elapsed:Float)
+    {
+        if (pauseMusic.volume < 0.5)
+            pauseMusic.volume += 0.01 * elapsed;
+
+        super.update(elapsed);
+
+
+        if (Controller.UP_P)
+        {
+            // FlxG.sound.play(Paths.sound('scrollMenu'));
+            changeSelection(-1);
+        }
+        if (Controller.DOWN_P)
+        {
+            // FlxG.sound.play(Paths.sound('scrollMenu'));
+            changeSelection(1);
+        }
+
+        if (Controller.ACCEPT)
+        {
+            var daSelected:String = menuItems[curSelected];
+
+            switch (daSelected)
+            {
+                case "Revive":
+                    // FlxG.sound.play(Paths.sound('confirmMenu'));
+					PlayState.instance.revivePlayer();
+					close();
+
+
+                case "Restart Song":
+
+					PlayState.instance.gameNa();
+                    AdMob.showInterstitial(60);
+                    // FlxG.sound.play(Paths.music('gameOverEnd'));
+					LoadingState.createBlackFadeIn(this, function()
 					{
-						// okay now create normal bf
-						var tex = Paths.getSparrowAtlas('characters/BoyFriend_Dead_Assets');
-						bf.frames = tex;
-						bf.animation.addByPrefix('firstDeath', "BF dies", 24, false);
-						bf.animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
-						bf.animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
-						bf.flipX = false;
-					}
+						FlxG.resetState();
+					}, PlayState.instance.camHUD);
 
-				// case 1://miku
-				// 	{
-				// 		// okay now create miku dead
-				// 		var miku = new Miku
-				// 	}
+                case "Exit to menu":
 
-			}
-		
-		}
+					PlayState.instance.gameNa();
 
-
-		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);
-		add(camFollow);
-
-		FlxG.sound.play(Paths.sound('fnf_loss_sfx' + stageSuffix));
-		Conductor.changeBPM(100);
-
-		// FlxG.camera.followLerp = 1;
-		// FlxG.camera.focusOn(FlxPoint.get(FlxG.width / 2, FlxG.height / 2));
-		FlxG.camera.scroll.set();
-		FlxG.camera.target = null;
-
-		bf.playAnim('firstDeath');
-
-		#if debug
-		Controller.init(this, NONE, A_B);
-		Controller._pad.cameras = [PlayState.instance.camHUD];
-
-		#end
-
-		#if mobile
-		Controller.init(this, NONE, A_B);
-		Controller._pad.cameras = [PlayState.instance.camHUD];
-
-		#end
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		if (Controller.ACCEPT)
-		{
-			endBullshit();
-		}
-
-		if (Controller.BACK)
-		{
-			endBullshit(false);
-		}
-
-		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.curFrame == 12)
-		{
-			FlxG.camera.follow(camFollow, LOCKON, 0.01);
-		}
-
-		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished)
-		{
-			FlxG.sound.playMusic(Paths.music('gameOver' + stageSuffix));
-		}
-
-		if (FlxG.sound.music.playing)
-		{
-			Conductor.songPosition = FlxG.sound.music.time;
-		}
-	}
-
-	override function beatHit()
-	{
-		super.beatHit();
-	}
-
-	var isEnding:Bool = false;
-
-	function endBullshit(retry:Bool = true):Void
-	{
-		if (!isEnding)
-		{
-			isEnding = true;
-			bf.playAnim('deathConfirm', true);
-			FlxG.sound.music.stop();
-			FlxG.sound.play(Paths.music('gameOverEnd' + stageSuffix));
-
-			//shit here
-			new FlxTimer().start(0.7, function(tmr:FlxTimer)
-			{
-				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
-				{
-					if (retry)
-						LoadingState.loadAndSwitchState(new PlayState());
-					else
+                    AdMob.showInterstitial(60);
+					// FlxG.sound.play(Paths.music('gameOverEnd'));
+					LoadingState.createBlackFadeIn(this, function()
 					{
-						if (PlayState.isStoryMode)
-							FlxG.switchState(new StoryMenuState());
-						else
-							FlxG.switchState(new FreeplayState());
-					}
-				});
-			});
-		}
-	}
+						FlxG.switchState(new MainMenuState());
+					}, PlayState.instance.camHUD);
+
+            }
+
+
+        }
+
+        if (FlxG.keys.justPressed.J)
+        {
+            // for reference later!
+            // PlayerSettings.player1.controls.replaceBinding(Control.LEFT, Keys, FlxKey.J, null);
+        }
+    }
+
+    override function destroy()
+    {
+        pauseMusic.destroy();
+        super.destroy();
+    }
+
+    function changeSelection(change:Int = 0):Void
+    {
+        curSelected += change;
+
+        if (curSelected < 0)
+            curSelected = menuItems.length - 1;
+        if (curSelected >= menuItems.length)
+            curSelected = 0;
+
+        var bullShit:Int = 0;
+
+        for (item in grpMenuShit.members)
+        {
+            item.targetY = bullShit - curSelected;
+            bullShit++;
+
+            item.alpha = 0.6;
+
+            if (item.targetY == 0)
+            {
+                item.alpha = 1;
+            }
+        }
+    }
 }

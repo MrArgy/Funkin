@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxCamera;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.group.FlxGroup;
@@ -178,12 +179,17 @@ class LoadingState extends MusicBeatState
 			FlxG.camera.zoom += 0.016;
 		}, 120);
 	}
+
 	
-	public static function createBlackFadeIn(group:FlxGroup, callback:Void->Void)
+	public static function createBlackFadeIn(group:FlxGroup, callback:Void->Void, cam:FlxCamera = null, disposeOnCallback:Bool = false)
 	{
 		var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
 
-		blackScreen.cameras = [FlxG.camera];
+	
+		if (cam == null)
+			cam = FlxG.camera;
+
+		blackScreen.cameras = [cam];
 		blackScreen.alpha = 0;
 
 		group.add(blackScreen);
@@ -193,15 +199,21 @@ class LoadingState extends MusicBeatState
 		{
 			//shit here
 			callback();
+			if (disposeOnCallback)
+				group.remove(blackScreen);
 		});
 	}
 
-	public static function createBlackFadeOut(group:FlxGroup)
+	public static function createBlackFadeOut(group:FlxGroup, cam:FlxCamera = null)
 	{
+		if(cam == null)
+			cam = FlxG.camera;
+
 		var blackShit:FlxSprite = new FlxSprite().makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		blackShit.scrollFactor.set(0.5, 0.5);
 		group.add(blackShit);
 
+		blackShit.cameras = [cam];
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
 			FlxTween.tween(blackShit, {alpha: 0}, 0.5, {

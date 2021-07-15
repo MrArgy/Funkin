@@ -65,8 +65,8 @@ class Eeeeaaaooo extends Trueform
 		lightningStrikeBeat = curBeat;
 		lightningOffset = FlxG.random.int(8, 24);
 
+		dad.playAnimForce('scared', 0.1);
 		bf.playAnimForce('scared', 0.5);
-		gf.playAnimForce('scared', 0.5);
 
 		var mul = FlxG.random.int(-35, 35);
 

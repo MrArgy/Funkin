@@ -53,6 +53,9 @@ class Character extends FlxSprite
 
 	public function dance():Void
 	{
+		if (isLockAnim)
+			return;
+
 		if (!debugMode)
 		{
 			playAnim('idle');

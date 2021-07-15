@@ -57,15 +57,7 @@ class KapiAngry extends Kapi
 		dad.dance();
 
 	}
-
-	override function createCharacters()
-	{
-		super.createCharacters();
 	
-		bf.scale.x *= 0.75;
-		bf.scale.y *= 0.75;
-	}
-
 	override function midSongEventUpdate(curBeat:Int)
 	{
 		switch (curBeat)

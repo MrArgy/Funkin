@@ -73,7 +73,7 @@ class AgotiCrazy extends Agoti
 		stageFront.animation.addByPrefix('init', 'StereoMoving', 15, true);
 		stageFront.animation.play('init');
 		stageFront.x -= 100;
-		stageFront.y += 1000;
+		stageFront.y += 950;
 		
 		stageFront.scale.x = 2;
 		stageFront.scale.y = 2;

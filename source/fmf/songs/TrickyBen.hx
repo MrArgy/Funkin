@@ -76,20 +76,11 @@ class TrickyBen extends TrickyHell
 
 	public override function getDadIcon(icon:HealthIcon)
 	{
-		icon.loadGraphic(Paths.image('clown/ben', 'mods'), true, 115, 118);
-		icon.animation.add('dad', [17, 18], 0, false, false);
+		icon.loadGraphic(Paths.image('clown/ben', 'mods'), true, 172, 126);
+		icon.animation.add('dad', [0, 1], 0, false, false);
 		icon.animation.play("dad");
-	}
-
-	public override function setDadMenuCharacter(dad:MenuCharacter)
-	{
-		super.setDadMenuCharacter(dad);
-
-		var frames = Paths.getSparrowAtlas('whitty/whitty', 'mods');
-		dad.frames = frames;
-
-		dad.animation.addByPrefix('dad', "Whitty idle dance BLACK LINE", 24);
-		dad.animation.play('dad');
-		setMenuCharacter(dad, new CharacterSetting(-200, 25, 1));
+		icon.scale.x = 0.5;
+		icon.scale.y = 0.5;
+		icon.y -= 25;
 	}
 }

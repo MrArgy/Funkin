@@ -110,7 +110,7 @@ class LoadReplayState extends MusicBeatState
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String)
 	{
-		songs.push(new FreeplayState.SongMetadata(songName, weekNum));
+		// songs.push(new FreeplayState.SongMetadata(songName, weekNum));
 	}
 	
 	public function addWeek(songs:Array<String>, weekNum:Int, ?songCharacters:Array<String>)

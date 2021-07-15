@@ -1,5 +1,6 @@
 package;
 
+import WeekCompleteSubstate.WeekCompleteSubState;
 import ui.Controller;
 import ui.FlxVirtualPad.FlxActionMode;
 import ui.FlxVirtualPad.FlxDPadMode;
@@ -205,6 +206,7 @@ class PlayState extends MusicBeatState
 	var songScore:Int = 0;
 	var songScoreDef:Int = 0;
 	var replayTxt:FlxText;
+	var isOver:Bool;
 
 	public static var campaignScore:Int = 0;
 
@@ -700,7 +702,7 @@ class PlayState extends MusicBeatState
 			add(songPosBG);
 			songPosBG.cameras = [camHUD];
 			songPosBar = new FlxBar(songPosBG.x + 4, songPosBG.y + 4, LEFT_TO_RIGHT, Std.int(songPosBG.width - 8), Std.int(songPosBG.height - 8), this,
-				'songPositionBar', 0, songLength - 1000);
+				'songPositionBar', 0, Math.max(songLength - 1000, 30));
 			songPosBar.scrollFactor.set();
 			songPosBar.createFilledBar(FlxColor.TRANSPARENT, FlxColor.WHITE);
 			add(songPosBar);
@@ -942,8 +944,7 @@ class PlayState extends MusicBeatState
 		{
 			if (FlxG.sound.music != null)
 			{
-				FlxG.sound.music.pause();
-				vocals.pause();
+				pauseGame();
 			}
 
 			#if windows
@@ -1018,7 +1019,7 @@ class PlayState extends MusicBeatState
 			}
 			#end
 		}
-
+	
 		super.closeSubState();
 	}
 
@@ -1063,6 +1064,11 @@ class PlayState extends MusicBeatState
 
 	public static var songRate = 1.5;
 
+	public function restorePad()
+	{
+		Controller.init(this, NONE, B);
+		Controller._pad.cameras = [camHUD];
+	}
 	public function switchState(callback:Void->Void)
 	{
 		restartGame = true;
@@ -1183,20 +1189,13 @@ class PlayState extends MusicBeatState
 		if (!FlxG.save.data.accuracyDisplay)
 			scoreTxt.text = "Score: " + songScore;
 
-		if (Controller.BACK && startedCountdown && canPause)
+		if (Controller.BACK && startedCountdown && canPause && !paused)
 		{
 			persistentUpdate = false;
 			persistentDraw = true;
 			paused = true;
-
-			// 1 / 1000 chance for Gitaroo Man easter egg
-			if (FlxG.random.bool(0.1))
-			{
-				trace('GITAROO MAN EASTER EGG');
-				FlxG.switchState(new GitarooPause());
-			}
-			else
-				openSubState(new PauseSubState(boyfriend().getScreenPosition().x, boyfriend().getScreenPosition().y));
+		
+			openSubState(new PauseSubState(boyfriend().getScreenPosition().x, boyfriend().getScreenPosition().y));
 		}
 
 		if (FlxG.keys.justPressed.SEVEN)
@@ -1371,17 +1370,19 @@ class PlayState extends MusicBeatState
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
 
-		if (health <= 0)
+		if (health <= 0 && !isOver)
 		{
+			isOver = true;
 			boyfriend().stunned = true;
 			persistentUpdate = false;
-			persistentDraw = false;
+			persistentDraw = true;
 			paused = true;
 
-			vocals.stop();
-			FlxG.sound.music.stop();
+			pauseGame();
 
-			openSubState(new GameOverSubstate(boyfriend().getScreenPosition().x, boyfriend().getScreenPosition().y));
+			LoadingState.createBlackFadeIn(this,function(){
+				openSubState(new GameOverSubstate(boyfriend().getScreenPosition().x, boyfriend().getScreenPosition().y));
+			}, camHUD, true);
 
 			#if windows
 			// Game Over doesn't get his own variable because it's only used here
@@ -1751,10 +1752,9 @@ class PlayState extends MusicBeatState
 				campaignScore += Math.round(songScore);
 
 				storyPlaylist.remove(storyPlaylist[0]);
-
 				if (storyPlaylist.length <= 0)
 				{
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					// FlxG.sound.playMusic(Paths.music('freakyMenu'));
 
 					transIn = FlxTransitionableState.defaultTransIn;
 					transOut = FlxTransitionableState.defaultTransOut;
@@ -1772,7 +1772,7 @@ class PlayState extends MusicBeatState
 
 					if (SONG.validScore)
 					{
-						NGio.unlockMedal(60961);
+						// NGio.unlockMedal(60961);
 						Highscore.saveWeekScore(storyWeek, campaignScore, storyDifficulty);
 					}
 
@@ -1829,7 +1829,7 @@ class PlayState extends MusicBeatState
 					SONG = Song.loadFromJson(nextSongLowercase + difficulty, playingSong.folder + storyPlaylist[0]);
 					CURRENT_SONG = SONG.song.toLowerCase();
 
-					FlxG.sound.music.stop();
+					FlxG.sound.music.stop(); 
 
 					moveNext();
 
@@ -1844,18 +1844,82 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public function createEmptyBlack()
+	{
+		var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
+
+		blackScreen.cameras = [camHUD];
+		add(blackScreen);
+	}
+
+	public function gameNa()
+	{
+		vocals.stop();
+		FlxG.sound.music.stop();
+	}
+	
+	public function nextSong()
+	{
+		FlxG.resetState();
+	}
+
+	public function revivePlayer()
+	{
+		health = 2;
+		isOver = false;
+		boyfriend().stunned = false;
+		persistentUpdate = true;
+		persistentDraw = true;
+		paused = false;
+		Controller.init(this, NONE, B);
+		Controller._pad.cameras = [camHUD];
+		resumeGame();
+	}
+
+	public function pauseGame()
+	{
+		vocals.volume = 0;
+		vocals.pause();
+		FlxG.sound.music.pause();
+	}
+
+	public function resumeGame()
+	{
+		resyncVocals();
+	}
+
 	function backHome()
 	{
+		isOver = true;
+		boyfriend().stunned = true;
+		persistentUpdate = false;
+		persistentDraw = true;
+		paused = true;
+
+		pauseGame();
+		
+
 		createBlackFadeIn(function()
 		{
-			FlxG.switchState(new StoryMenuState());
+			openSubState(new WeekCompleteSubState());
 		});
 	}
 	function moveNext()
 	{
+		if(isOver)return;
+
+
+		isOver = true;
+		boyfriend().stunned = true;
+		persistentUpdate = false;
+		persistentDraw = true;
+		paused = true;
+
+		pauseGame();
+
 		createBlackFadeIn(function()
 		{
-			LoadingState.loadAndSwitchState(new PlayState());
+			openSubState(new VictorySubState(boyfriend().getScreenPosition().x, boyfriend().getScreenPosition().y));
 		});
 	}
 
@@ -1886,8 +1950,10 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(blackScreen, {alpha: 1}, {});
 		new FlxTimer().start(2, function(tmr:FlxTimer)
 		{
-			//place shit here
 			callback();
+			//place shit here
+			remove(blackScreen);
+			blackScreen = null;
 		});
 	
 	}

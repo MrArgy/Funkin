@@ -18,6 +18,10 @@ class Tutorial extends SongPlayer
 		dad.visible = false;
 	}
 
+	override function getDadVersion():Character
+	{
+		return new GF(100, 100);
+	}
 	override function midSongEventUpdate(curBeat:Int):Void
 	{
 		if (curBeat % 2 == 1 && dad.animOffsets.exists('danceLeft'))

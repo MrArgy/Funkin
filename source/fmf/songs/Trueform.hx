@@ -28,28 +28,28 @@ class Trueform extends Tutorial
 	private override function createDadAnimations()
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('cheer', 'GF Cheer instance 1', 24, false);
 		animation.addByPrefix('singLEFT', 'GF left note instance 1', 24, false);
 		animation.addByPrefix('singRIGHT', 'GF Right Note instance 1', 24, false);
 		animation.addByPrefix('singUP', 'GF Up Note instance 1', 24, false);
 		animation.addByPrefix('singDOWN', 'GF Down Note instance 1', 24, false);
-		animation.addByIndices('sad', 'gf sad instance 1', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "", 24, false);
 		animation.addByIndices('danceLeft', 'GF Dancing Beat instance 1', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		animation.addByIndices('danceRight', 'GF Dancing Beat instance 1', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
-		animation.addByPrefix('scared', 'GF FEAR', 24);
+		animation.addByPrefix('scared', 'ikNode_10', 24, false);
 		dad.animation = animation;
 	}
 
 	// create dad animation offsets
 	private override function createDadAnimationOffsets()
 	{
-		dad.addOffset('cheer');
-		dad.addOffset('sad', -2, -2);
-		dad.addOffset('danceLeft', 0, -9);
-		dad.addOffset("singRIGHT", 0, -20);
-		dad.addOffset("singLEFT", 0, -19);
-		dad.addOffset("singDOWN", 0, -20);
-		dad.addOffset('scared', -2, -17);
+		dad.addOffset('danceLeft', -1, -11);
+		dad.addOffset('danceRight', 0, -10);
+
+		dad.addOffset("singUP", -10, 0);
+		dad.addOffset("singRIGHT", -2, -22);
+		dad.addOffset("singLEFT", 0, -21);
+		dad.addOffset("singDOWN", -12, -18);
+
+		dad.addOffset('scared', -11, -23);
 
 		dad.playAnim('danceRight');
 		dad.dance();

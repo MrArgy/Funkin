@@ -108,6 +108,8 @@ class SongPlayerManager
 			case 'flatzone':
 				songPlayer = new KapiFan();
 
+			case 'run':
+				songPlayer = new Run();
 
 		}
 
