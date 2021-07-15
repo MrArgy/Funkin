@@ -34,7 +34,7 @@ class VictorySubState extends MusicBeatSubstate
         AdMob.hideBanner();
 
         super();
-        
+
         PlayState.instance.pauseGame();
 
         pauseMusic = new FlxSound().loadEmbedded(Paths.music('breakfast', 'shared'), true, true);
@@ -62,13 +62,17 @@ class VictorySubState extends MusicBeatSubstate
         levelInfo.text += PlayState.SONG.song;
         levelInfo.scrollFactor.set();
         levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
+        levelInfo.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
         levelInfo.updateHitbox();
+
         add(levelInfo);
 
         var levelDifficulty:FlxText = new FlxText(20, 15 + 32, 0, "", 32);
         levelDifficulty.text += CoolUtil.difficultyString();
         levelDifficulty.scrollFactor.set();
         levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
+        levelDifficulty.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+
         levelDifficulty.updateHitbox();
         add(levelDifficulty);
 

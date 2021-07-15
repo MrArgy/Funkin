@@ -32,8 +32,8 @@ class Trueform extends Tutorial
 		animation.addByPrefix('singRIGHT', 'GF Right Note instance 1', 24, false);
 		animation.addByPrefix('singUP', 'GF Up Note instance 1', 24, false);
 		animation.addByPrefix('singDOWN', 'GF Down Note instance 1', 24, false);
-		animation.addByIndices('danceLeft', 'GF Dancing Beat instance 1', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-		animation.addByIndices('danceRight', 'GF Dancing Beat instance 1', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+		animation.addByIndices('danceLeft', 'GF Dancing Beat instance 1', [6], "", 1, false);
+		animation.addByIndices('danceRight', 'GF Dancing Beat instance 1', [6], "", 1, false);
 		animation.addByPrefix('scared', 'ikNode_10', 24, false);
 		dad.animation = animation;
 	}
@@ -42,7 +42,7 @@ class Trueform extends Tutorial
 	private override function createDadAnimationOffsets()
 	{
 		dad.addOffset('danceLeft', -1, -11);
-		dad.addOffset('danceRight', 0, -10);
+		dad.addOffset('danceRight', -1, -11);
 
 		dad.addOffset("singUP", -10, 0);
 		dad.addOffset("singRIGHT", -2, -22);
@@ -78,14 +78,9 @@ class Trueform extends Tutorial
 
 		playState.add(gf);
 		playState.add(dad);
-		playState.add(hole);
-
 			
 		dad.y -= 100;
 		hole.y -= 225;
-
-
-
 
 		playState.add(bf);
 

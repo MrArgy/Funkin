@@ -708,7 +708,7 @@ class PlayState extends MusicBeatState
 			add(songPosBar);
 			songPosBar.cameras = [camHUD];
 
-			var songName = new FlxText(songPosBG.x + (songPosBG.width / 2) - 20, songPosBG.y, 0, SONG.song, 16);
+			var songName = new FlxText(songPosBG.x + (songPosBG.width / 2) - 20, songPosBG.y, 0, CURRENT_SONG, 16);
 			if (FlxG.save.data.downscroll)
 				songName.y -= 3;
 
@@ -1897,7 +1897,7 @@ class PlayState extends MusicBeatState
 		paused = true;
 
 		pauseGame();
-		
+
 
 		createBlackFadeIn(function()
 		{
