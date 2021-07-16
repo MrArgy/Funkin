@@ -172,6 +172,7 @@ class OptionsMenu extends MusicBeatState
 		isLocked = true;
 		
 	}
+
 	public function acceptPress()
 	{
 		FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
@@ -312,7 +313,7 @@ class OptionsMenu extends MusicBeatState
 	public function changeSelection(change:Int = 0)
 	{
 		#if !switch
-		// NGio.logEvent("Fresh");
+		// //NGio.logEvent("Fresh");
 		#end
 		
 		FlxG.sound.play(Paths.sound("scrollMenu"), 0.4);
