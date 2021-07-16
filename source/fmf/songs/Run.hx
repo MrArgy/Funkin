@@ -26,7 +26,6 @@ class Run extends Trueform
 
 		hole.animation.add('shit', getArray(5, 16), 16, true);
 		hole.animation.play('shit', true);
-
 		
 		var bg:FlxSprite = new FlxSprite(0, -100).loadGraphic(Paths.image('trueform/bob/bg', 'mods'));
 		bg.antialiasing = true;
@@ -34,10 +33,7 @@ class Run extends Trueform
 		bg.scale.x = 1.5;	
 		bg.scale.y = 1.5;
 
-
 		playState.add(bg);
-
-
 
 		var bg1:FlxSprite = new FlxSprite(-200, 200).loadGraphic(Paths.image('trueform/bob/fg', 'mods'));
 		bg1.antialiasing = true;
@@ -52,9 +48,6 @@ class Run extends Trueform
 		stageFront.antialiasing = true;
 		stageFront.scrollFactor.set(0.9, 0.9);
 		playState.add(stageFront);
-
-
-
 	}
 
 	private override function createDadAnimations()
