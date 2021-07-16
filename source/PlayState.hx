@@ -186,6 +186,9 @@ class PlayState extends MusicBeatState
 	var accuracyTxt:FlxText;
 	var npsTxt:FlxText;
 
+	//immortal godlike
+	var invisible:Bool;
+
 
 	public static var offsetTesting:Bool = false;
 
@@ -681,6 +684,7 @@ class PlayState extends MusicBeatState
 
 	function startSong():Void
 	{
+		
 		startingSong = false;
 		songStarted = true;
 		previousFrameTime = FlxG.game.ticks;
@@ -1110,6 +1114,7 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+
 		#if !debug
 		perfectMode = false;
 		#end
@@ -1196,6 +1201,9 @@ class PlayState extends MusicBeatState
 			// else
 			// 	iconP1.animation.play('bf-old');
 		}
+
+		//immortal babe
+		if(invisible) health = 2;
 
 		songPlayer.update(elapsed);
 		super.update(elapsed);
@@ -1867,7 +1875,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public function createEmptyBlack()
+	private function createEmptyBlack()
 	{
 		var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
 
@@ -1879,6 +1887,7 @@ class PlayState extends MusicBeatState
 	{
 		vocals.stop();
 		FlxG.sound.music.stop();
+		createEmptyBlack();
 	}
 	
 	public function nextSong()
@@ -1886,8 +1895,10 @@ class PlayState extends MusicBeatState
 		FlxG.resetState();
 	}
 
+
 	public function revivePlayer()
 	{
+		invisible = true;
 		health = 2;
 		isOver = false;
 		boyfriend().stunned = false;
@@ -1897,6 +1908,11 @@ class PlayState extends MusicBeatState
 		Controller.init(this, NONE, B);
 		Controller._pad.cameras = [camHUD];
 		resumeGame();
+
+		new FlxTimer().start(2, function(tmr:FlxTimer)
+		{
+			invisible = false;
+		});
 	}
 
 	public function pauseGame()

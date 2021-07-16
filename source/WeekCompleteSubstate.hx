@@ -63,6 +63,7 @@ class WeekCompleteSubState extends MusicBeatSubstate
         levelInfo.text += PlayState.SONG.song;
         levelInfo.scrollFactor.set();
         levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
+        levelInfo.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
         levelInfo.updateHitbox();
         add(levelInfo);
 
@@ -70,6 +71,7 @@ class WeekCompleteSubState extends MusicBeatSubstate
         levelDifficulty.text += CoolUtil.difficultyString();
         levelDifficulty.scrollFactor.set();
         levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
+        levelDifficulty.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
         levelDifficulty.updateHitbox();
         add(levelDifficulty);
 
@@ -138,7 +140,6 @@ class WeekCompleteSubState extends MusicBeatSubstate
 
                     AdMob.showInterstitial(60);
                     // FlxG.sound.play(Paths.music('gameOverEnd'));
-                    PlayState.instance.createEmptyBlack();
                     LoadingState.createBlackFadeIn(this, function()
 					{
 						FlxG.resetState();
@@ -150,7 +151,6 @@ class WeekCompleteSubState extends MusicBeatSubstate
                     AdMob.showInterstitial(60);
 
 					// FlxG.sound.play(Paths.music('gameOverEnd'));
-                    PlayState.instance.createEmptyBlack();
 					LoadingState.createBlackFadeIn(this, function()
 					{
 						if (PlayState.isStoryMode)

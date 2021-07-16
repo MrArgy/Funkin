@@ -232,6 +232,10 @@ class FreeplayState extends MusicBeatState
 
 		if (Controller.BACK)
 		{
+			#if PRELOAD_ALL
+			FlxG.sound.music.stop();
+			#end
+			
 			FlxG.switchState(new MainMenuState());
 		}
 

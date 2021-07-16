@@ -65,6 +65,8 @@ class GameOverSubstate extends MusicBeatSubstate
         levelInfo.text += PlayState.SONG.song;
         levelInfo.scrollFactor.set();
         levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
+        levelInfo.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+
         levelInfo.updateHitbox();
         add(levelInfo);
 
@@ -72,6 +74,8 @@ class GameOverSubstate extends MusicBeatSubstate
         levelDifficulty.text += CoolUtil.difficultyString();
         levelDifficulty.scrollFactor.set();
         levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
+        levelDifficulty.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
+
         levelDifficulty.updateHitbox();
         add(levelDifficulty);
 

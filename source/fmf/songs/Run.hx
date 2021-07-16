@@ -48,6 +48,7 @@ class Run extends Trueform
 		stageFront.antialiasing = true;
 		stageFront.scrollFactor.set(0.9, 0.9);
 		playState.add(stageFront);
+
 	}
 
 	private override function createDadAnimations()
@@ -104,8 +105,6 @@ class Run extends Trueform
 		bob.scale.y = 0.9;
 
 		playState.add(bob);
-
-
 
 	}
 }

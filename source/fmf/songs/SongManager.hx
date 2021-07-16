@@ -33,7 +33,8 @@ class SongManager
 		// 	}
 		// ),
 
-		new SongData({
+		new SongData
+		({
 			{
 				folder: 'week_agoti',
 				character: 'agoti',
@@ -52,7 +53,8 @@ class SongManager
 			}
 		),
 		
-		new SongData({
+		new SongData
+		({
 			{
 				folder: 'week_whitty',
 				character: 'whitty',
@@ -72,7 +74,8 @@ class SongManager
             }
         ),
 
-		new SongData({
+		new SongData
+		({
 			{
 				folder: 'week_trueform',
 				character: 'gf',

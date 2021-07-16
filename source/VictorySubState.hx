@@ -141,7 +141,6 @@ class VictorySubState extends MusicBeatSubstate
 
                     AdMob.showInterstitial(60);
                     // FlxG.sound.play(Paths.music('gameOverEnd'));
-                    PlayState.instance.createEmptyBlack();
                     LoadingState.createBlackFadeIn(this, function()
 					{
 						FlxG.resetState();
@@ -153,7 +152,6 @@ class VictorySubState extends MusicBeatSubstate
 
                     AdMob.showInterstitial(60);
 					// FlxG.sound.play(Paths.music('gameOverEnd'));
-                    PlayState.instance.createEmptyBlack();
 					LoadingState.createBlackFadeIn(this, function()
 					{
 						if (PlayState.isStoryMode)

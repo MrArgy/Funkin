@@ -55,12 +55,12 @@ class Manifest extends Trueform
 		bg.animation.play('idle');
 		bg.antialiasing = true;
 
-		bg.scale.x = 2;
-		bg.scale.y = 2;
+		bg.scale.x = 2.25;
+		bg.scale.y = 2.25;
 
 		bg.x += 400;
 
-		bg.y += 200;
+		bg.y += 250;
 
 		playState.add(bg);
 
