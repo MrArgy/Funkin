@@ -60,7 +60,7 @@ class Incident extends Trueform
 		bg.antialiasing = true;
 		bg.scrollFactor.set(0.9, 0.9);
 
-		bg.y -= 400;
+		bg.y -= 650;
 		playState.add(bg);
 
 

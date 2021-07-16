@@ -243,6 +243,9 @@ class PlayState extends MusicBeatState
 
 	private var executeModchart = false;
 
+	//determine which's turn
+	public var turn:Int;
+
 	// API stuff
 
 	public function addObject(object:FlxBasic)
@@ -748,8 +751,21 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	var debugNum:Int = 0;
+	public function shakeNormal()
+	{
+		camGame.shake(0.01, 0.1);
+	}
 
+	public function shakeBig()
+	{
+		camGame.shake(0.05, 0.25);
+	}
+
+	public function shakePrettyBig()
+	{
+		camGame.shake(0.035, 0.15);
+	}
+		
 	private function generateSong(dataPath:String):Void
 	{
 		// FlxG.log.add(ChartParser.parse());
@@ -1340,6 +1356,7 @@ class PlayState extends MusicBeatState
 					luaModchart.executeState('playerTwoTurn', []);
 				#end
 
+				turn = -1;
 				songPlayer.updateCamFollowDad();
 			}
 
@@ -1361,6 +1378,7 @@ class PlayState extends MusicBeatState
 					luaModchart.executeState('playerOneTurn', []);
 				#end
 
+				turn = 1;
 				songPlayer.updateCamFollowBF();
 			}
 		}

@@ -6,7 +6,7 @@ import flixel.FlxSprite;
 import fmf.characters.*;
 import Song.SwagSong;
 
-class Run extends Incident
+class Run extends Trueform
 {
 
 	override function getDadTex()
@@ -79,6 +79,13 @@ class Run extends Incident
 	}
 	
 	
+	override function midSongEventUpdate(curBeat:Int)
+	{
+		if (curBeat % playState.gfSpeed == 0 && playState.turn == -1)
+		{
+			playState.shakeNormal();
+		}
+	}
 
 
 	override function createCharacters()
