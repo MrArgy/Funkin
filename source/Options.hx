@@ -97,14 +97,18 @@ class PcOption extends Option
 	
 	public override function press():Bool
 	{
-		FlxG.save.data.pcId += 1;
+		FlxG.save.data.pcId ++;
+
+		if (FlxG.save.data.pcId < 0)
+		{
+			FlxG.save.data.pcId = pcList.length - 1;
+		}
 		if (FlxG.save.data.pcId > pcList.length - 1)
 		{
 			FlxG.save.data.pcId = 0;
 		}
-			
-		display = updateDisplay();
 
+		display = updateDisplay();
 		return true;
 	}
 
@@ -115,14 +119,7 @@ class PcOption extends Option
 
 	override function left():Bool {
 
-
-		FlxG.save.data.pcId -= 1;
-
-		if(FlxG.save.data.pcId < 0)
-		{
-			FlxG.save.data.pcId = pcList.length - 1;
-		}
-
+		FlxG.save.data.pcId -= 2;
 		OptionsMenu.instance.acceptPress();
 		display = updateDisplay();
 
@@ -130,15 +127,6 @@ class PcOption extends Option
 
 	}
 	override function right():Bool {
-
-
-
-		FlxG.save.data.pcId += 1;
-
-		if(FlxG.save.data.pcId > pcList.length - 1)
-		{
-			FlxG.save.data.pcId = 0;
-		}
 
 		OptionsMenu.instance.acceptPress();
 		display = updateDisplay();
@@ -185,10 +173,16 @@ class VFXOption extends Option
 	public override function press():Bool
 	{
 		FlxG.save.data.vfxId += 1;
+
 		if (FlxG.save.data.vfxId > skins.length - 1)
 		{
 			FlxG.save.data.vfxId = 0;
 		}
+		if (FlxG.save.data.vfxId < 0)
+		{
+			FlxG.save.data.vfxId = skins.length - 1;
+		}
+	
 			
 		display = updateDisplay();
 
@@ -203,12 +197,7 @@ class VFXOption extends Option
 	override function left():Bool {
 
 
-		FlxG.save.data.vfxId -= 1;
-
-		if(FlxG.save.data.vfxId < 0)
-		{
-			FlxG.save.data.vfxId = skins.length - 1;
-		}
+		FlxG.save.data.vfxId -= 2;
 
 		OptionsMenu.instance.acceptPress();
 		display = updateDisplay();
@@ -217,15 +206,6 @@ class VFXOption extends Option
 
 	}
 	override function right():Bool {
-
-
-
-		FlxG.save.data.vfxId += 1;
-
-		if(FlxG.save.data.vfxId > skins.length - 1)
-		{
-			FlxG.save.data.vfxId = 0;
-		}
 
 		OptionsMenu.instance.acceptPress();
 		display = updateDisplay();
@@ -282,9 +262,14 @@ class SkinOption extends Option
 	public override function press():Bool
 	{
 		FlxG.save.data.skinId += 1;
+
 		if (FlxG.save.data.skinId > skins.length - 1)
 		{
 			FlxG.save.data.skinId = 0;
+		}
+		if (FlxG.save.data.skinId < 0)
+		{
+			FlxG.save.data.skinId = skins.length - 1;
 		}
 			
 		display = updateDisplay();
@@ -299,14 +284,7 @@ class SkinOption extends Option
 
 	override function left():Bool {
 
-
-		FlxG.save.data.skinId -= 1;
-
-		if(FlxG.save.data.skinId < 0)
-		{
-			FlxG.save.data.skinId = skins.length - 1;
-		}
-
+		FlxG.save.data.skinId -= 2;
 		OptionsMenu.instance.acceptPress();
 		display = updateDisplay();
 
@@ -315,18 +293,8 @@ class SkinOption extends Option
 	}
 	override function right():Bool {
 
-
-
-		FlxG.save.data.skinId += 1;
-
-		if(FlxG.save.data.skinId > skins.length - 1)
-		{
-			FlxG.save.data.skinId = 0;
-		}
-
 		OptionsMenu.instance.acceptPress();
 		display = updateDisplay();
-
 
 		return true;
 	}
@@ -362,6 +330,11 @@ class MobileControl extends Option
 		{
 			FlxG.save.data.mobileControl = 0;
 		}
+
+		if (FlxG.save.data.mobileControl < 0)
+		{
+			FlxG.save.data.mobileControl = 6;
+		}
 			
 		display = updateDisplay();
 
@@ -376,12 +349,7 @@ class MobileControl extends Option
 	override function left():Bool {
 
 
-		FlxG.save.data.mobileControl -= 1;
-
-		if(FlxG.save.data.mobileControl < 0)
-		{
-			FlxG.save.data.mobileControl = 6;
-		}
+		FlxG.save.data.mobileControl -= 2;
 
 		OptionsMenu.instance.acceptPress();
 		display = updateDisplay();
@@ -391,18 +359,8 @@ class MobileControl extends Option
 	}
 	override function right():Bool {
 
-
-
-		FlxG.save.data.mobileControl += 1;
-
-		if(FlxG.save.data.mobileControl > 6)
-		{
-			FlxG.save.data.mobileControl = 0;
-		}
-
 		OptionsMenu.instance.acceptPress();
 		display = updateDisplay();
-
 
 		return true;
 	}

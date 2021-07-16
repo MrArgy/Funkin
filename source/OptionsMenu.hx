@@ -225,14 +225,14 @@ class OptionsMenu extends MusicBeatState
 				{
 					if (Controller.SHIFT)
 					{
-						if (Controller.RIGHT)
-						{
-							currentSelectedCat.getOptions()[curSelected].right();
-						}
-						if (Controller.LEFT)
-						{
-							currentSelectedCat.getOptions()[curSelected].left();
-						}
+						// if (Controller.RIGHT)
+						// {
+						// 	currentSelectedCat.getOptions()[curSelected].right();
+						// }
+						// if (Controller.LEFT)
+						// {
+						// 	currentSelectedCat.getOptions()[curSelected].left();
+						// }
 					}
 					else
 					{
