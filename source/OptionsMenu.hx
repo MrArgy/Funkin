@@ -1,5 +1,6 @@
 package;
 
+import extension.admob.AdMob;
 import fmf.skins.*;
 import ui.Controller;
 import flixel.tweens.FlxEase;
@@ -67,6 +68,8 @@ class OptionsMenu extends MusicBeatState
 	var blackBorder:FlxSprite;
 	override function create()
 	{
+		AdMob.hideBanner();
+
 		instance = this;
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image("menuDesat"));
 

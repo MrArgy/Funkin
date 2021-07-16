@@ -26,7 +26,7 @@ class GameOverSubstate extends MusicBeatSubstate
     var pauseMusic:FlxSound;
 
     var mode:String;
-
+	private var videoArray:Array<VideoIcon> = [];
 
     public function new(x:Float, y:Float)
     {
@@ -35,7 +35,9 @@ class GameOverSubstate extends MusicBeatSubstate
 
         super();
 
-		PlayState.instance.pauseGame();
+        AdMob.onInterstitialEvent = onRewarded;
+
+        PlayState.instance.pauseGame();
 
 
         pauseMusic = new FlxSound().loadEmbedded(Paths.music('go', 'shared'), true, true);
@@ -94,6 +96,15 @@ class GameOverSubstate extends MusicBeatSubstate
             grpMenuShit.add(songText);
 
             songText.screenCenter(X);
+			if (i == 0)
+			{
+				var videoIcon:VideoIcon = new VideoIcon();
+				videoIcon.sprTracker = songText;
+                add(videoIcon);
+				videoArray.push(videoIcon);
+
+			}
+
         }
 
         changeSelection();
@@ -106,6 +117,12 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		LoadingState.createBlackFadeOut(this, PlayState.instance.camHUD);
 
+    }
+
+	function onRewarded(shitReward)
+	{
+        PlayState.instance.revivePlayer();
+        close();
     }
 
     override function update(elapsed:Float)
@@ -135,9 +152,10 @@ class GameOverSubstate extends MusicBeatSubstate
             {
                 case "Revive":
                     // FlxG.sound.play(Paths.sound('confirmMenu'));
-					PlayState.instance.revivePlayer();
-					close();
-
+                    AdMob.showRewardVideo();
+                    #if !mobile
+                    onRewarded("shit");
+                    #end
 
                 case "Restart Song":
 
@@ -157,7 +175,11 @@ class GameOverSubstate extends MusicBeatSubstate
 					// FlxG.sound.play(Paths.music('gameOverEnd'));
 					LoadingState.createBlackFadeIn(this, function()
 					{
-						FlxG.switchState(new MainMenuState());
+						if (PlayState.isStoryMode)
+							FlxG.switchState(new StoryMenuState());
+						else
+							FlxG.switchState(new FreeplayState());
+
 					}, PlayState.instance.camHUD);
 
             }

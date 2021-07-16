@@ -49,7 +49,7 @@ class Manifest extends Trueform
 
 		
 		var hallowTex = Paths.getSparrowAtlas('trueform/sky/bg', 'mods');
-		var bg = new FlxSprite(-200, -100);
+		var bg = new FlxSprite(-200, -200);
 		bg.frames = hallowTex;
 		bg.animation.addByPrefix('idle', 'Bg_manifest0');
 		bg.animation.play('idle');

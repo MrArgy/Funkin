@@ -119,18 +119,13 @@ class GameOverState extends MusicBeatSubstate
 
 			switch (daSelected)
 			{
-				case "Restart":
-					AdMob.showInterstitial(60);
-					FlxG.sound.play(Paths.sound('confirmMenu'));
-					close();
+				
 				case "Restart Song":
-
 					AdMob.showInterstitial(60);
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 					callback();
 					FlxG.resetState();
 				case "Exit to menu":
-
 					AdMob.showInterstitial(60);
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 					callback();

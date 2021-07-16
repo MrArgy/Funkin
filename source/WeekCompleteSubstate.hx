@@ -35,6 +35,9 @@ class WeekCompleteSubState extends MusicBeatSubstate
 
         super();
 
+        PlayState.instance.pauseGame();
+
+        
         pauseMusic = new FlxSound().loadEmbedded(Paths.music('breakfast', 'shared'), true, true);
 		pauseMusic.volume = 0;
         pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
@@ -144,14 +147,18 @@ class WeekCompleteSubState extends MusicBeatSubstate
 
                 case "Exit to menu":
 					PlayState.instance.gameNa();
-
                     AdMob.showInterstitial(60);
+
 					// FlxG.sound.play(Paths.music('gameOverEnd'));
                     PlayState.instance.createEmptyBlack();
 					LoadingState.createBlackFadeIn(this, function()
 					{
-						FlxG.switchState(new MainMenuState());
+						if (PlayState.isStoryMode)
+							FlxG.switchState(new StoryMenuState());
+						else
+							FlxG.switchState(new FreeplayState());
 					}, PlayState.instance.camHUD);
+
 
             }
 

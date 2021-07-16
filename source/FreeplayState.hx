@@ -1,5 +1,6 @@
 package;
 
+import extension.admob.AdMob;
 import fmf.songs.*;
 import ui.FlxVirtualPad.FlxActionMode;
 import ui.FlxVirtualPad.FlxDPadMode;
@@ -42,7 +43,7 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
-		
+
 		// fetch song shits from SongManager
 		songs = new Array<SongMetadata>();
 		var weekNum = 0;
@@ -159,12 +160,21 @@ class FreeplayState extends MusicBeatState
 			trace(md);
 		 */
 
+		AdMob.hideBanner();
+
 		Controller.init(this, FULL, A_B);
 		LoadingState.createBlackFadeOut(this);
+
+		AdMob.onInterstitialEvent = onRewarded;
 
 		super.create();
 	}
 
+	function onRewarded(shitReward)
+	{
+		playLevel();
+	}
+	
 	public function addSong(songName:String, weekNum:Int, firstSong:Bool)
 	{
 		songs.push(new SongMetadata(songName, weekNum, firstSong));
@@ -228,36 +238,68 @@ class FreeplayState extends MusicBeatState
 		if (accepted)
 		{
 			// pre lowercasing the song name (update)
-			var songLowercase = StringTools.replace(songs[curSelected].songName, " ", "-").toLowerCase();
-			switch (songLowercase) {
-				case 'dad-battle': songLowercase = 'dadbattle';
-				case 'philly-nice': songLowercase = 'philly';
+
+			if (songs[curSelected].firstSong)
+			{
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				AdMob.showInterstitial(60);
+				playLevel();
 			}
-			// adjusting the highscore song name to be compatible (update)
-			// would read original scores if we didn't change packages
-			var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
-			switch (songHighscore) {
-				case 'Dad-Battle': songHighscore = 'Dadbattle';
-				case 'Philly-Nice': songHighscore = 'Philly';
+			else
+			{
+				// try show video
+
+				var showVideoSuccess = AdMob.showRewardVideo();
+
+				#if !mobile
+				playLevel();
+				#end
+				// showVideoSuccess = true;
+				// #end
+				// if(showVideoSuccess)
+				// {
+				// 	playLevel();
+				// }
 			}
-			
-			trace(songLowercase);
-
-			var poop:String = Highscore.formatSong(songHighscore, curDifficulty);
-
-			trace(poop);
-
-			var curSong = songs[curSelected];
-
-			PlayState.playingSong = SongManager.songs[curSong.week];
-			PlayState.SONG = Song.loadFromJson(poop, SongManager.songs[curSong.week].folder +  songLowercase);
-		
-			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = curDifficulty;
-			PlayState.storyWeek = songs[curSelected].week;
-			trace('CUR WEEK' + PlayState.storyWeek);
-			LoadingState.loadAndSwitchState(new PlayState());
 		}
+	}
+
+	function playLevel()
+	{
+		var songLowercase = StringTools.replace(songs[curSelected].songName, " ", "-").toLowerCase();
+		switch (songLowercase)
+		{
+			case 'dad-battle':
+				songLowercase = 'dadbattle';
+			case 'philly-nice':
+				songLowercase = 'philly';
+		}
+		// adjusting the highscore song name to be compatible (update)
+		// would read original scores if we didn't change packages
+		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
+		switch (songHighscore)
+		{
+			case 'Dad-Battle':
+				songHighscore = 'Dadbattle';
+			case 'Philly-Nice':
+				songHighscore = 'Philly';
+		}
+
+		trace(songLowercase);
+
+		var poop:String = Highscore.formatSong(songHighscore, curDifficulty);
+
+		trace(poop);
+
+		var curSong = songs[curSelected];
+
+		PlayState.playingSong = SongManager.songs[curSong.week];
+		PlayState.SONG = Song.loadFromJson(poop, SongManager.songs[curSong.week].folder + songLowercase);
+
+		PlayState.isStoryMode = false;
+		PlayState.storyDifficulty = curDifficulty;
+		PlayState.storyWeek = songs[curSelected].week;
+		LoadingState.loadAndSwitchState(new PlayState());
 	}
 
 	function changeDiff(change:Int = 0)

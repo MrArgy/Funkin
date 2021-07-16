@@ -1,5 +1,6 @@
 package ui;
 
+import extension.admob.AdMob;
 import flixel.graphics.frames.FlxTileFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -68,8 +69,11 @@ class CustomControlsState extends MusicBeatSubstate
 
 	public function new()
 	{
-		super();
 
+		AdMob.hideBanner();
+
+		super();
+		
 		//save
 		_saveconrtol = new FlxSave();
     	_saveconrtol.bind("saveconrtol");

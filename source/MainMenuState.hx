@@ -1,5 +1,6 @@
 package;
 
+import extension.admob.AdMob;
 import ui.Controller;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -30,7 +31,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
 	#if !switch
-	var optionShit:Array<String> = ['story mode', 'freeplay', 'donate', 'options'];
+	var optionShit:Array<String> = ['story mode', 'freeplay', 'options'];
 	#else
 	var optionShit:Array<String> = ['story mode', 'freeplay'];
 	#end
@@ -134,6 +135,7 @@ class MainMenuState extends MusicBeatState
 
 		Controller.init(this, UP_DOWN, A);
 		super.create();
+		AdMob.showBanner();
 
 	}
 

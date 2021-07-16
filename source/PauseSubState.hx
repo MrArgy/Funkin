@@ -33,7 +33,7 @@ class PauseSubState extends MusicBeatSubstate
 
 	public function new(x:Float, y:Float)
 	{
-		AdMob.hideBanner();
+		AdMob.hideBanner();	
 
 		super();
 

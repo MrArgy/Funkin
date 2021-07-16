@@ -22,7 +22,7 @@ class TargetPractice extends Trueform
 
 		playState.defaultCamZoom = 0.9;
 
-		var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('trueform/matt/arenanightbg', 'mods'));
+		var bg:FlxSprite = new FlxSprite(-600, -300).loadGraphic(Paths.image('trueform/matt/arenanightbg', 'mods'));
 		bg.antialiasing = true;
 		bg.scrollFactor.set(0.9, 0.9);
 

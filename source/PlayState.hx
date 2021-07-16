@@ -1,5 +1,6 @@
 package;
 
+import extension.admob.AdMob;
 import WeekCompleteSubstate.WeekCompleteSubState;
 import ui.Controller;
 import ui.FlxVirtualPad.FlxActionMode;
@@ -257,6 +258,7 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 		instance = this;
+		AdMob.hideBanner();
 
 		// if (FlxG.save.data.fpsCap > 290)
 		// 	(cast(Lib.current.getChildAt(0), Main)).setFPSCap(800);
@@ -627,6 +629,8 @@ class PlayState extends MusicBeatState
 		createBlackFadeOut();
 
 		super.create();
+		AdMob.hideBanner();
+
 	}
 
 	function isUnlocked():Bool
@@ -1453,6 +1457,8 @@ class PlayState extends MusicBeatState
 		{
 			notes.forEachAlive(function(daNote:Note)
 			{
+
+
 				// instead of doing stupid y > FlxG.height
 				// we be men and actually calculate the time :)
 				if (daNote.tooLate)
@@ -1838,8 +1844,7 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				trace('WENT BACK TO FREEPLAY??');
-				FlxG.switchState(new FreeplayState());
+				backHome();
 			}
 		}
 	}
@@ -2455,22 +2460,37 @@ class PlayState extends MusicBeatState
 				boyfriend().playAnim('idle');
 		}
 
-		playerStrums.forEach(function(spr:FlxSprite)
+		if (!botPlayShit)
 		{
-			if (pressArray[spr.ID] && spr.animation.curAnim.name != 'confirm')
-				spr.animation.play('pressed');
-			if (!holdArray[spr.ID])
-				spr.animation.play('static');
-
-			if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+			playerStrums.forEach(function(spr:FlxSprite)
 			{
-				spr.centerOffsets();
-				spr.offset.x -= 13;
-				spr.offset.y -= 13;
-			}
-			else
-				spr.centerOffsets();
-		});	
+				if (pressArray[spr.ID] && spr.animation.curAnim.name != 'confirm')
+					spr.animation.play('pressed');
+				if (!holdArray[spr.ID])
+					spr.animation.play('static');
+
+				if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+				{
+					spr.centerOffsets();
+					spr.offset.x -= 13;
+					spr.offset.y -= 13;
+				}
+				else
+					spr.centerOffsets();
+			});
+		}
+		else
+		{
+			// if botplay, fuck you
+			playerStrums.forEach(function(spr:FlxSprite)
+			{
+				if (spr.animation.finished)
+				{
+					spr.animation.play('static');
+					spr.centerOffsets();
+				}
+			});
+		}
 
 
 
@@ -2666,24 +2686,32 @@ class PlayState extends MusicBeatState
 			if (!loadRep && note.mustPress)
 				saveNotes.push(HelperFunctions.truncateFloat(note.strumTime, 2));
 
+
+			effectStrums.forEach(function(spr:FlxSprite)
+			{
+				if (Math.abs(note.noteData) == spr.ID && spr.animation.finished)
+				{
+					spr.alpha = 1;
+					spr.animation.play('hit', true);
+				}
+			});
+
 			playerStrums.forEach(function(spr:FlxSprite)
 			{
 				if (Math.abs(note.noteData) == spr.ID)
 				{
 					spr.animation.play('confirm', true);
-					
 				}
+				if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+				{
+					spr.centerOffsets();
+					spr.offset.x -= 13;
+					spr.offset.y -= 13;
+				}
+				else
+					spr.centerOffsets();
 			});
 
-			
-			effectStrums.forEach(function(spr:FlxSprite)
-			{
-				if (Math.abs(note.noteData) == spr.ID && spr.animation.finished)
-				{
-						spr.alpha = 1;
-						spr.animation.play('hit', true);
-				}
-			});
 
 
 			note.wasGoodHit = true;

@@ -80,8 +80,6 @@ class SongManager
 				songList: ['Eeeaaaooo', 'Target-Practice', 'Foolhardy', "Manifest", 'Incident', 'Run']
 			}
 		}),
-        
-
 	
 	];
 //-----------------------------------------------------------

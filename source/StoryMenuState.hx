@@ -1,5 +1,6 @@
 package;
 
+import extension.admob.AdMob;
 import fmf.songs.*;
 
 import ui.FlxVirtualPad.FlxActionMode;
@@ -93,6 +94,9 @@ class StoryMenuState extends MusicBeatState
 
 	override function create()
 	{
+
+		AdMob.hideBanner();
+
 		#if windows
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Story Mode Menu", null);

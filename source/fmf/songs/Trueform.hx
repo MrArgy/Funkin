@@ -76,13 +76,14 @@ class Trueform extends Tutorial
 
 		hole.setGraphicSize(Std.int(hole.width * 1.25));
 
-		playState.add(gf);
 		playState.add(dad);
-			
+		playState.add(hole);
+
 		dad.y -= 100;
 		hole.y -= 225;
 
 		playState.add(bf);
+
 
 		gf.alpha = 0;
         dad.scrollFactor.set(0.95, 0.95);
