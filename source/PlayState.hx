@@ -94,8 +94,6 @@ class PlayState extends MusicBeatState
 	public static var songPosBG:FlxSprite;
 	public static var songPosBar:FlxBar;
 
-	// public static var rep:Replay;
-	public static var loadRep:Bool = false;
 
 	public static var noteBools:Array<Bool> = [false, false, false, false];
 
@@ -209,7 +207,6 @@ class PlayState extends MusicBeatState
 	public var talking:Bool = true;
 	var songScore:Int = 0;
 	var songScoreDef:Int = 0;
-	var replayTxt:FlxText;
 	var isOver:Bool;
 
 	public static var campaignScore:Int = 0;
@@ -241,8 +238,6 @@ class PlayState extends MusicBeatState
 
 	// BotPlay text
 	private var botPlayState:FlxText;
-	// Replay shit
-	private var saveNotes:Array<Float> = [];
 
 	private var executeModchart = false;
 
@@ -400,18 +395,7 @@ class PlayState extends MusicBeatState
 			// songPlayer.createDialogue(startCountdown);
 
 		songPlayer.applyCamPosition();
-
-		// if (loadRep)
-		// {
-		// 	FlxG.watch.addQuick('rep rpesses', repPresses);
-		// 	FlxG.watch.addQuick('rep releases', repReleases);
-
-		// 	botPlayShit = true;
-		// 	FlxG.save.data.scrollSpeed = rep.replay.noteSpeed;
-		// 	FlxG.save.data.downscroll = rep.replay.isDownscroll;
-		// 	// FlxG.watch.addQuick('Queued',inputsQueued);
-		// }
-
+		
 		Conductor.songPosition = -5000;
 
 		strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
@@ -543,20 +527,12 @@ class PlayState extends MusicBeatState
 		if (FlxG.save.data.downscroll)
 			kadeEngineWatermark.y = FlxG.height * 0.9 + 45;
 
-		replayTxt = new FlxText(healthBarBG.x + healthBarBG.width / 2 - 75, healthBarBG.y + (FlxG.save.data.downscroll ? 100 : -100), 0, "REPLAY", 20);
-		replayTxt.setFormat(Paths.font("vcr.ttf"), 42, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		replayTxt.scrollFactor.set();
-		// if (loadRep)
-		// {
-		// 	add(replayTxt);
-		// }
-
 		botPlayState = new FlxText(5, 5, "AUTO", 15);
 		botPlayState.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botPlayState.scrollFactor.set();
 		botPlayState.cameras = [camHUD];
 
-		if (botPlayShit && !loadRep)
+		if (botPlayShit)
 			add(botPlayState);
 
 		iconP1 = new HealthIcon();
@@ -599,8 +575,6 @@ class PlayState extends MusicBeatState
 			songPosBar.cameras = [camHUD];
 		}
 		kadeEngineWatermark.cameras = [camHUD];
-		// if (loadRep)
-		// 	replayTxt.cameras = [camHUD];
 
 		startingSong = true;
 
@@ -619,10 +593,6 @@ class PlayState extends MusicBeatState
 					startCountdown();
 			}
 		}
-
-		// if (!loadRep)
-		// 	rep = new Replay("na");
-
 
 		mcontrols = new Mobilecontrols();
 		mcontrols.cameras = [camHUD];
@@ -1726,18 +1696,10 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
-		// if (!loadRep)
-		// 	rep.SaveReplay(saveNotes);
-		// else
-		// {
-			botPlayShit = false;
-			FlxG.save.data.scrollSpeed = 1;
-			FlxG.save.data.downscroll = false;
-		// }
 
-		// if (FlxG.save.data.fpsCap > 290)
-		// 	(cast(Lib.current.getChildAt(0), Main)).setFPSCap(290);
-
+		botPlayShit = false;
+		FlxG.save.data.scrollSpeed = 1;
+	
 		#if windows
 		if (luaModchart != null)
 		{
@@ -2467,20 +2429,8 @@ class PlayState extends MusicBeatState
 				// Force good note hit regardless if it's too late to hit it or not as a fail safe
 				if (botPlayShit && daNote.canBeHit && daNote.mustPress || botPlayShit && daNote.tooLate && daNote.mustPress)
 				{
-					// if (loadRep)
-					// {
-					// 	// trace('ReplayNote ' + tmpRepNote.strumtime + ' | ' + tmpRepNote.direction);
-					// 	if (rep.replay.songNotes.contains(HelperFunctions.truncateFloat(daNote.strumTime, 2)))
-					// 	{
-					// 		goodNoteHit(daNote);
-					// 		boyfriend().holdTimer = daNote.sustainLength;
-					// 	}
-					// }
-					// else
-					// {
-						goodNoteHit(daNote);
-						boyfriend().holdTimer = daNote.sustainLength;
-					// }
+					goodNoteHit(daNote);
+					boyfriend().holdTimer = daNote.sustainLength;
 				}
 			}
 		});
@@ -2627,43 +2577,9 @@ class PlayState extends MusicBeatState
 
 		note.rating = Ratings.CalculateRating(noteDiff);
 
-		/* if (loadRep)
-			{
-				if (controlArray[note.noteData])
-					goodNoteHit(note, false);
-				else if (rep.replay.keyPresses.length > repPresses && !controlArray[note.noteData])
-				{
-					if (NearlyEquals(note.strumTime,rep.replay.keyPresses[repPresses].time, 4))
-					{
-						goodNoteHit(note, false);
-					}
-				}
-		}*/ 
-
 		if (controlArray[note.noteData])
 		{
 			goodNoteHit(note, (mashing > getKeyPresses(note)));
-
-			/*if (mashing > getKeyPresses(note) && mashViolations <= 2)
-				{
-					mashViolations++;
-
-					goodNoteHit(note, (mashing > getKeyPresses(note)));
-				}
-				else if (mashViolations > 2)
-				{
-					// this is bad but fuck you
-					playerStrums.members[0].animation.play('static');
-					playerStrums.members[1].animation.play('static');
-					playerStrums.members[2].animation.play('static');
-					playerStrums.members[3].animation.play('static');
-					health -= 0.4;
-					trace('mash ' + mashing);
-					if (mashing != 0)
-						mashing = 0;
-				}
-				else
-					goodNoteHit(note, false); */
 		}
 	}
 
@@ -2713,10 +2629,6 @@ class PlayState extends MusicBeatState
 			if (luaModchart != null)
 				luaModchart.executeState('playerOneSing', [note.noteData, Conductor.songPosition]);
 			#end
-
-			// if (!loadRep && note.mustPress)
-			// 	saveNotes.push(HelperFunctions.truncateFloat(note.strumTime, 2));
-
 
 			effectStrums.forEach(function(spr:FlxSprite)
 			{
