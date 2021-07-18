@@ -1,4 +1,4 @@
-package;
+laypackage;
 
 import flixel.addons.effects.FlxSkewedSprite;
 import flixel.FlxG;
@@ -47,6 +47,7 @@ class Note extends FlxSprite
 		this.prevNote = prevNote;
 		isSustainNote = sustainNote;
 
+		
 		x += 50;
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
 		y -= 2000;
