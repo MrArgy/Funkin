@@ -144,25 +144,25 @@ class MainMenuState extends MusicBeatState
 	function createFunnyFx()
 	{
 		
-		var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
-		blackScreen.alpha = 1;
-		blackScreen.screenCenter();
-		add(blackScreen);
-		FlxTween.tween(blackScreen, {alpha: 0}, 0.25, {});
-		FlxG.camera.zoom = 0.1;
+		// var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);
+		// blackScreen.alpha = 1;
+		// blackScreen.screenCenter();
+		// add(blackScreen);
+		// FlxTween.tween(blackScreen, {alpha: 0}, 0.25, {});
+		// FlxG.camera.zoom = 0.1;
 
-		new FlxTimer().start(0.016, function(tmr:FlxTimer)
-		{
-			if (FlxG.camera.zoom < 1)
-			{
-				FlxG.camera.zoom += 0.016;
-			}
-			else
-			{
-				FlxG.camera.zoom = 1;
-				finishedFunnyMove = true;
-			}
-		}, 120);		
+		// new FlxTimer().start(0.016, function(tmr:FlxTimer)
+		// {
+		// 	if (FlxG.camera.zoom < 1)
+		// 	{
+		// 		FlxG.camera.zoom += 0.016;
+		// 	}
+		// 	else
+		// 	{
+		// 		FlxG.camera.zoom = 1;
+		// 		finishedFunnyMove = true;
+		// 	}
+		// }, 120);		
 	}
 	override function update(elapsed:Float)
 	{

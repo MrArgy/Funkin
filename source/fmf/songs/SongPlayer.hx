@@ -14,7 +14,7 @@ import flixel.group.FlxGroup;
 import Song.SwagSong;
 
 // base class execute song data
-class SongPlayer extends  BaseSong
+class SongPlayer extends BaseSong
 {
 
 //----------------------------------- INITIALIZE -------------------------------------------------------

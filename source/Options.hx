@@ -246,12 +246,6 @@ class SkinOption extends Option
 		'Agoti', 
 		'Trollge',
 		'Tabi',
-		'GF',
-		'Sarv',
-		'Dark-Sarv',
-		'Ruv',
-		'Luci-Sarv',
-		'Selever',
 		'Text', 
 		'Square',
 		'Sharp', 
@@ -871,26 +865,26 @@ class NPSDisplayOption extends Option
 	}
 }
 
-class ReplayOption extends Option
-{
-	public function new(desc:String)
-	{
-		super();
-		description = desc;
-	}
+// class ReplayOption extends Option
+// {
+// 	public function new(desc:String)
+// 	{
+// 		super();
+// 		description = desc;
+// 	}
 	
-	public override function press():Bool
-	{
-		trace("switch");
-		FlxG.switchState(new LoadReplayState());
-		return false;
-	}
+// 	public override function press():Bool
+// 	{
+// 		trace("switch");
+// 		// FlxG.switchState(new LoadReplayState());
+// 		return false;
+// 	}
 
-	private override function updateDisplay():String
-	{
-		return "Load replays";
-	}
-}
+// 	private override function updateDisplay():String
+// 	{
+// 		return "Load replays";
+// 	}
+// }
 
 class AccuracyDOption extends Option
 {

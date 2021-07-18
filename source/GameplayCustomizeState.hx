@@ -149,7 +149,7 @@ class GameplayCustomizeState extends MusicBeatState
         super.update(elapsed);
 
         FlxG.camera.zoom = FlxMath.lerp(0.9, FlxG.camera.zoom, 0.95);
-        camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
+        // camHUD.zoom = FlxMaths.lerp(1, camHUD.zoom, 0.95);
 
         if (FlxG.mouse.overlaps(sick) && FlxG.mouse.pressed)
         {
@@ -195,7 +195,7 @@ class GameplayCustomizeState extends MusicBeatState
         dad.dance();
 
         FlxG.camera.zoom += 0.015;
-        camHUD.zoom += 0.010;
+        // s += 0.010;
 
         trace('beat');
 

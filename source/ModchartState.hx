@@ -367,7 +367,7 @@ class ModchartState
 				setVar("crochet", Conductor.stepCrochet);
 				setVar("safeZoneOffset", Conductor.safeZoneOffset);
 	
-				setVar("hudZoom", PlayState.instance.camHUD.zoom);
+				// setsVar("hudZoom", PlayState.instance.camHUD.zoom);
 				setVar("cameraZoom", FlxG.camera.zoom);
 	
 				setVar("cameraAngle", FlxG.camera.angle);
@@ -456,9 +456,9 @@ class ModchartState
 					FlxG.camera.zoom = zoomAmount;
 				});
 	
-				Lua_helper.add_callback(lua,"setHudZoom", function(zoomAmount:Float) {
-					PlayState.instance.camHUD.zoom = zoomAmount;
-				});
+				// Lua_helper.add_callback(lua,"setHudZoom", function(zoomAmount:Float) {
+				// 	PlayState.instance.camHUD.zoom = zoomAmount;
+				// });
 	
 				// strumline
 

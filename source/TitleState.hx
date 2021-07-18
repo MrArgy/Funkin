@@ -1,5 +1,6 @@
 package;
 
+import extension.admob.AdMob;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -55,19 +56,19 @@ class TitleState extends MusicBeatState
 	{
 		credits = CreditManager.credits;
 
-		#if polymod
-		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
-		#end
+		// #if polymod
+		// polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
+		// #end
 		
-		#if sys
-		if (!sys.FileSystem.exists(Sys.getCwd() + "/assets/replays"))
-			sys.FileSystem.createDirectory(Sys.getCwd() + "/assets/replays");
-		#end
+		// #if sys
+		// if (!sys.FileSystem.exists(Sys.getCwd() + "/assets/replays"))
+		// 	sys.FileSystem.createDirectory(Sys.getCwd() + "/assets/replays");
+		// #end
 
-		@:privateAccess
-		{
-			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
-		}
+		// @:privateAccess
+		// {
+		// 	trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
+		// }
 		
 		PlayerSettings.init();
 
@@ -83,6 +84,10 @@ class TitleState extends MusicBeatState
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
 		// DEBUG BULLSHIT
+
+		#if mobile	
+		AdMob.initAndroid();
+		#end
 
 		super.create();
 
@@ -196,21 +201,22 @@ class TitleState extends MusicBeatState
 		// add(gfDance);
 		// add(logoBl);
 
-		titleText = new FlxSprite(100, FlxG.height * 0.8);
+		titleText = new FlxSprite(100, FlxG.height * 0.6);
 		titleText.frames = Paths.getSparrowAtlas('titleEnter');
 		titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
-		titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
+		titleText.animation.addByPrefix('press', "ENTER PRESSED0", 24);
 		titleText.antialiasing = true;
 		titleText.animation.play('idle');
-		titleText.updateHitbox();
 
-		titleText.y = FlxG.height / 2;
+		titleText.updateHitbox();
+		titleText.x = 250;
+
 		// titleText.screenCenter(X);
 		add(titleText);
 
-		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
-		logo.screenCenter();
-		logo.antialiasing = true;
+		// var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
+		// logo.screenCenter();
+		// logo.antialiasing = true;
 		// add(logo);
 
 		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
@@ -309,12 +315,12 @@ class TitleState extends MusicBeatState
 			//NGio.unlockMedal(60960);
 
 			// If it's Friday according to da clock
-			if (Date.now().getDay() == 5)
+			// if (Date.now().getDay() == 5)
 				//NGio.unlockMedal(61034);
 			#end
 
-			if (FlxG.save.data.flashing)
-				titleText.animation.play('press');
+			// if (FlxG.save.data.flashing)
+			titleText.animation.play('press');
 
 			FlxG.camera.flash(FlxColor.WHITE, 1);
 			FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);

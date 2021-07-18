@@ -32,15 +32,18 @@ class Eeeeaaaooo extends Trueform
 
 		
 		var hallowTex = Paths.getSparrowAtlas('trueform/lila/halloween_bg', 'mods');
-		halloweenBG = new FlxSprite(-200, -100);
+		halloweenBG = new FlxSprite(350, 400);
 		halloweenBG.setGraphicSize(Std.int(halloweenBG.width * 1.5));
 		halloweenBG.frames = hallowTex;
-		halloweenBG.animation.addByPrefix('idle', 'halloweem bg0');
+		halloweenBG.animation.addByPrefix('idle', 'halloweem bg0' );
 		halloweenBG.animation.addByPrefix('lightning', 'halloweem bg lightning strike', 24, false);
 		halloweenBG.animation.play('idle');
 		halloweenBG.antialiasing = true;
-
-		halloweenBG.y -= 100;
+		halloweenBG.scale.y = 4.5;
+		halloweenBG.scale.x = 4.5;
+		halloweenBG.scrollFactor.set(0.9, 0.9);
+		halloweenBG.y -= 125;
+		halloweenBG.x += 350;
 
 		playState.add(halloweenBG);
 		

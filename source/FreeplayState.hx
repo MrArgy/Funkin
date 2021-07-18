@@ -81,6 +81,13 @@ class FreeplayState extends MusicBeatState
 		// LOAD CHARACTERS
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
+		bg.scrollFactor.x = 0;
+		bg.scrollFactor.y = 0.15;
+		bg.setGraphicSize(Std.int(bg.width * 1.1));
+		bg.updateHitbox();
+		bg.screenCenter();
+		bg.antialiasing = true;
+
 		add(bg);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
@@ -232,9 +239,9 @@ class FreeplayState extends MusicBeatState
 
 		if (Controller.BACK)
 		{
-			#if PRELOAD_ALL
-			FlxG.sound.music.stop();
-			#end
+			// #if PRELOAD_ALL
+			// FlxG.sound.music.stop();
+			// #end
 
 			FlxG.switchState(new MainMenuState());
 		}
@@ -371,9 +378,9 @@ class FreeplayState extends MusicBeatState
 		var curSong = songs[curSelected];
 
 
-		#if PRELOAD_ALL
-		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName, SongManager.songs[curSong.week].folder), 0);
-		#end
+		// #if PRELOAD_ALL
+		// FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName, SongManager.songs[curSong.week].folder), 0);
+		// #end
 
 		var bullShit:Int = 0;
 

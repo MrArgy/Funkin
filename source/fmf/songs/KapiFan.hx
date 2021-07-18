@@ -11,7 +11,7 @@ class KapiFan extends Kapi
 
     override function getDadTex()
 	{
-		var tex = Paths.getSparrowAtlas('kapi/kapifan', 'mods');
+		var tex = Paths.getSparrowAtlas('kapi/flatzone', 'mods');
 		dad.frames = tex;
 	}
 
@@ -28,11 +28,11 @@ class KapiFan extends Kapi
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'spooky dance idle', 24);
-		animation.addByPrefix('singUP', 'spooky UP NOTE', 24);
-		animation.addByPrefix('singRIGHT', 'spooky sing right', 24);
-		animation.addByPrefix('singDOWN', 'spooky DOWN note', 24);
-		animation.addByPrefix('singLEFT', 'note sing left', 24);
+		animation.addByPrefix('idle', 'idle', 24);
+		animation.addByPrefix('singUP', 'up', 24);
+		animation.addByPrefix('singRIGHT', 'right', 24);
+		animation.addByPrefix('singDOWN', 'down', 24);
+		animation.addByPrefix('singLEFT', 'left', 24);
 		dad.animation = animation;
 	}
 
@@ -55,7 +55,13 @@ class KapiFan extends Kapi
 
 		gf.y += 75;
 		bf.y += 75;
-		dad.y += 25;
+
+		dad.x += 50;
+		dad.y += 70;
+
+
+		dad.scale.x = 1;
+		dad.scale.y = 1;
 
 	}
 

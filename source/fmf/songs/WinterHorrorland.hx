@@ -65,7 +65,7 @@ class WinterHorrorland extends SongPlayer
 			playState.camFollow.y = -2050;
 			playState.camFollow.x += 200;
 			FlxG.camera.focusOn(playState.camFollow.getPosition());
-			FlxG.camera.zoom = 1.5;
+			FlxG.camera.zoom = 1;
 		});
 	}
 
