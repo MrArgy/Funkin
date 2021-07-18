@@ -63,7 +63,12 @@ class Eeeeaaaooo extends Trueform
 	function lightningStrikeShit(curBeat:Int):Void
 	{
 		FlxG.sound.play(Paths.soundRandom('thunder_', 1, 2));
+		
 		halloweenBG.animation.play('lightning');
+		var mul = FlxG.random.int(-35, 35);
+
+		dad.x += mul;
+		hole.x += mul;
 
 		lightningStrikeBeat = curBeat;
 		lightningOffset = FlxG.random.int(8, 24);
@@ -71,10 +76,7 @@ class Eeeeaaaooo extends Trueform
 		dad.playAnimForce('scared', 0.1);
 		bf.playAnimForce('scared', 0.5);
 
-		var mul = FlxG.random.int(-35, 35);
-
-		dad.x += mul; 
-		hole.x += mul;
+		
 
 
 	}

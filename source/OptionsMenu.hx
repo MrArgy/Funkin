@@ -39,6 +39,12 @@ class OptionsMenu extends MusicBeatState
 		[
 			new VFXOption("Select your virtual notes effect")
 		]),
+		
+		new OptionCategory("Graphics",
+		[
+			new DadGraphicOption("Set visible for dad"),
+			new GFGraphicOption("Set visible for girlfriend"),
+		]),
 
 		new OptionCategory("Controls", [
 			new MobileControl("Adjust control on mobile"),

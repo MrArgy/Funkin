@@ -997,3 +997,83 @@ class BotPlay extends Option
 	private override function updateDisplay():String
 		return "BotPlay " + (FlxG.save.data.botplay ? "on" : "off");
 }
+
+class GFGraphicOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	
+	public override function press():Bool
+	{
+		FlxG.save.data.showGF = !FlxG.save.data.showGF;
+		display = updateDisplay();
+		return true;
+	}
+	
+	private override function updateDisplay():String
+		return "Girlfriend: " + (FlxG.save.data.showGF ? "on" : "off");
+}
+
+
+class BFGraphicOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	
+	public override function press():Bool
+	{
+		FlxG.save.data.showBF = !FlxG.save.data.showBF;
+		display = updateDisplay();
+		return true;
+	}
+	
+	private override function updateDisplay():String
+		return "Boyfriend: " + (FlxG.save.data.showBF ? "on" : "off");
+}
+
+
+class DadGraphicOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	
+	public override function press():Bool
+	{
+		FlxG.save.data.showDad = !FlxG.save.data.showDad;
+		display = updateDisplay();
+		return true;
+	}
+	
+	private override function updateDisplay():String
+		return "Dad: " + (FlxG.save.data.showDad ? "on" : "off");
+}
+
+
+class MapGraphicOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+	
+	public override function press():Bool
+	{
+		FlxG.save.data.showMap = !FlxG.save.data.showMap;
+		display = updateDisplay();
+		return true;
+	}
+	
+	private override function updateDisplay():String
+		return "Load Map: " + (FlxG.save.data.showMap ? "on" : "off");
+}
+

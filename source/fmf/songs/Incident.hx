@@ -89,40 +89,45 @@ class Incident extends Trueform
 
 	override function midSongEventUpdate(curBeat:Int)
 	{
+
 		switch(curBeat)
 		{
 			case 1 | 287 | 660:
-				playState.camZooming = true;
-
-				hole.alpha = 0;
+		
 				whiteBG.color = FlxColor.BLACK;
 				FlxTween.tween(whiteBG, {alpha: 1}, 0.5, {});
+				gfbg.alpha = 0;
+
+				playState.camZooming = true;
+				hole.alpha = 0;
 				FlxTween.tween(bf, {alpha: 1}, 0.5, {});
 				dad.alpha = 0;
-				gfbg.alpha = 0;
 				playState.defaultCamZoom = 1.1;
 
 			case 32 | 353:
 
+				whiteBG.alpha = 0;
+				gfbg.alpha = 1;
+
 				hole.alpha = 1;
 				dad.alpha = 1;
-				gfbg.alpha = 1;
 				bf.alpha = 0.25;
-				whiteBG.alpha = 0;
 				playState.defaultCamZoom = 0.9;
 
 
 			case 97:
+
 				FlxTween.tween(whiteBG, {alpha: 1}, 0.5, {});
-				FlxTween.tween(dad, {alpha: 1}, 0.5, {});
 				FlxTween.tween(gfbg, {alpha: 1}, 0.5, {});
 
+				FlxTween.tween(dad, {alpha: 1}, 0.5, {});
 				bf.alpha = 0;
 
 			case 127:
 				bf.alpha = 0.25;
-				whiteBG.alpha = 0;
 				dad.alpha = 1;
+
+				whiteBG.alpha = 0;
 				gfbg.alpha = 1;
 	
 
@@ -143,11 +148,9 @@ class Incident extends Trueform
 
 		hole.x += 125;
 		hole.y -= 50;
-
-
+	
 		gfbg.x += 175;
 		gfbg.y += 90;
-
 		// hole.x = gfbg.x;
 		// hole.y = gfbg.y;
 

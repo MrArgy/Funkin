@@ -819,6 +819,12 @@ class PlayState extends MusicBeatState
 
 				var gottaHitNote:Bool = section.mustHitSection;
 
+				if (!gottaHitNote)
+				{
+					if (!FlxG.save.data.showDad) //if we are not show dad, skip babe
+						continue;
+
+				}
 				if (songNotes[1] > 3)
 				{
 					gottaHitNote = !section.mustHitSection;
@@ -829,6 +835,8 @@ class PlayState extends MusicBeatState
 					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 				else
 					oldNote = null;
+
+
 
 				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
 				swagNote.sustainLength = songNotes[2];
@@ -905,6 +913,8 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					cpuStrums.add(babyArrow);
+					if(!FlxG.save.data.showDad)
+						babyArrow.visible = false;
 				case 1:
 					playerStrums.add(babyArrow);
 			}
@@ -1318,6 +1328,7 @@ class PlayState extends MusicBeatState
 				luaModchart.setVar("mustHit", SONG.notes[Std.int(curStep / 16)].mustHitSection);
 			#end
 
+			if(FlxG.save.data.showDad)
 			if (camFollow.x != dad().getMidpoint().x + 150 && !SONG.notes[Std.int(curStep / 16)].mustHitSection)
 			{
 				var offsetX = 0;
@@ -1336,6 +1347,7 @@ class PlayState extends MusicBeatState
 				#end
 
 				turn = -1;
+
 				songPlayer.updateCamFollowDad();
 			}
 

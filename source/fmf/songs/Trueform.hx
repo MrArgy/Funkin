@@ -70,16 +70,18 @@ class Trueform extends Tutorial
 		dad.y -= 100;
 		dad.x -= 100;
 
-
-		hole.x = dad.getGraphicMidpoint().x - 275;
-		hole.y = dad.getGraphicMidpoint().y - 100;
+		hole.x = dad.x - 275;
+		hole.y = dad.y - 100;
 
 		hole.setGraphicSize(Std.int(hole.width * 1.25));
 
+
 		playState.add(dad);
+
 		playState.add(hole);
 
 		dad.y -= 100;
+
 		hole.y -= 225;
 
 		playState.add(bf);

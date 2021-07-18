@@ -6,6 +6,33 @@ class KadeEngineData
     public static function initSave()
     {
 
+
+		if (FlxG.save.data.showBF == null)
+		{
+			FlxG.save.data.showBF = true;
+		}
+
+		if (FlxG.save.data.showDad == null)
+		{
+			FlxG.save.data.showDad = true;
+		}
+
+		if (FlxG.save.data.showGF == null)
+		{
+			FlxG.save.data.showGF = true;
+		}
+
+		if (FlxG.save.data.showBG == null)
+		{
+			FlxG.save.data.showBG = true;
+		}
+
+		if (FlxG.save.data.showCombo == null)
+		{
+			FlxG.save.data.showCombo = true;
+		}
+			
+
 		//yeah pc id
 		if (FlxG.save.data.pcId == null)
 		{

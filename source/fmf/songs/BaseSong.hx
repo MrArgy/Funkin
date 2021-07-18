@@ -64,7 +64,6 @@ class BaseSong
 	public function init(playState:PlayState):Void
 	{
 		this.playState = playState;
-
 		loadMap();
 		createCharacters();
 		initVariables();
@@ -75,7 +74,7 @@ class BaseSong
 		loadSkin();
 		loadVFX();
 
-		camPos = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
+		camPos = new FlxPoint(dad.x, dad.y);
 		// setCamPosition();
 	}
 
@@ -184,6 +183,14 @@ class BaseSong
 	private function createGF()
 	{
 		gf = getGFVersion();
+
+		if (!FlxG.save.data.showGF)
+		{	
+			gf.isVisible = false;
+			gf.alpha = 0;
+			return;
+		}
+
 		getGFTex();
 		createGFAnimations();
 		createGFAnimationOffsets();
@@ -249,6 +256,15 @@ class BaseSong
 	public function createDad()
 	{
 		dad = getDadVersion();
+
+		if (!FlxG.save.data.showDad)
+		{
+			dad.setPosition(bf.getPosition().x, bf.getPosition().y);
+			dad.isVisible = false;
+			dad.alpha = 0;
+			return;
+		}
+
 		getDadTex();
 		createDadAnimations();
 		createDadAnimationOffsets();

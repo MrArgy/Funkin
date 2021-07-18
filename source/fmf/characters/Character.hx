@@ -16,11 +16,12 @@ class Character extends FlxSprite
 	public var holdTimer:Float = 0;
 	public var stunned:Bool;
 
+	public var isVisible:Bool = true;
+
 	public function new(x:Float, y:Float)
 	{
 		super(x, y);
 		animOffsets = new Map<String, Array<Dynamic>>();
-		var tex:FlxAtlasFrames;
 		antialiasing = true;
 	}
 
@@ -65,6 +66,9 @@ class Character extends FlxSprite
 	public function playAnimForce(anim:String, lockDuration:Float)
 	{
 		if(isLockAnim) return;
+
+		if (!isVisible)
+			return;
 		
 		playAnim(anim, true);
 		lockAnim(lockDuration);
@@ -73,6 +77,9 @@ class Character extends FlxSprite
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
 		if (isLockAnim)
+			return;
+
+		if (!isVisible)
 			return;
 
 		animation.play(AnimName, Force, Reversed, Frame);
@@ -88,6 +95,9 @@ class Character extends FlxSprite
 
 	public function addOffset(name:String, x:Float = 0, y:Float = 0)
 	{
+		if (!isVisible)
+			return;
+		
 		animOffsets[name] = [x, y];
 	}
 }

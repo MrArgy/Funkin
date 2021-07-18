@@ -77,7 +77,7 @@ class GameplayCustomizeState extends MusicBeatState
 
         // bf = new Boyfriend(770, 450, 'bf');
 
-		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x + 400, dad.getGraphicMidpoint().y);
+		var camPos:FlxPoint = new FlxPoint(dad.x + 400, dad.y);
 
 		camFollow.setPosition(camPos.x, camPos.y);
 
