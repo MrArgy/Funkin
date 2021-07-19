@@ -83,7 +83,6 @@ class Trueform extends Tutorial
 
 		playState.add(bf);
 
-
 		gf.alpha = 0;
         dad.scrollFactor.set(0.95, 0.95);
 	}

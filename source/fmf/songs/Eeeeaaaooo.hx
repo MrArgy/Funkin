@@ -30,7 +30,6 @@ class Eeeeaaaooo extends Trueform
 		hole.animation.add('shit', getArray(5, 16), 16, true);
 		hole.animation.play('shit', true);
 
-		
 		var hallowTex = Paths.getSparrowAtlas('trueform/lila/halloween_bg', 'mods');
 		halloweenBG = new FlxSprite(350, 400);
 		halloweenBG.setGraphicSize(Std.int(halloweenBG.width * 1.5));
