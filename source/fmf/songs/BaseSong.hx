@@ -112,6 +112,9 @@ class BaseSong
 		createGF();
 		createBF();
 		createDad();
+
+		dad.y =  bf.y - 100; //cuz bf is not tall
+		dad.x = bf.x - 600;
 	
 
 		gf.scrollFactor.set(0.95, 0.95);
@@ -249,7 +252,7 @@ class BaseSong
 	// get dad version
 	private function getDadVersion():Character
 	{
-		return new Character(100, 100);
+		return new Character(-250, 125);
 	}
 
 	// create dad
@@ -262,6 +265,7 @@ class BaseSong
 			dad.setPosition(bf.getPosition().x, bf.getPosition().y);
 			dad.isVisible = false;
 			dad.alpha = 0;
+			dad.visible = false;
 			return;
 		}
 
@@ -269,11 +273,6 @@ class BaseSong
 		createDadAnimations();
 		createDadAnimationOffsets();
 
-		if (gf != null) //incase animation debug, just ignore
-		{
-			dad.x = gf.x;
-			dad.y = gf.y;
-		}
 	}
 
 //--------------------------------------------------------------------------------------------------------
@@ -307,7 +306,7 @@ class BaseSong
 
 	private function getDefaultPc():PlayableCharacter
 	{
-		return new Boyfriend(770, 450);
+		return new Boyfriend(700, 450);
 	}
 
 	// create BF

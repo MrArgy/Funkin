@@ -116,16 +116,11 @@ class AgotiCrazy extends Agoti
 		return new GFAgotiCrazy(400, 0);
 	}
 
-	override function createDad()
+	override function getDadVersion():Character
 	{
-        dad = new Dad(0, 125);
-		getDadTex();
-		createDadAnimations();
-		createDadAnimationOffsets();
-		dad.dance();
-
-    }
-
+		return new Dad(400, 250);
+	}
+	
 	override function createCharacters()
 	{
 		super.createCharacters();

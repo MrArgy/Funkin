@@ -27,7 +27,7 @@ class Eeeeaaaooo extends Trueform
 		hole.loadGraphic(Paths.image('trueform/lila/gfshit', 'mods'), true, 512, 512);
 		hole.scrollFactor.set(0.9, 0.9);
 
-		hole.animation.add('shit', getArray(0, 16), 16, true);
+		hole.animation.add('shit', getArray(5, 16), 16, true);
 		hole.animation.play('shit', true);
 
 		

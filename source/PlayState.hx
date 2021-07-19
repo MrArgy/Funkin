@@ -913,7 +913,7 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					cpuStrums.add(babyArrow);
-					if(!FlxG.save.data.showDad)
+					if(!FlxG.save.data.showDadNote || !FlxG.save.data.showDad)
 						babyArrow.visible = false;
 				case 1:
 					playerStrums.add(babyArrow);
@@ -979,9 +979,14 @@ class PlayState extends MusicBeatState
 
 	override function destroy()
 	{
+		strumLineNotes = null;
+		cpuStrums = null;
+		playerStrums = null;
+		songPlayer = null;
+		effectStrums = null;
+
 		super.destroy();
 	}
-
 
 	override function closeSubState()
 	{
@@ -1037,6 +1042,7 @@ class PlayState extends MusicBeatState
 	}
 	function resyncVocals():Void
 	{
+		vocals.volume = 1;
 		vocals.pause();
 
 		FlxG.sound.music.play();

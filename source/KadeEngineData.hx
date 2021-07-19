@@ -6,6 +6,10 @@ class KadeEngineData
     public static function initSave()
     {
 
+		if (FlxG.save.data.showDadNote == null)
+		{
+			FlxG.save.data.showDadNote = false;
+		}
 
 		if (FlxG.save.data.showBF == null)
 		{

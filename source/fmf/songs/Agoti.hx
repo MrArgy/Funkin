@@ -137,19 +137,15 @@ class Agoti extends SongPlayer
 
 	}
 
-	override function createDad()
+	override function getDadVersion():Character
 	{
-        dad = new Dad(0, 125);
-		getDadTex();
-		createDadAnimations();
-		createDadAnimationOffsets();
-		dad.dance();
-
-    }
+		return new Dad(-250, 125);
+	}
 
 	public override function createCharacters()
 	{
 		super.createCharacters();
+
 		bf.x += 100;
 		bf.y += 50;
 	}

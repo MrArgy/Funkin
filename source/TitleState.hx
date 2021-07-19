@@ -59,7 +59,7 @@ class TitleState extends MusicBeatState
 		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
 		#end
 		
-		#if sys
+		#if sys-Dtelemetry
 		if (!sys.FileSystem.exists(Sys.getCwd() + "/assets/replays"))
 			sys.FileSystem.createDirectory(Sys.getCwd() + "/assets/replays");
 		#end
@@ -68,6 +68,7 @@ class TitleState extends MusicBeatState
 		{
 			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
 		}
+
 		
 		PlayerSettings.init();
 
@@ -96,7 +97,7 @@ class TitleState extends MusicBeatState
 			// StoryMenuState.weekUnlocked = FlxG.save.data.weekUnlocked;
 
 			if (StoryMenuState.weekUnlocked.length < 4)
-				StoryMenuState.weekUnlocked.insert(0, true);
+			StoryMenuState.weekUnlocked.insert(0, true);
 
 			// QUICK PATCH OOPS!
 			if (!StoryMenuState.weekUnlocked[0])
@@ -113,6 +114,7 @@ class TitleState extends MusicBeatState
 			startIntro();
 		});
 		#end
+
 	}
 
 	var logoBl:FlxSprite;

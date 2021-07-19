@@ -82,8 +82,6 @@ class TrickyEx extends SongPlayer
 		dad.scale.x = 1.25;
 		dad.scale.y = 1.25;
 
-		dad.x -= 100;
-		dad.y += 200;
 	}
 
 	public override function createCharacters()
@@ -98,8 +96,9 @@ class TrickyEx extends SongPlayer
 		playState.add(gf);
 		playState.add(bf);
 		
-		dad.x -= 450;
-		dad.y += 100;
+		dad.x += 250;
+		dad.y += 175;
+
 
 		var hole = new FlxSprite(0, 0).loadGraphic(Paths.image('clown/fourth/Spawnhole_Ground_BACK', 'mods'));
 		hole.antialiasing = true;

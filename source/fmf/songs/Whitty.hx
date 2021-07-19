@@ -91,16 +91,20 @@ class Whitty extends SongPlayer
 
 	}
 
-	override function createDad()
+	override function createCharacters()
 	{
-        dad = new Dad(0, 125);
-		getDadTex();
-		createDadAnimations();
-		createDadAnimationOffsets();
-		dad.dance();
+		super.createCharacters();
 
-    }
+		dad.x -= 150;
+		dad.y -= 250;
 
+	}
+
+	override function getDadVersion():Character
+	{
+		return new Dad(-250, 125);
+	}
+	
 	public override function getDadIcon(icon:HealthIcon)
 	{
 		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);

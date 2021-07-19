@@ -77,6 +77,9 @@ class Ballistic extends Whitty
 	override function createCharacters()
 	{
 		super.createCharacters();
+	
+		dad.y += 100;
+		dad.x -= 100;
 	}
 
 

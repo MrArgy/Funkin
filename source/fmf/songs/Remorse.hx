@@ -40,6 +40,13 @@ class Remorse extends Whitty
 
 	}
 
+	override function createCharacters()
+	{
+		super.createCharacters();
+		dad.x -= 100;
+		dad.y += 100;
+	}
+
 
 	private function turnDadRemorse()
 	{

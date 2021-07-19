@@ -90,22 +90,18 @@ class Kapi extends SongPlayer
 
 	}
 
-	override function createDad()
+	override function getDadVersion():Character
 	{
-        dad = new Dad(0, 125);
-		getDadTex();
-		createDadAnimations();
-		createDadAnimationOffsets();
-		dad.dance();
-
-    }
+		return new Dad(0, 125);
+	}
 
 	public override function createCharacters()
 	{
 		super.createCharacters();
 
-		dad.x += 200;
-		dad.y += 250;
+		dad.x += 125;
+		dad.y += 50;
+
 
 		dad.scale.x = 0.75;
 		dad.scale.y = 0.75;

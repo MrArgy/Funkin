@@ -67,11 +67,11 @@ class Trueform extends Tutorial
 
 		bf.y -= 50;
 
-		dad.y -= 100;
-		dad.x -= 100;
+		dad.x += 175;
+		dad.y -= 35;
 
-		hole.x = dad.x - 275;
-		hole.y = dad.y - 100;
+		hole.x = dad.x - 100;
+		hole.y = dad.y - 50;
 
 		hole.setGraphicSize(Std.int(hole.width * 1.25));
 
@@ -80,9 +80,6 @@ class Trueform extends Tutorial
 
 		playState.add(hole);
 
-		dad.y -= 100;
-
-		hole.y -= 225;
 
 		playState.add(bf);
 

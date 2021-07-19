@@ -40,7 +40,7 @@ class GameOverSubstate extends MusicBeatSubstate
         PlayState.instance.pauseGame();
 
 
-        pauseMusic = new FlxSound().loadEmbedded(Paths.music('go', 'shared'), true, true);
+        pauseMusic = new FlxSound().loadEmbedded(Paths.music('gameOver', 'shared'), true, true);
 		pauseMusic.volume = 0;
         pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
        

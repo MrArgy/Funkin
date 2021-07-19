@@ -17,7 +17,7 @@ class TrickyBen extends TrickyHell
 
 	override function loadMap()
 	{
-		playState.defaultCamZoom = 0.25;
+		playState.defaultCamZoom = 0.3;
 		var bg:FlxSprite = new FlxSprite(-400, -200).loadGraphic(Paths.image('clown/red', 'mods'));
 		bg.antialiasing = true;
 

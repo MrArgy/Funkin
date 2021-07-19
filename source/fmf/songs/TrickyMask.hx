@@ -71,8 +71,10 @@ class TrickyMask extends SongPlayer
 		bf.x += 100;
 		bf.y += 50;
 
-		dad.y += 175;
-		dad.x -= 200;
+		dad.x += 125;
+		dad.y += 125;
+		
+
 	}
 
 	public override function getDadIcon(icon:HealthIcon)
