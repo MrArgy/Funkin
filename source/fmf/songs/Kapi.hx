@@ -39,22 +39,22 @@ class Kapi extends SongPlayer
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Dad idle dance', 24);
-		animation.addByPrefix('singUP', 'Dad Sing Note UP', 24);
-		animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24);
-		animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24);
-		animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24);
+		animation.addByPrefix('idle', 'Kapi idle dance', 24);
+		animation.addByPrefix('singUP', 'Kapi Sing Note UP', 24);
+		animation.addByPrefix('singRIGHT', 'Kapi Sing Note RIGHT', 24);
+		animation.addByPrefix('singDOWN', 'Kapi Sing Note DOWN', 24);
+		animation.addByPrefix('singLEFT', 'Kapi Sing Note LEFT', 24);
 		dad.animation = animation;
 	}
 
 	override function createDadAnimationOffsets():Void
 	{
 
-		dad.addOffset('idle');
-		dad.addOffset("singUP", 1, -8);
-		dad.addOffset("singRIGHT", 0, -54);
-		dad.addOffset("singLEFT", 0, 31);
-		dad.addOffset("singDOWN", 0, -109);
+		// dad.addOffset('idle');
+		// dad.addOffset("singUP", 1, -8);
+		// dad.addOffset("singRIGHT", 0, -54);
+		// dad.addOffset("singLEFT", 0, 31);
+		// dad.addOffset("singDOWN", 0, -109);
 
 		dad.dance();
 
@@ -104,11 +104,11 @@ class Kapi extends SongPlayer
 	{
 		super.createCharacters();
 
-		dad.x += 200;
-		dad.y += 250;
+		dad.x += 125;
+		dad.y += 185;
 
-		dad.scale.x = 0.75;
-		dad.scale.y = 0.75;
+		dad.scale.x = 0.65;
+		dad.scale.y = 0.65;
 
 		gf.y -= 25;
 
@@ -117,6 +117,8 @@ class Kapi extends SongPlayer
 
 		bf.scale.x *= 0.75;
 		bf.scale.y *= 0.75;
+
+		dad.scrollFactor.set(0.9, 0.9);
 
 	}
 
