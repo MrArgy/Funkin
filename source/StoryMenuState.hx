@@ -94,6 +94,8 @@ class StoryMenuState extends MusicBeatState
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
 		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
 
+		var bgShit:FlxSprite = new FlxSprite().loadGraphic(Paths.image('weeks/bg0'));	
+
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
 
@@ -180,7 +182,10 @@ class StoryMenuState extends MusicBeatState
 
 		trace("Line 150");
 
+		bgShit.setGraphicSize(Std.int(yellowBG.width));
+
 		add(yellowBG);
+		add(bgShit);
 		add(grpWeekCharacters);
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, yellowBG.x + yellowBG.height - 325, 0, "Tracks", 32);
