@@ -969,6 +969,10 @@ class PlayState extends MusicBeatState
 
 	override function destroy()
 	{
+		strumLineNotes.destroy();
+		cpuStrums.destroy();
+		playerStrums.destroy();
+
 		super.destroy();
 	}
 

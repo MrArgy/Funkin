@@ -54,6 +54,8 @@ class StoryMenuState extends MusicBeatState
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
 	var baseSong:BaseSong;
+	
+	var yellowBG:FlxSprite;
 
 	override function create()
 	{
@@ -92,7 +94,12 @@ class StoryMenuState extends MusicBeatState
 		rankText.screenCenter(X);
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
-		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
+		yellowBG = new FlxSprite(0, 56);
+
+		loadWeekBG(0);
+
+		// .makeGraphic(FlxG.width, 400, 0xFFF9CF51);
+
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
@@ -138,6 +145,10 @@ class StoryMenuState extends MusicBeatState
 		bf = new MenuCharacter(450, 25, 0.9, true);
 		gf = new MenuCharacter(850, 100, 0.5, true);
 
+		dad.alpha = 0;
+		gf.alpha = 0;
+		bf.alpha = 0;
+
 
 		grpWeekCharacters.add(dad);
 		grpWeekCharacters.add(bf);
@@ -178,9 +189,12 @@ class StoryMenuState extends MusicBeatState
 		rightArrow.animation.play('idle');
 		difficultySelectors.add(rightArrow);
 
-		trace("Line 150");
+		// trace("Line 150");
+		// var bgShit:FlxSprite = new FlxSprite().loadGraphic(Paths.image('weeks/bg0'));	
+		// bgShit.setGraphicSize(Std.int(yellowBG.width));
 
 		add(yellowBG);
+		// add(bgShit);
 		add(grpWeekCharacters);
 
 		txtTracklist = new FlxText(FlxG.width * 0.05, yellowBG.x + yellowBG.height - 325, 0, "Tracks", 32);
@@ -188,6 +202,8 @@ class StoryMenuState extends MusicBeatState
 		txtTracklist.font = rankText.font;
 		txtTracklist.color = FlxColor.BLACK;
 
+		txtTracklist.alpha = 0;
+		
 		txtTracklist.setFormat(Paths.font("vcr.ttf"), 35, FlxColor.WHITE, CENTER);
 
 		txtTracklist.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
@@ -206,6 +222,12 @@ class StoryMenuState extends MusicBeatState
 		Controller.init(this, FULL, A_B);
 
 		super.create();
+	}
+
+	function loadWeekBG(curWeek:Int)
+	{
+		var char:String = SongManager.songs[curWeek].character;
+		yellowBG.loadGraphic(Paths.image('weeks/' + char)); 
 	}
 
 	override function update(elapsed:Float)
@@ -391,7 +413,7 @@ class StoryMenuState extends MusicBeatState
 		// grpWeekCharacters.members[1].setCharacter('bf');
 		// grpWeekCharacters.members[2].setCharacter('gf');
 		
-		
+		loadWeekBG(curWeek);
 		baseSong.setDadMenuCharacter(dad);
 
 

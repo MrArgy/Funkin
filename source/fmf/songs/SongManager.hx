@@ -14,7 +14,7 @@ class SongManager
 		(
 			{
 				folder: 'week_tutorial',
-				character: '',
+				character: 'gf',
 				songTitle: 'How to Funk',
 				songList: ['Tutorial']
 			}
@@ -78,7 +78,7 @@ class SongManager
 		({
 			{
 				folder: 'week_trueform',
-				character: 'gf',
+				character: 'gfsad',
 				songTitle: 'T.R.U.E.F.A.C.E',
 				songList: ['Eeeaaaooo', 'Target-Practice', 'Foolhardy', "Manifest", 'Incident', 'Run']
 			}
