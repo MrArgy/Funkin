@@ -203,7 +203,6 @@ class StoryMenuState extends MusicBeatState
 		txtTracklist.color = FlxColor.BLACK;
 
 		txtTracklist.alpha = 0;
-		
 		txtTracklist.setFormat(Paths.font("vcr.ttf"), 35, FlxColor.WHITE, CENTER);
 
 		txtTracklist.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);

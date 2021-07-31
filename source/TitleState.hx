@@ -144,8 +144,12 @@ class TitleState extends MusicBeatState
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-
 		add(bg);
+
+
+		var daSplash:FlxSprite = new FlxSprite().loadGraphic(Paths.image('splash'));
+		daSplash.setGraphicSize(Std.int(FlxG.width), Std.int(FlxG.height));
+		add(daSplash);
 
 
 		titleText = new FlxSprite(100, FlxG.height * 0.6);
@@ -156,7 +160,11 @@ class TitleState extends MusicBeatState
 		titleText.animation.play('idle');
 
 		titleText.updateHitbox();
+		titleText.y = 100;
+		
+		#if mobile
 		titleText.x = 250;
+		#end
 
 		add(titleText);
 
@@ -182,7 +190,14 @@ class TitleState extends MusicBeatState
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
+
+
+
+
+
+		#if mobile
 		FlxG.mouse.visible = false;
+		#end
 
 		if (initialized)
 			skipIntro();

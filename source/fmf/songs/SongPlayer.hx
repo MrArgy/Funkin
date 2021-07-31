@@ -35,6 +35,9 @@ class SongPlayer extends BaseSong
 	// mid song event update
 	public function midSongEventUpdate(curBeat:Int):Void{} 
 
+	// end song event
+	public function endSongEvent(callback:Void->Void):Void{ callback(); } //end song normally
+
 	// update camera follow dad depending on song
 	public function updateCamFollowDad():Void{}
 
@@ -50,9 +53,9 @@ class SongPlayer extends BaseSong
 	//get texture of bf and set into bf itself
 	private override function getBFTex():Void { super.getBFTex(); };
 	//create animations for bf
-	private override function createBFAnimations():Void{ super.createBFAnimations();}
+	private override function createBFAnimations():Void{ super.createBFAnimations(); }
 	//create animation offsets for bf
-	private override function createBFAnimationOffsets():Void{ super.createBFAnimationOffsets();}
+	private override function createBFAnimationOffsets():Void{ super.createBFAnimationOffsets(); }
 
 //------------------------------------------------------------------------------------------------------
 

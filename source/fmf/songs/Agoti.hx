@@ -171,5 +171,7 @@ class Agoti extends SongPlayer
 		dad.animation.addByPrefix('dad', "Whitty idle dance BLACK LINE", 24);
 		dad.animation.play('dad');
 		setMenuCharacter(dad, new CharacterSetting(-200, 25, 1));
+
+		
 	}
 }

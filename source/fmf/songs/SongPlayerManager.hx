@@ -116,6 +116,11 @@ class SongPlayerManager
 			case 'nerves':
 				songPlayer = new GarcelloTired();
 
+			case 'release':
+				songPlayer = new GarcelloDead();
+			
+			case 'fading':
+				songPlayer = new GarcelloGhosty();
 		}
 
 		// songPlayer = new Eeeeaaaooo("ye");

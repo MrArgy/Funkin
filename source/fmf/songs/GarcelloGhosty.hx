@@ -1,51 +1,75 @@
 package fmf.songs;
 
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.util.FlxTimer;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import MenuCharacter.CharacterSetting;
 import fmf.characters.*;
 
-class GarcelloTired extends Garcello
+class GarcelloGhosty extends GarcelloDead
 {
+
+
+	override function loadMap()
+	{
+		super.loadMap();
+	}
+
+	override function createSmoke()
+	{
+		// no smoke
+	}
+
+	override function addSmoke()
+	{
+		// dont add smoke
+	}
+
+	
 
     override function getDadTex()
 	{
-		var tex = Paths.getSparrowAtlas('garcello/garcello_tired', 'mods');
+		var tex = Paths.getSparrowAtlas('garcello/garcello_ghosty', 'mods');
 		dad.frames = tex;
 	}
 
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Garcellotired idle dance', 18, false);
-		animation.addByPrefix('cough', 'Garcellotired cough', 24, false);
-		animation.addByPrefix('singUP', 'Garcellotired Sing Note UP', 24, false);
-		animation.addByPrefix('singRIGHT', 'Garcellotired Sing Note RIGHT', 24, false);
-		animation.addByPrefix('singLEFT', 'Garcellotired Sing Note LEFT', 24, false);
-		animation.addByPrefix('singDOWN', 'Garcellotired Sing Note DOWN', 24, false);
 
-		animation.addByPrefix('singUP-alt', 'Garcellotired Sing Note UP', 24, false);
-		animation.addByPrefix('singRIGHT-alt', 'Garcellotired Sing Note RIGHT', 24, false);
-		animation.addByPrefix('singLEFT-alt', 'Garcellotired Sing Note LEFT', 24, false);
-		animation.addByPrefix('singDOWN-alt', 'Garcellotired Sing Note DOWN', 24, false);
+		animation.addByPrefix('idle', 'Garcello idle dance', 18, false);
+		animation.addByPrefix('singUP', 'Garcello Sing Note UP', 24, false);
+		animation.addByPrefix('singRIGHT', 'Garcello Sing Note RIGHT', 24, false);
+		animation.addByPrefix('singLEFT', 'Garcello Sing Note LEFT', 24, false);
+		animation.addByPrefix('singDOWN', 'Garcello Sing Note DOWN', 24, false);
 
-		dad.animation = animation;
+		dad.animation.addByPrefix('coolGuy', 'Garcello coolguy', 6, false);
+
+		dad.dance();
 	}
 
 	override function createDadAnimationOffsets():Void
 	{
+		dad.addOffset('coolGuy',-2, -38);
 		dad.addOffset('idle',-2, -38);
 		dad.addOffset('singUP', -4, -38);
-		dad.addOffset('singRIGHT', -10 , -38);
-		dad.addOffset('singLEFT',33, -41);
-		dad.addOffset('singDOWN', -11, -42);
+		dad.addOffset('singRIGHT', -10 , -43);
+		dad.addOffset('singLEFT', 9, -34);
+		dad.addOffset('singDOWN', -5, -29);
 
-		dad.addOffset('singUP-alt', -4, -38);
-		dad.addOffset('singRIGHT-alt', -10 , -38);
-		dad.addOffset('singLEFT-alt',33, -41);
-		dad.addOffset('singDOWN-alt', -11, -42);
 		dad.dance();
+	}
+	override function midSongEventUpdate(curBeat:Int)
+	{
+		if (curBeat == 63)
+		{
+			dad.playAnim('coolGuy', true);
+			FlxTween.tween(dad, {alpha: 0}, 1.25, {});
+
+		}
 	}
 
 	public override function getDadIcon(icon:HealthIcon)

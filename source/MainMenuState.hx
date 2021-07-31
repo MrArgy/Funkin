@@ -137,6 +137,10 @@ class MainMenuState extends MusicBeatState
 		super.create();
 		AdMob.showBanner();
 
+
+		#if mobile
+		FlxG.mouse.visible = false;
+		#end
 	}
 
 	var selectedSomethin:Bool = false;

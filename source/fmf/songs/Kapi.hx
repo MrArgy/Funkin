@@ -82,7 +82,7 @@ class Kapi extends SongPlayer
 		gf.addOffset('danceLeft', 0, -9);
 		gf.addOffset('danceRight', 0, -9);
 
-		gf.scale.x = 0.65;
+		gf.scale.x = 0.65; 
 		gf.scale.y = 0.65;
 
 		gf.y -= 25;	

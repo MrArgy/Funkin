@@ -1715,7 +1715,14 @@ class PlayState extends MusicBeatState
 			luaModchart = null;
 		}
 		#end
+		
+		songPlayer.endSongEvent(endSongCallback);	
 
+	}
+
+	private function endSongCallback()
+	{
+		
 		canPause = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
@@ -1841,7 +1848,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 	}
-
 	private function createEmptyBlack()
 	{
 		var blackScreen:FlxSprite = new FlxSprite(0, 0).makeGraphic(Std.int(FlxG.width * 3), Std.int(FlxG.height * 3), FlxColor.BLACK);

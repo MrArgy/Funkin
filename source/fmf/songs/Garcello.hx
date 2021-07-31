@@ -52,14 +52,12 @@ class Garcello extends SongPlayer
 
 	override function createDadAnimationOffsets():Void
 	{
-	
 		dad.addOffset('idle',-2, -38);
 		dad.addOffset('singUP', -4, -38);
 		dad.addOffset('singRIGHT', -10 , -38);
 		dad.addOffset('singLEFT',33, -41);
 		dad.addOffset('singDOWN', -11, -42);
 		dad.dance();
-
 	}
 
 	public override function createCharacters()
