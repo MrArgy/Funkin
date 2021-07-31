@@ -22,23 +22,29 @@ class SongManager
 //-----------------------------------------------------------
 
 //-------------------------DADDY DEAREST---------------------
+		new SongData({
+			folder: 'week_garcello',
+			character: 'garcello',
+			songTitle: 'SMOKE EM OUT TRUGGLE',
+			songList: ['Headache', 'Nerves', 'Release', 'Fading']
+		}),
 
-		// new SongData
-		// (
-		// 	{
-		// 		folder: 'week_matt',
-		// 		character: 'matt',
-		// 		songTitle: 'Matt',
-		// 		songList: ['Light-it-ups', 'Ruckus', 'Target-Practicle']
-		// 	}
-		// ),
+		new SongData
+		(
+			{
+				folder: 'week_tabi',
+				character: 'tabi',
+				songTitle: 'VS TABI Ex Boyfriend',
+				songList: ['My-battle', 'Last-chance', 'Genocide']
+			}
+		),
 
 		new SongData
 		({
 			{
 				folder: 'week_agoti',
 				character: 'agoti',
-				songTitle: 'A.G.O.T.I',
+				songTitle: 'V.S A.G.O.T.I',
 				songList: ['Screenplay', 'Parasite', 'AGOTI', "Guns"]
 			}
 		}),
@@ -48,7 +54,7 @@ class SongManager
 			{
 				folder: 'week_kapi',
 				character: 'kapi',
-				songTitle: 'KAPI',
+				songTitle: 'Arcade Showdown',
 				songList: ['Wocky', 'Beathoven', "Nyaw", 'Flatzone']
 			}
 		),
@@ -58,32 +64,31 @@ class SongManager
 			{
 				folder: 'week_whitty',
 				character: 'whitty',
-				songTitle: 'Whitty',
+				songTitle: 'V.S WHITTY',
 				songList: ['Lo-fight', 'Overhead', 'Ballistic', "Remorse"]
 			}
 		}),
-
-
 		new SongData
         (
             {
                 folder: 'week_tricky',
                 character: 'tricky',
-                songTitle: 'TRICKY',
+                songTitle: 'SOME WHERE IN NEVADA',
                 songList: ['Improbable-Outset', 'Madness', 'Hellclown', "Expurgation", "Reality-Bender"]
             }
         ),
+	
 
 		new SongData
-		({
-			{
-				folder: 'week_trueform',
-				character: 'gfsad',
-				songTitle: 'T.R.U.E.F.A.C.E',
-				songList: ['Eeeaaaooo', 'Target-Practice', 'Foolhardy', "Manifest", 'Incident', 'Run']
-			}
-		}),
-	
+        (
+            {
+                folder: 'Mid Fight Masses',
+                character: 'mfm',
+                songTitle: 'SOME WHERE IN NEVADA',
+                songList: ['Parish', 'Worship', 'Zavodila', "Gospel", "Casanova"]
+            }
+        ),
+		
 	];
 //-----------------------------------------------------------
 

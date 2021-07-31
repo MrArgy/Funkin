@@ -110,6 +110,12 @@ class SongPlayerManager
 			case 'run':
 				songPlayer = new Run();
 
+			case 'headache':
+				songPlayer = new Garcello();
+
+			case 'nerves':
+				songPlayer = new GarcelloTired();
+
 		}
 
 		// songPlayer = new Eeeeaaaooo("ye");

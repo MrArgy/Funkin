@@ -38,8 +38,9 @@ class Character extends FlxSprite
 	{
 		isLockAnim = true;
 	}
-	public function lockAnim(duration:Float)
+	public function lockAnim(duration:Float, callback:Void->Void = null)
 	{
+
 		if (isLockAnim)
 			return;
 
@@ -47,6 +48,9 @@ class Character extends FlxSprite
 		new FlxTimer().start(duration, function(tmr:FlxTimer)
 		{
 			isLockAnim = false;
+			if (callback != null)
+				callback();
+
 		});
 	}
 
