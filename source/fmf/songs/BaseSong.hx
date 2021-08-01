@@ -172,6 +172,7 @@ class BaseSong
 
 		gf.playAnim('danceRight');
 		gf.dance();
+		
 	}
 
 	// get GF version
@@ -242,7 +243,7 @@ class BaseSong
 	// get dad version
 	private function getDadVersion():Character
 	{
-		return new Character(100, 100);
+		return new Dad(100, 100);
 	}
 
 	// create dad
