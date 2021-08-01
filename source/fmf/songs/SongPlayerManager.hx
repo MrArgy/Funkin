@@ -121,6 +121,12 @@ class SongPlayerManager
 			
 			case 'fading':
 				songPlayer = new GarcelloGhosty();
+
+			case 'my-battle' | 'last-chance':
+				songPlayer = new Tabi();
+
+			case 'genocide':
+				songPlayer = new TabiMad();
 		}
 
 		// songPlayer = new Eeeeaaaooo("ye");

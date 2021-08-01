@@ -265,6 +265,8 @@ class PlayState extends MusicBeatState
 		instance = this;
 		AdMob.hideBanner();
 
+		songOffset = 0;
+
 		// if (FlxG.save.data.fpsCap > 290)
 		// 	(cast(Lib.current.getChildAt(0), Main)).setFPSCap(800);
 
