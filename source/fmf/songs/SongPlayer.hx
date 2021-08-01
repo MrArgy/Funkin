@@ -38,6 +38,12 @@ class SongPlayer extends BaseSong
 	// end song event
 	public function endSongEvent(callback:Void->Void):Void{ callback(); } //end song normally
 
+	// event trigger when bf hit a note
+	public function bfNoteEvent(curBeat:Int, noteData:Note):Void{}
+
+	// event trigger when dad hit a note
+	public function dadNoteEvent(curBeat:Int, noteData:Note):Void{}
+	
 	// update camera follow dad depending on song
 	public function updateCamFollowDad():Void{}
 

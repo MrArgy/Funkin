@@ -241,8 +241,17 @@ class PlayState extends MusicBeatState
 
 	private var executeModchart = false;
 
-	//determine which's turn
+	//determine which's turn, 1 is player, -1 is dad
 	public var turn:Int;
+
+
+	public var bfTurn(get, never):Bool;
+	inline function get_bfTurn()
+		return turn == 1;
+
+	public var dadTurn(get, never):Bool;
+	inline function get_dadTurn()
+		return !bfTurn;
 
 	// API stuff
 
@@ -732,6 +741,11 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
+	public function shakeMinimal()
+	{
+		camGame.shake(0.005, 0.05);
+	}
+
 	public function shakeNormal()
 	{
 		camGame.shake(0.01, 0.1);
@@ -740,6 +754,12 @@ class PlayState extends MusicBeatState
 	public function shakeBig()
 	{
 		camGame.shake(0.05, 0.25);
+	}
+
+	public function shakeGenocide()
+	{
+		boyfriend().playAnim("scared", true);
+		camGame.shake();
 	}
 
 	public function shakePrettyBig()
@@ -1611,10 +1631,13 @@ class PlayState extends MusicBeatState
 						});
 					}
 
-					#if windows
-					if (luaModchart != null)
-						luaModchart.executeState('playerTwoSing', [Math.abs(daNote.noteData), Conductor.songPosition]);
-					#end
+					// #if windows
+					// if (luaModchart != null)
+					// 	luaModchart.executeState('playerTwoSing', [Math.abs(daNote.noteData), Conductor.songPosition]);
+					// #end
+					
+					//trigger when dad hit a note
+					songPlayer.dadNoteEvent(curBeat, daNote);
 
 					dad().holdTimer = 0;
 
@@ -1627,6 +1650,12 @@ class PlayState extends MusicBeatState
 					notes.remove(daNote, true);
 					daNote.destroy();
 				}
+				else if (daNote.mustPress)
+				{
+					//trigger when bf hit a note
+					songPlayer.bfNoteEvent(curBeat, daNote);
+				}
+
 
 				if (daNote.mustPress && !daNote.modifiedByLua)
 				{
