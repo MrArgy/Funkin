@@ -12,7 +12,12 @@ class KadeEngineData
 			//default pc, boyfriend!
 			FlxG.save.data.pcId = 0;
 		}
-
+		
+		if (FlxG.save.data.showDad == null)
+		{
+			FlxG.save.data.showDad = true;
+		}
+		
 		if (FlxG.save.data.skinId == null)
 		{
 			FlxG.save.data.skinId = 1;
