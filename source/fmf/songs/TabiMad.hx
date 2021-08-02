@@ -1,5 +1,6 @@
 package fmf.songs;
 
+import flixel.addons.effects.FlxTrail;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;
 import flixel.FlxG;
@@ -15,6 +16,8 @@ class TabiMad extends Tabi
 	var siniFireBehind:FlxTypedGroup<SiniFire>;
 	var siniFireFront:FlxTypedGroup<SiniFire>;
 
+	var trail:FlxTrail;
+
 	override function getDadTex()
 	{
 		var tex = Paths.getSparrowAtlas('tabi/mad/MadTabi', 'mods');
@@ -23,9 +26,9 @@ class TabiMad extends Tabi
 
 	override function createFrontObject()
 	{
-		var sumsticks:FlxSprite = new FlxSprite(-600, -300).loadGraphic(Paths.image('tabi/mad/overlayingsticks', 'mods'));
+		var sumsticks:FlxSprite = new FlxSprite(-600, -325).loadGraphic(Paths.image('tabi/mad/overlayingsticks', 'mods'));
 		sumsticks.antialiasing = true;
-		sumsticks.scrollFactor.set(0.9, 0.9);
+		sumsticks.scrollFactor.set(0.95, 0.95);
 		playState.add(sumsticks);
 	}
 
@@ -130,6 +133,7 @@ class TabiMad extends Tabi
 		PlayState.songOffset = -300;
 		#end
 
+
 	}
 
 	override function createDadAnimations():Void
@@ -160,56 +164,63 @@ class TabiMad extends Tabi
 	{
 		super.createCharacters();
 
-		dad.x -= 500;
-		bf.x -= 500;
-	
-		dad.y -= 50;
+		bf.x -= 575;
 		bf.y -= 50;
 
-	}
+		dad.x -= 650;
+		dad.y -= 50;
 
+		dad.scrollFactor.set(0.95, 0.95);
+		bf.scrollFactor.set(0.95, 0.95);
 
-	override function midSongEventUpdate(curBeat:Int)
-	{
-		if (curBeat % 6 == 0) 
+		if (FlxG.save.data.distractions)
 		{
-			if (playState.dadTurn)
-			{
-				playState.defaultCamZoom = 0.95;
-				playState.shakeGenocide();
-			}
-		}
-		else
-		{
-			if (playState.bfTurn)
-			{
+			trail = new FlxTrail(dad, null, 1, 12, 0.85, 0.069);
+			trail.color = FlxColor.RED;
+			
+			trail.scale.x = 5;
+			trail.scale.y = 5;
 
-			}
-			else
-			{
-				if(playState.defaultCamZoom > 0.85)
-					playState.shakePrettyBig();
-			}
+			playState.add(trail);
+			trail.visible = false;
 		}
-	
+
+		createFrontObject();
 
 	}
 
 	override function dadNoteEvent(curBeat:Int, noteData:Note)
 	{
-		playState.defaultCamZoom = 0.95;
 		if (curBeat % 6 == 0)
 		{
+			playState.defaultCamZoom = 1.25;
 			playState.shakeGenocide();
+
+			if (FlxG.save.data.distractions)
+			{
+				trail.visible = true;
+			}
+
 		}
 		else
 		{
+			playState.defaultCamZoom = 0.95;
 			playState.shakePrettyBig();
+
+			if (FlxG.save.data.distractions)
+				trail.visible = false;
+
 		}
+	}
+
+	override function updateCamFollowDad()
+	{
+		playState.camFollow.y = dad.getMidpoint().y + 100;
 	}
 
 	override function bfNoteEvent(curBeat:Int, noteData:Note)
 	{
+
 		playState.defaultCamZoom = 0.8;
 		playState.shakeMinimal();
 	}

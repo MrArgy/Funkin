@@ -69,7 +69,7 @@ class LoadingState extends MusicBeatState
 			final symbolPath = path.split(":").pop();
 			var callback = callbacks.add("song:" + path);
 			Assets.loadSound(path).onComplete(function (_) { callback(); });
-		}
+	}
 	}
 	
 	function checkLibrary(library:String)
