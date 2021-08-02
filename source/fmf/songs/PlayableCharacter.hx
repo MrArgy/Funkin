@@ -18,8 +18,8 @@ class PlayableCharacter extends Character
 	{
 		animation.addByPrefix('idle', 'BF idle dance', 24, false);
 		animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
-		animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
-		animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
+		animation.addByPrefix('singRIGHT', 'BF NOTE LEFT0', 24, false);
+		animation.addByPrefix('singLEFT', 'BF NOTE RIGHT0', 24, false);
 		animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
 		animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
 		animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, false);
@@ -32,18 +32,18 @@ class PlayableCharacter extends Character
 	// create animation offset for BF
 	public function createAnimationOffsets():Void
 	{
-		addOffset('idle', -5);
-		addOffset("singUP", -39, 26);
-		addOffset("singRIGHT", -18, -7);
-		addOffset("singLEFT", -28, 6);
-		addOffset("singDOWN", -20, -50);
+		addOffset('idle', -6, -1);
+		addOffset("singUP", -56, 30);
+		addOffset("singRIGHT", -51, -8);
+		addOffset("singLEFT", 1, -7);
+		addOffset("singDOWN", -17, -53);
 
-		addOffset("singUPmiss", -43, 28);
-		addOffset("singRIGHTmiss", -20, 16);
-		addOffset("singLEFTmiss", -22, -17);
-		addOffset("singDOWNmiss", -15, -23);
-		addOffset("hey", -3, 4);
-		addOffset('scared', -4);
+		addOffset("singUPmiss", -48, 29);
+		addOffset("singRIGHTmiss", -8, 24);
+		addOffset("singLEFTmiss", -48, -18);
+		addOffset("singDOWNmiss", -13, -27);
+		addOffset("hey", -6, 4);
+		addOffset('scared', -7, 0);
 
 	playAnim('idle');
 		flipX = true;
@@ -72,5 +72,10 @@ class PlayableCharacter extends Character
 		getTex();
 		createAnimations();
 		createAnimationOffsets();
+	}
+
+	public function applyOffset()
+	{
+
 	}
 }

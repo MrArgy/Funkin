@@ -20,37 +20,34 @@ class IIMarky extends Boyfriend
 	// create animation for BF
 	public override function createAnimations():Void
 	{
-		animation.addByPrefix('idle', 'BF idle dance', 24, false);//
-
+		animation.addByPrefix('idle', 'BF idle dance', 24, false);
 		animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
-		animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
-		animation.addByPrefix('singRIGHT', 'BF NOTE RIGHT0', 24, false);
+		animation.addByPrefix('singRIGHT', 'BF NOTE LEFT0', 24, false);
+		animation.addByPrefix('singLEFT', 'BF NOTE RIGHT0', 24, false);
 		animation.addByPrefix('singDOWN', 'BF NOTE DOWN0', 24, false);
-
 		animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, false);
 		animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, false);
 		animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, false);
 		animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, false);
-
-		animation.addByPrefix('hey', 'BF HEY!!', 24, false);
+		animation.addByPrefix('hey', 'BF HEY', 24, false);
 		animation.addByPrefix('scared', 'BF idle shaking', 24);
 	}
 
 	// create animation offset for BF
 	public override function createAnimationOffsets():Void
 	{
-		addOffset('idle', -5, -2);
-		addOffset("singUP", -42, -4);
-		addOffset("singRIGHT", 6, -25);
-		addOffset("singLEFT", -47, -7);
-		addOffset("singDOWN", -12, -55);
+		addOffset('idle', -6, -1);
+		addOffset("singUP", -56, 30);
+		addOffset("singRIGHT", -51, -8);
+		addOffset("singLEFT", 1, -7);
+		addOffset("singDOWN", -17, -53);
 
-		addOffset("singUPmiss", -42, -11);
-		addOffset("singRIGHTmiss", 6, -23);
-		addOffset("singLEFTmiss", -39, -7);
-		addOffset("singDOWNmiss", -13, -53);
-		addOffset("hey", -4, -8);
-		addOffset('scared', -5, -2);
+		addOffset("singUPmiss", -48, 29);
+		addOffset("singRIGHTmiss", -8, 24);
+		addOffset("singLEFTmiss", -48, -18);
+		addOffset("singDOWNmiss", -13, -27);
+		addOffset("hey", -6, 4);
+		addOffset('scared', -7, 0);
 
 		playAnim('idle');
 		flipX = true;
