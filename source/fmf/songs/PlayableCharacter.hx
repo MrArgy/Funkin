@@ -3,6 +3,8 @@ package fmf.songs;
 import MenuCharacter.CharacterSetting;
 import flixel.FlxSprite;
 import fmf.characters.*;
+using StringTools;
+
 
 class PlayableCharacter extends Character
 {
@@ -29,6 +31,28 @@ class PlayableCharacter extends Character
 		animation.addByPrefix('scared', 'BF idle shaking', 24);
 	}
 
+	override function update(elapsed:Float)
+	{
+		if (animation == null || animation.curAnim == null || animation.curAnim.name == null)
+			return;
+
+		if (animation.curAnim.name.startsWith('sing'))
+		{
+			holdTimer += elapsed;
+		}
+
+		var dadVar:Float = 4.1;
+
+		if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
+		{
+			dance();
+			holdTimer = 0;
+		}
+
+		super.update(elapsed);
+	}
+
+
 	// create animation offset for BF
 	public function createAnimationOffsets():Void
 	{
@@ -45,7 +69,7 @@ class PlayableCharacter extends Character
 		addOffset("hey", -6, 4);
 		addOffset('scared', -7, 0);
 
-	playAnim('idle');
+		playAnim('idle');
 		flipX = true;
 
 		// i dunno why i should do this, LOl
@@ -74,8 +98,4 @@ class PlayableCharacter extends Character
 		createAnimationOffsets();
 	}
 
-	public function applyOffset()
-	{
-
-	}
 }

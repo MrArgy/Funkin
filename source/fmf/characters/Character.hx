@@ -11,87 +11,97 @@ using StringTools;
 //the character class holding behaviour 
 class Character extends FlxSprite
 {
-	public var animOffsets:Map<String, Array<Dynamic>>;
-	public var debugMode:Bool = false;
-	public var holdTimer:Float = 0;
-	public var stunned:Bool;
+    public var animOffsets:Map<String, Array<Dynamic>>;
+    public var debugMode:Bool = false;
+    public var holdTimer:Float = 0;
+    public var stunned:Bool;
 
-	public function new(x:Float, y:Float)
-	{
-		super(x, y);
-		animOffsets = new Map<String, Array<Dynamic>>();
-		var tex:FlxAtlasFrames;
-		antialiasing = true;
-	}
+    public var isVisible:Bool = true;
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-	}
+    public function new(x:Float, y:Float)
+    {
+        super(x, y);
+        animOffsets = new Map<String, Array<Dynamic>>();
+        antialiasing = true;
+    }
 
-	private var danced:Bool = false;
-	private var isLockAnim:Bool;
+    override function update(elapsed:Float)
+    {
+        super.update(elapsed);
+    }
 
-	
+    private var danced:Bool = false;
+    private var isLockAnim:Bool;
 
-	public function bindAnim()
-	{
-		isLockAnim = true;
-	}
-	public function lockAnim(duration:Float, callback:Void->Void = null)
-	{
+    
 
-		if (isLockAnim)
-			return;
+    public function bindAnim()
+    {
+        isLockAnim = true;
+    }
+    public function lockAnim(duration:Float, callback:Void->Void = null)
+    {
+        if (isLockAnim)
+            return;
 
-		isLockAnim = true;
-		new FlxTimer().start(duration, function(tmr:FlxTimer)
-		{
-			isLockAnim = false;
+        isLockAnim = true;
+        new FlxTimer().start(duration, function(tmr:FlxTimer)
+        {
+            isLockAnim = false;
+
 			if (callback != null)
 				callback();
 
-		});
-	}
+        });
+    }
 
 
-	public function dance():Void
-	{
-		if (isLockAnim)
-			return;
+    public function dance():Void
+    {
+        if (isLockAnim)
+            return;
 
-		if (!debugMode)
-		{
-			playAnim('idle');
-		}
-	}
+        if (!debugMode)
+        {
+            playAnim('idle');
+        }
+    }
 
-	public function playAnimForce(anim:String, lockDuration:Float)
-	{
-		if(isLockAnim) return;
-		
-		playAnim(anim, true);
-		lockAnim(lockDuration);
-	}
+    public function playAnimForce(anim:String, lockDuration:Float)
+    {
+        if(isLockAnim) return;
 
-	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
-	{
-		if (isLockAnim)
-			return;
+        if (!isVisible)
+            return;
+        
+        playAnim(anim, true);
+        lockAnim(lockDuration);
+    }
 
-		animation.play(AnimName, Force, Reversed, Frame);
+    public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
+    {
+        if (isLockAnim)
+            return;
 
-		var daOffset = animOffsets.get(AnimName);
-		if (animOffsets.exists(AnimName))
-		{
-			offset.set(daOffset[0], daOffset[1]);
-		}
-		else
-			offset.set(0, 0);
-	}
+        if (!isVisible)
+            return;
 
-	public function addOffset(name:String, x:Float = 0, y:Float = 0)
-	{
-		animOffsets[name] = [x, y];
-	}
+        animation.play(AnimName, Force, Reversed, Frame);
+
+        var daOffset = animOffsets.get(AnimName);
+        if (animOffsets.exists(AnimName))
+        {
+            offset.set(daOffset[0], daOffset[1]);
+        }
+        else
+            offset.set(0, 0);
+    }
+
+    public function addOffset(name:String, x:Float = 0, y:Float = 0)
+    {
+        if (!isVisible)
+            return;
+        
+        animOffsets[name] = [x, y];
+    }
 }

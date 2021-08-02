@@ -1,10 +1,12 @@
 package fmf.songs;
 
+import Options.PcOption;
+import Options.VFXOption;
+import Options.SkinOption;
 import Options.DFJKOption;
 import flixel.system.debug.interaction.tools.Transform;
 import fmf.skins.*;
 import fmf.vfx.*;
-
 import MenuCharacter.CharacterSetting;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -21,9 +23,8 @@ import Song.SwagSong;
 // base song hold variable and some helper function
 class BaseSong
 {
-//---------------------------------------- VARIABLES -----------------------------------------------------
-
-	//skin
+	//---------------------------------------- VARIABLES -----------------------------------------------------
+	// skin
 	public var skin:Skin;
 	public var vfx:VFX;
 
@@ -40,20 +41,17 @@ class BaseSong
 	// camera position at start
 	public var camPos:FlxPoint;
 
-
 	// start countdown
 	var readySprite:FlxSprite;
 	var setSprite:FlxSprite;
 	var goSprite:FlxSprite;
 	var introAlts:Array<String> = ['ready', "set", "go"];
 
-	//label for song, use it in somecase.
+	// label for song, use it in somecase.
 	public var songLabel:String;
 
-//--------------------------------------------------------------------------------------------------------
-
-//------------------------------------------ INITIALIE ---------------------------------------------------
-
+	//--------------------------------------------------------------------------------------------------------
+	//------------------------------------------ INITIALIE ---------------------------------------------------
 	// init song with a familar name to identity
 	public function new(songLabel:String = 'none')
 	{
@@ -64,7 +62,6 @@ class BaseSong
 	public function init(playState:PlayState):Void
 	{
 		this.playState = playState;
-
 		loadMap();
 		createCharacters();
 		initVariables();
@@ -75,7 +72,7 @@ class BaseSong
 		loadSkin();
 		loadVFX();
 
-		camPos = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
+		camPos = new FlxPoint(dad.x, dad.y);
 		// setCamPosition();
 	}
 
@@ -113,7 +110,8 @@ class BaseSong
 		createGF();
 		createBF();
 		createDad();
-	
+
+		dad.x = bf.x - 700;
 
 		gf.scrollFactor.set(0.95, 0.95);
 
@@ -122,10 +120,8 @@ class BaseSong
 		playState.add(bf);
 	}
 
-//---------------------------------------------------------------------------------------------------------
-
-//--------------------------------------------------- GF --------------------------------------------------
-
+	//---------------------------------------------------------------------------------------------------------
+	//--------------------------------------------------- GF --------------------------------------------------
 	// get GF skin
 	private function getGFTex()
 	{
@@ -172,7 +168,6 @@ class BaseSong
 
 		gf.playAnim('danceRight');
 		gf.dance();
-		
 	}
 
 	// get GF version
@@ -185,15 +180,21 @@ class BaseSong
 	private function createGF()
 	{
 		gf = getGFVersion();
+
+		if (!FlxG.save.data.showGF)
+		{
+			gf.isVisible = false;
+			gf.alpha = 0;
+			return;
+		}
+
 		getGFTex();
 		createGFAnimations();
 		createGFAnimationOffsets();
 	}
 
-//--------------------------------------------------------------------------------------------------------
-
-//------------------------------------------------- DAD --------------------------------------------------
-
+	//--------------------------------------------------------------------------------------------------------
+	//------------------------------------------------- DAD --------------------------------------------------
 	// get dad skin
 	private function getDadTex()
 	{
@@ -250,49 +251,52 @@ class BaseSong
 	public function createDad()
 	{
 		dad = getDadVersion();
+		dad.setPosition(700, 400);
+
+		if (!FlxG.save.data.showDad)
+		{
+			dad.isVisible = false;
+			dad.alpha = 0;
+			dad.visible = false;
+			return;
+		}
+
 		getDadTex();
 		createDadAnimations();
 		createDadAnimationOffsets();
-
-		if (gf != null) //incase animation debug, just ignore
-		{
-			dad.x = gf.x;
-			dad.y = gf.y;
-		}
 	}
 
-//--------------------------------------------------------------------------------------------------------
-
-//-------------------------------------------------- BF --------------------------------------------------
-
+	//--------------------------------------------------------------------------------------------------------
+	//-------------------------------------------------- BF --------------------------------------------------
 	// bf place here for debug menu support
 	// bf skins
-		
-	
 	// set BF difference behaviour
 	private function getVersion():PlayableCharacter
 	{
-		var pcId:Int = FlxG.save.data.pcId;
+		var pcName:String = PcOption.pcList[FlxG.save.data.pcId];
 
-		switch (pcId)
+		switch (pcName.toLowerCase())
 		{
-			case 1:
+			case "pico":
 				return new Pico(700, 400);
-			case 2:
+
+			case "mom":
 				return new Mommy(700, 200);
-			case 3:
+
+			case "dad":
 				return new Daddy(700, 150);
-			case 4:
+
+			case "iimarky":
 				return new IIMarky(700, 400);
 
-
-			default: return getDefaultPc();
+			default:
+				return getDefaultPc();
 		}
 	}
 
 	private function getDefaultPc():PlayableCharacter
 	{
-		return new Boyfriend(770, 450);
+		return new Boyfriend(700, 425); // override depending on song
 	}
 
 	// create BF
@@ -300,7 +304,6 @@ class BaseSong
 	{
 		bf = getVersion();
 		bf.createCharacter();
-
 	}
 
 	private function createCustomBF():Void
@@ -312,19 +315,23 @@ class BaseSong
 		createBFAnimationOffsets();
 	}
 
+	// get texture of bf and set into bf itself
+	private function getBFTex():Void
+	{
+	}
 
-	//get texture of bf and set into bf itself
-	private  function getBFTex():Void {}
-	//create animations for bf
-	private  function createBFAnimations():Void{ }
-	//create animation offsets for bf
-	private  function createBFAnimationOffsets():Void{}
+	// create animations for bf
+	private function createBFAnimations():Void
+	{
+	}
 
+	// create animation offsets for bf
+	private function createBFAnimationOffsets():Void
+	{
+	}
 
-//--------------------------------------------------------------------------------------------------------
-
-//---------------------------------------------- DIALOGUE ------------------------------------------------
-
+	//--------------------------------------------------------------------------------------------------------
+	//---------------------------------------------- DIALOGUE ------------------------------------------------
 	// dialogue handle
 	public function createDialogue(callback:Void->Void):Void
 	{
@@ -342,11 +349,9 @@ class BaseSong
 		playState.add(dialogueBox);
 		trace('whee mai dialgue siht!');
 	}
-	
-//--------------------------------------------------------------------------------------------------------
 
-//---------------------------------------------- COUNTDOWN -----------------------------------------------
-
+	//--------------------------------------------------------------------------------------------------------
+	//---------------------------------------------- COUNTDOWN -----------------------------------------------
 	// UI Function
 	// start countdown
 	// show ready, set, go image and sound
@@ -443,10 +448,8 @@ class BaseSong
 		playState.isGameStarted = true;
 	}
 
-//--------------------------------------------------------------------------------------------------------
-
-//---------------------------------------------- ARROW & NOTE --------------------------------------------
-
+	//--------------------------------------------------------------------------------------------------------
+	//---------------------------------------------- ARROW & NOTE --------------------------------------------
 	// set icon bf
 	public function getBFIcon(icon:HealthIcon)
 	{
@@ -466,67 +469,66 @@ class BaseSong
 	private function loadSkin()
 	{
 		// load skin
-		var skinId:Int = FlxG.save.data.skinId;
-		switch (skinId)
+		var skinName:String = SkinOption.skins[FlxG.save.data.skinId];
+		switch (skinName.toLowerCase())
 		{
-			case 1:
+			case "agoti":
 				skin = new AgotiSkin("agoti");
-			case 2:
+			case "trollge":
 				skin = new TrollgeSkin("trollge");
-			case 3:
+			case "tabi":
 				skin = new TabiSkin("tabi");
-			case 4:
+			case "gf":
 				skin = new GFSkin("gf");
-			case 5:
+			case "sarv":
 				skin = new SarvSkin("sarv");
-			case 6:
+			case "dark-sarv":
 				skin = new DarkSarvSkin("dark-sarv");
-			case 7:
+			case "ruv":
 				skin = new RuvSkin("ruv");
-			case 8:
+			case "luci-sarv":
 				skin = new LuciSarvSkin("luci-sarv");
-			case 9:
+			case "selever":
 				skin = new SeleverSkin("selever");
-			case 10:
+			case "text":
 				skin = new TextSkin('text');
-			case 11:
+			case "square":
 				skin = new SquareSkin('square');
-			case 12:
+			case "sharp":
 				skin = new SharpSkin('sharp');
-			case 13:
+			case "dfjk":
 				skin = new DFJKSkin('dfjk');
-			case 14:
+			case "ddr":
 				skin = new DDRSkin('ddr');
-			
+
 			default:
 				skin = new Skin("default");
 		}
 	}
 
-
 	private function loadVFX()
 	{
-		var vfxId:Int = FlxG.save.data.vfxId;
+		var vfxName:String = VFXOption.skins[FlxG.save.data.vfxId];
 
-		switch (vfxId)
+		switch (vfxName.toLowerCase())
 		{
-			case 0:
+			default:
 				vfx = new VFX("none");
-			case 1:
+			case "spark":
 				vfx = new AgotiEffect("agoti");
-			case 2:
+			case "dust":
 				vfx = new DustEffect("dust");
-			case 3:
+			case "hole":
 				vfx = new HoleEffect("hole");
-			case 4:
+			case "mad":
 				vfx = new MadEffect("mad");
-			case 5:
+			case "raizen":
 				vfx = new RaizenEffect("raizen");
-			case 6:
+			case "stardream":
 				vfx = new StarDreamEffect("stardream");
-			case 7:
+			case "thunder":
 				vfx = new ThunderEffect("thunder");
-			case 8:
+			case "water":
 				vfx = new WaterEffect("water");
 		}
 	}
@@ -548,16 +550,14 @@ class BaseSong
 	{
 		vfx.getVFX(i, fx);
 	}
-			
-	
-//---------------------------------------------- Mxxxenu Character --------------------------------------------
 
+	//---------------------------------------------- Mxxxenu Character --------------------------------------------
 
 	public function setDadMenuCharacter(dad:MenuCharacter)
 	{
-		dad.visible = false;//temporary disable it
+		dad.visible = false; // temporary disable it
 
-//---------------- Template ----------------
+		//---------------- Template ----------------
 
 		// var frames = Paths.getSparrowAtlas();
 		// dad.frames = frames;
@@ -567,10 +567,9 @@ class BaseSong
 		// setMenuCharacter(dad, new CharacterSetting(-15, 230, 0.45));
 		// //set active it
 
-//------------------------------------------
-
+		//------------------------------------------
 	}
-	
+
 	public function setBFMenuCharacter(bf:MenuCharacter)
 	{
 		var frames = Paths.getSparrowAtlas('menucharacter/campaign_menu_UI_characters');
@@ -589,24 +588,21 @@ class BaseSong
 		gf.frames = frames;
 
 		gf.animation.addByPrefix('gf', "GF Dancing Beat WHITE", 24);
-		
+
 		gf.animation.play('gf');
-		//increase y to move it up
-		//increase x to move it to the left
+		// increase y to move it up
+		// increase x to move it to the left
 		setMenuCharacter(gf, new CharacterSetting(100, 125, 1, true));
-		
 	}
 
 	private function setMenuCharacter(character:MenuCharacter, setting:CharacterSetting)
 	{
-
 		character.offset.set(setting.x, setting.y);
 		character.setGraphicSize(Std.int(character.width * setting.scale));
 		character.flipX = setting.flipped != character.flipped;
 	}
 
-//------------------------------------------------ EVENTS-------------------------------------------------
-	
+	//------------------------------------------------ EVENTS-------------------------------------------------
 	// camera follow initalize
 	public function applyCamPosition():Void
 	{
@@ -614,11 +610,9 @@ class BaseSong
 		playState.camFollow.setPosition(camPos.x, camPos.y);
 	}
 
-//--------------------------------------------------------------------------------------------------------
-
-
-//-------------SHIT----------------
-// get vfx depending on selection & song
+	//--------------------------------------------------------------------------------------------------------
+	//-------------SHIT----------------
+	// get vfx depending on selection & song
 	private function getArray(from:Int = 0, num:Int):Array<Int>
 	{
 		var result:Array<Int> = new Array<Int>();
@@ -629,6 +623,5 @@ class BaseSong
 		return result;
 	}
 
-//------------------------------------
-
+	//------------------------------------
 }
