@@ -33,25 +33,24 @@ class PlayableCharacter extends Character
 
 	override function update(elapsed:Float)
 	{
-		if (animation == null || animation.curAnim == null || animation.curAnim.name == null)
-			return;
+		if (animation.curAnim.name.startsWith('sing'))
+		{
+			holdTimer += elapsed;
+		}
+		else
+			holdTimer = 0;
+
+		if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && !debugMode)
+		{
+			playAnim('idle', true, false, 10);
+		}
 
 		if (animation.curAnim.name.startsWith('sing'))
 		{
 			holdTimer += elapsed;
 		}
-
-		var dadVar:Float = 4.1;
-
-		if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
-		{
-			dance();
-			holdTimer = 0;
-		}
-
 		super.update(elapsed);
 	}
-
 
 	// create animation offset for BF
 	public function createAnimationOffsets():Void
