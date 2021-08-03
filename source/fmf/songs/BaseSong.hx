@@ -287,6 +287,9 @@ class BaseSong
 			case "iimarky":
 				return new IIMarky(700, 400);
 
+			case 'littleman':
+				return new Littleman(700, 725);
+
 			default:
 				return getDefaultPc();
 		}

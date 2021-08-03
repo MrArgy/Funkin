@@ -20,7 +20,7 @@ class Daddy extends Boyfriend
 		for (frame in tex2.frames){
 			tex.pushFrame(frame);
 		}
-		
+
 		frames = tex;
 
 	}
@@ -48,7 +48,7 @@ class Daddy extends Boyfriend
 	public override function createAnimationOffsets():Void
 	{
 		addOffset('idle', -5, 28);
-		addOffset("singUP", -19, 78);
+		addOffset("singUP", -15, 4);
 		addOffset("singRIGHT", -18, 37);
 		addOffset("singLEFT", -14, 54);
 		addOffset("singDOWN", -5, -4);
