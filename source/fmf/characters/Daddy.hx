@@ -20,10 +20,9 @@ class Daddy extends Boyfriend
 		for (frame in tex2.frames){
 			tex.pushFrame(frame);
 		}
-
+		
 		frames = tex;
 
-		
 	}
 
 	// create animation for BF
