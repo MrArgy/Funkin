@@ -49,7 +49,7 @@ class KadeEngineData
 
 		if (FlxG.save.data.vfxId == null)
 		{
-			FlxG.save.data.vfxId = 7;
+			FlxG.save.data.vfxId = 1;
 		}
 
 		if (FlxG.save.data.newInput == null)
@@ -121,7 +121,7 @@ class KadeEngineData
 
 		if (FlxG.save.data.cpuStrums == null)
 			FlxG.save.data.cpuStrums = true;
-
+		
 		if (FlxG.save.data.strumline == null)
 			FlxG.save.data.strumline = false;
 

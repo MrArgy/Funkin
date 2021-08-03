@@ -11,9 +11,7 @@ import fmf.characters.*;
 
 class GarcelloDead extends Garcello
 {
-
-
-	private var smoke:FlxSprite;
+x	private var smoke:FlxSprite;
 
 	override function loadMap()
 	{
@@ -119,15 +117,13 @@ class GarcelloDead extends Garcello
 
 					});
 				});
-
-
 		}
 	}
 
 	public override function getDadIcon(icon:HealthIcon)
 	{
 		icon.loadGraphic(Paths.image('iconGrid'), true, 150, 150);
-		icon.animation.add('dad', [44, 45], 0, false, false);
+		icon.animation.add('dad', [28, 29], 0, false, false);
 		icon.animation.play("dad");
 	}
 

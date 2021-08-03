@@ -528,6 +528,9 @@ class BaseSong
 				vfx = new ThunderEffect("thunder");
 			case "water":
 				vfx = new WaterEffect("water");
+
+			case 'explosion':
+				vfx = new ExplosionEffect();
 		}
 	}
 
