@@ -77,18 +77,7 @@ class SongManager
                 songList: ['Improbable-Outset', 'Madness', 'Hellclown', "Expurgation", "Reality-Bender"]
             }
         ),
-	
 
-		new SongData
-        (
-            {
-                folder: 'Mid Fight Masses',
-                character: 'mfm',
-                songTitle: 'SOME WHERE IN NEVADA',
-                songList: ['Parish', 'Worship', 'Zavodila', "Gospel", "Casanova"]
-            }
-        ),
-		
 	];
 //-----------------------------------------------------------
 

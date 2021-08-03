@@ -110,12 +110,17 @@ class GarcelloDead extends Garcello
 			case 209:
 				new FlxTimer().start(0.25, function(tm:FlxTimer)
 				{
+					playState.defaultCamZoom = 1.3;
 					dad.playAnim('coolGuy', true);
 					dad.lockAnim(1, function()
 					{
 						dad.dance();
+						playState.defaultCamZoom = 0.85;
+
 					});
 				});
+
+
 		}
 	}
 

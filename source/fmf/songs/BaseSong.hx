@@ -111,8 +111,6 @@ class BaseSong
 		createBF();
 		createDad();
 
-		dad.x = bf.x - 700;
-
 		gf.scrollFactor.set(0.95, 0.95);
 
 		playState.add(gf);
@@ -251,7 +249,7 @@ class BaseSong
 	public function createDad()
 	{
 		dad = getDadVersion();
-		dad.setPosition(700, 400);
+		dad.setPosition(400, 250);
 
 		if (!FlxG.save.data.showDad)
 		{
