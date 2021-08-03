@@ -59,6 +59,19 @@ class Note extends FlxSprite
 		this.noteData = noteData;
 		var daStage:String = PlayState.curStage;
 
+
+		if (!mustPress)
+		{
+			if (!FlxG.save.data.showDadNote)
+			{
+				this.alpha = 0;
+				this.visible = false;
+				return;
+			}
+		}
+
+
+
 		//get note skin depending on what song are playing.
 		PlayState.songPlayer.getNoteSkin(this);
 

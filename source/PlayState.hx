@@ -927,6 +927,9 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					cpuStrums.add(babyArrow);
+					if(!FlxG.save.data.showDadNote)
+						babyArrow.visible = false;
+					
 				case 1:
 					playerStrums.add(babyArrow);
 			}
@@ -2035,14 +2038,7 @@ class PlayState extends MusicBeatState
 
 		var placement:String = Std.string(combo);
 
-		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
-		coolText.screenCenter();
-		coolText.x = FlxG.width * 0.55;
-		coolText.y -= 350;
-		coolText.cameras = [camHUD];
-		//
-
-		var rating:FlxSprite = new FlxSprite();
+	
 		var score:Float = 350;
 
 		if (FlxG.save.data.accuracyMod == 1)
@@ -2101,6 +2097,9 @@ class PlayState extends MusicBeatState
 					daRating = 'bad';
 			 */
 
+			if (!FlxG.save.data.showCombo)
+				return;
+			
 			var pixelShitPart1:String = "";
 			var pixelShitPart2:String = '';
 
@@ -2109,6 +2108,16 @@ class PlayState extends MusicBeatState
 				pixelShitPart1 = 'weeb/pixelUI/';
 				pixelShitPart2 = '-pixel';
 			}
+
+			var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
+			coolText.screenCenter();
+			coolText.x = FlxG.width * 0.55;
+			coolText.y -= 350;
+			coolText.cameras = [camHUD];
+			//
+	
+			var rating:FlxSprite = new FlxSprite();
+
 
 			rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
 			rating.screenCenter();

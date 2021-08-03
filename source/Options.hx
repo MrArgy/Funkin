@@ -892,7 +892,7 @@ class CustomizeGameplay extends Option
 
     public override function press():Bool
     {
-        trace("switch");
+        //KODURADOtrace("switch");
         FlxG.switchState(new GameplayCustomizeState());
         return false;
     }
@@ -935,7 +935,7 @@ class OffsetMenu extends Option
 
     public override function press():Bool
     {
-        trace("switch");
+        //KODURADOtrace("switch");
         var poop:String = Highscore.formatSong("Tutorial", 1);
 
         PlayState.SONG = Song.loadFromJson(poop, "Tutorial");
@@ -943,7 +943,7 @@ class OffsetMenu extends Option
         PlayState.storyDifficulty = 0;
         PlayState.storyWeek = 0;
         PlayState.offsetTesting = true;
-        trace('CUR WEEK' + PlayState.storyWeek);
+        //KODURADOtrace('CUR WEEK' + PlayState.storyWeek);
         LoadingState.loadAndSwitchState(new PlayState());
         return false;
     }
@@ -964,7 +964,7 @@ class BotPlay extends Option
     public override function press():Bool
     {
         FlxG.save.data.botplay = !FlxG.save.data.botplay;
-        trace('BotPlay : ' + FlxG.save.data.botplay);
+        //KODURADOtrace('BotPlay : ' + FlxG.save.data.botplay);
         display = updateDisplay();
         return true;
     }
@@ -1048,8 +1048,28 @@ class ArrowGraphicOption extends Option
     }
     
     private override function updateDisplay():String
-        return "Show Dad Notes: " + (FlxG.save.data.showDadNote ? "on" : "off");
+        return "Show Enemy Notes: " + (FlxG.save.data.showDadNote ? "on" : "off");
 }
+
+class ComboGraphicOption extends Option
+{
+    public function new(desc:String)
+    {
+        super();
+        description = desc;
+    }
+    
+    public override function press():Bool
+    {
+        FlxG.save.data.showCombo = !FlxG.save.data.showCombo;
+        display = updateDisplay();
+        return true;
+    }
+    
+    private override function updateDisplay():String
+        return "Show Combo: " + (FlxG.save.data.showCombo ? "on" : "off");
+}
+
 
 class MapGraphicOption extends Option
 {

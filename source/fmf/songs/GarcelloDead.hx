@@ -11,7 +11,7 @@ import fmf.characters.*;
 
 class GarcelloDead extends Garcello
 {
-x	private var smoke:FlxSprite;
+	private var smoke:FlxSprite;
 
 	override function loadMap()
 	{
