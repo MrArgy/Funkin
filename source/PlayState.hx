@@ -922,15 +922,21 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: 1}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
 
 			babyArrow.ID = i;
-
+			
+			var hideDadNote:Bool = !FlxG.save.data.showDadNote || !FlxG.save.data.showDad;
 			switch (player)
 			{
 				case 0:
 					cpuStrums.add(babyArrow);
-					if(!FlxG.save.data.showDadNote)
+					if(hideDadNote)
 						babyArrow.visible = false;
-					
 				case 1:
+					if (hideDadNote)
+					{
+						babyArrow.x -= (FlxG.width / 2) * player;
+						babyArrow.x += FlxG.width * 0.25;
+						babyArrow.x += 50;
+					}
 					playerStrums.add(babyArrow);
 			}
 
@@ -952,6 +958,7 @@ class PlayState extends MusicBeatState
 				songPlayer.getVFX(i, vfx);
 				effectStrums.add(vfx);
 			}
+
 
 			strumLineNotes.add(babyArrow);
 		}
