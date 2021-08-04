@@ -1,5 +1,6 @@
 package fmf.songs;
 
+import fmf.characters.Littleman;
 import flixel.FlxG;
 
 
@@ -127,6 +128,9 @@ class SongPlayerManager
 
 			case 'genocide':
 				songPlayer = new TabiMad();
+
+			case 'little-man':
+				songPlayer = new BobSmall();
 		}
 
 		// songPlayer = new Eeeeaaaooo("ye");
