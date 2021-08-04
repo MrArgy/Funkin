@@ -290,6 +290,10 @@ class BaseSong
 			case 'littleman':
 				return new Littleman(700, 725);
 
+
+			case 'lazycat':
+				return new Lazycat(700, 750);
+
 			default:
 				return getDefaultPc();
 		}
@@ -534,6 +538,9 @@ class BaseSong
 
 			case 'explosion':
 				vfx = new ExplosionEffect();
+
+			case 'demon':
+				vfx = new DemonEffect();
 		}
 	}
 

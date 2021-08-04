@@ -93,7 +93,7 @@ class PcOption extends Option
         acceptValues = true;
     }
 
-    static public var pcList:Array<String> = ['Boyfriend','Littleman', 'Pico', 'Mom', 'Dad', 'IIMarky'];
+    static public var pcList:Array<String> = ['Boyfriend', 'Lazycat', 'Littleman', 'Pico', 'Mom', 'Dad', 'IIMarky'];
     
     public override function press():Bool
     {
@@ -162,6 +162,7 @@ class VFXOption extends Option
         'None',
         'Thunder',
         'Spark',
+        'Demon',
         'Explosion'
       ];    
     

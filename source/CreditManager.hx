@@ -152,6 +152,11 @@ class CreditManager
 			peopleWhoWeAppreciated: ['']
 		}),
 
+
+		new CreditData({
+			titles: ['Playable Characters'],
+			peopleWhoWeAppreciated: ['IIMarky', 'Aight', 'Acydical']
+		}),
 	
 
 	];
