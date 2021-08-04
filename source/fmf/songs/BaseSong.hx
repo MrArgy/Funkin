@@ -539,8 +539,14 @@ class BaseSong
 			case 'explosion':
 				vfx = new ExplosionEffect();
 
-			case 'demon':
+			case 'nuclear': //shit
+				vfx = new NuclearEffect();
+
+			case 'demon'://shit
 				vfx = new DemonEffect();
+
+			case 'fire':
+				vfx = new FireEffect();
 		}
 	}
 

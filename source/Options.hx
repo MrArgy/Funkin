@@ -162,7 +162,7 @@ class VFXOption extends Option
         'None',
         'Thunder',
         'Spark',
-        'Demon',
+        'Fire',
         'Explosion'
       ];    
     
