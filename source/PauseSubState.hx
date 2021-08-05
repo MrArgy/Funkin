@@ -194,7 +194,6 @@ class PauseSubState extends MusicBeatSubstate
 					close();
 					PlayState.instance.restorePad();
 				case "Restart Song":
-					PlayState.instance.restartGame = true;
 					PlayState.instance.gameNa();
 					close();
 					PlayState.instance.restorePad();
@@ -205,7 +204,6 @@ class PauseSubState extends MusicBeatSubstate
 					});
 					
 				case "Exit to menu":
-					PlayState.instance.restartGame = true;
 					PlayState.instance.gameNa();
 					close();
 					PlayState.instance.restorePad();

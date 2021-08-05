@@ -138,7 +138,6 @@ class VictorySubState extends MusicBeatSubstate
             {
                 case "Next Song":
 					PlayState.instance.gameNa();
-
                     AdMob.showInterstitial(60);
                     // FlxG.sound.play(Paths.music('gameOverEnd'));
                     LoadingState.createBlackFadeIn(this, function()
@@ -149,7 +148,6 @@ class VictorySubState extends MusicBeatSubstate
 
                 case "Exit to menu":
 					PlayState.instance.gameNa();
-
                     AdMob.showInterstitial(60);
 					// FlxG.sound.play(Paths.music('gameOverEnd'));
 					LoadingState.createBlackFadeIn(this, function()

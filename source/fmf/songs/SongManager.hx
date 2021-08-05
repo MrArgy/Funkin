@@ -13,10 +13,10 @@ class SongManager
 		new SongData
 		(
 			{
-				folder: 'week_bob',
+				folder: 'week_tutorial',
 				character: 'gf',
 				songTitle: 'How to Funk',
-				songList: ['Little-man']
+				songList: ['Tutorial']
 			}
 		),
 //-----------------------------------------------------------

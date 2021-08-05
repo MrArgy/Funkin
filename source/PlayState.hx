@@ -922,7 +922,7 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: 1}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
 
 			babyArrow.ID = i;
-			
+
 			var hideDadNote:Bool = !FlxG.save.data.showDadNote || !FlxG.save.data.showDad;
 			switch (player)
 			{
@@ -958,7 +958,6 @@ class PlayState extends MusicBeatState
 				songPlayer.getVFX(i, vfx);
 				effectStrums.add(vfx);
 			}
-
 
 			strumLineNotes.add(babyArrow);
 		}
@@ -1897,8 +1896,10 @@ class PlayState extends MusicBeatState
 		add(blackScreen);
 	}
 
+
 	public function gameNa()
 	{
+		restartGame = true;
 		vocals.stop();
 		FlxG.sound.music.stop();
 		createEmptyBlack();
