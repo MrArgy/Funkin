@@ -3,12 +3,11 @@ package fmf.songs;
 import MenuCharacter.CharacterSetting;
 import flixel.FlxSprite;
 import fmf.characters.*;
-using StringTools;
 
+using StringTools;
 
 class PlayableCharacter extends Character
 {
-
 	public function getTex():Void
 	{
 		var tex = Paths.getSparrowAtlas('characters/BoyFriend_Assets');
@@ -96,5 +95,4 @@ class PlayableCharacter extends Character
 		createAnimations();
 		createAnimationOffsets();
 	}
-
 }

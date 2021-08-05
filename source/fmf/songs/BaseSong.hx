@@ -290,6 +290,11 @@ class BaseSong
 			case 'littleman':
 				return new Littleman(700, 725);
 
+			case 'ruv':
+				return new Ruv(675, 150, 'ruv');
+
+			case 'sarv': return new Sarv(700, 150);
+			
 
 			case 'lazycat':
 				return new Lazycat(700, 750);

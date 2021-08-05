@@ -193,7 +193,7 @@ class TabiMad extends Tabi
 	{
 		if (curBeat % 6 == 0)
 		{
-			playState.defaultCamZoom = 1.25;
+			playState.defaultCamZoom = 1.15;
 			playState.shakeGenocide();
 
 			if (FlxG.save.data.distractions)
@@ -215,14 +215,13 @@ class TabiMad extends Tabi
 
 	override function updateCamFollowDad()
 	{
-		playState.camFollow.y = dad.getMidpoint().y + 100;
+		playState.camFollow.y = dad.getMidpoint().y + 50;
 	}
 
 	override function bfNoteEvent(curBeat:Int, noteData:Note)
 	{
-
+		super.bfNoteEvent(curBeat, noteData);
 		playState.defaultCamZoom = 0.8;
-		playState.shakeMinimal();
 	}
 
 	public override function getDadIcon(icon:HealthIcon)

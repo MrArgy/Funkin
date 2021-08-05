@@ -18,9 +18,13 @@ class Character extends FlxSprite
 
     public var isVisible:Bool = true;
 
-    public function new(x:Float, y:Float)
+    public var label:String;
+
+    public function new(x:Float, y:Float, label:String = 'none')
     {
         super(x, y);
+
+        this.label = label;
         animOffsets = new Map<String, Array<Dynamic>>();
         antialiasing = true;
     }

@@ -1659,11 +1659,11 @@ class PlayState extends MusicBeatState
 					notes.remove(daNote, true);
 					daNote.destroy();
 				}
-				else if (daNote.mustPress)
-				{
-					//trigger when bf hit a note
-					songPlayer.bfNoteEvent(curBeat, daNote);
-				}
+				// else if (daNote.mustPress)
+				// {
+				// 	// trigger when bf note spawn
+				// 	songPlayer.bfNoteEvent(curBeat, daNote);
+				// }
 
 
 				if (daNote.mustPress && !daNote.modifiedByLua)
@@ -1695,8 +1695,10 @@ class PlayState extends MusicBeatState
 				{
 					if (daNote.isSustainNote && daNote.wasGoodHit)
 					{
+
 						daNote.kill();
 						notes.remove(daNote, true);
+
 					}
 					else
 					{
@@ -2706,6 +2708,7 @@ class PlayState extends MusicBeatState
 				if (Math.abs(note.noteData) == spr.ID)
 				{
 					spr.animation.play('confirm', true);
+					songPlayer.bfNoteEvent(curBeat, note);
 				}
 				if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
 				{
