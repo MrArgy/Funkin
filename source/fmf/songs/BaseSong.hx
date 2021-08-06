@@ -294,10 +294,14 @@ class BaseSong
 				return new Ruv(675, 150, 'ruv');
 
 			case 'sarv': return new Sarv(700, 150);
-			
 
 			case 'lazycat':
-				return new Lazycat(700, 750);
+			return new Lazycat(700, 750);
+
+			case 'tabi':
+				return new PTabi(650, 260);
+
+			
 
 			default:
 				return getDefaultPc();
@@ -307,6 +311,11 @@ class BaseSong
 	private function getDefaultPc():PlayableCharacter
 	{
 		return new Boyfriend(700, 425); // override depending on song
+	}
+
+	private function getDefaultSkin():Skin
+	{
+		return new Skin("default");
 	}
 
 	// create BF
@@ -512,7 +521,7 @@ class BaseSong
 				skin = new DDRSkin('ddr');
 
 			default:
-				skin = new Skin("default");
+				skin = getDefaultSkin();
 		}
 	}
 

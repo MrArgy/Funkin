@@ -1,5 +1,6 @@
 package fmf.songs;
 
+import fmf.skins.*;
 import flixel.addons.effects.FlxTrail;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;
@@ -30,6 +31,11 @@ class TabiMad extends Tabi
 		sumsticks.antialiasing = true;
 		sumsticks.scrollFactor.set(0.95, 0.95);
 		playState.add(sumsticks);
+	}
+
+	override function getDefaultSkin():Skin
+	{
+		return new TabiSkin();
 	}
 
 	override function getGFTex()

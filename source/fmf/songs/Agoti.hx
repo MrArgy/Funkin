@@ -1,5 +1,6 @@
 package fmf.songs;
 
+import fmf.skins.*;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -57,6 +58,11 @@ class Agoti extends SongPlayer
 		stageFront.scale.y = 1.5;
 		playState.add(stageFront);
 		
+	}
+
+	override function getDefaultSkin():Skin
+	{
+		return new AgotiSkin();
 	}
 
 	override function createDadAnimations():Void

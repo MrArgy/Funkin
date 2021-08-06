@@ -12,7 +12,7 @@ class KadeEngineData
 
         if (FlxG.save.data.showCombo == null)
         {
-            FlxG.save.data.showCombo = false;
+            FlxG.save.data.showCombo = true;
         }
 
         if (FlxG.save.data.showBF == null)

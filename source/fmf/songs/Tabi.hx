@@ -60,10 +60,10 @@ class Tabi extends SongPlayer
 	{
 		var animation = dad.animation;
 		animation.addByPrefix('idle', 'Dad idle dance', 24, false);
-		animation.addByPrefix('singUP', 'Dad Sing Note UP', 24, false);
-		animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN', 24, false);
-		animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24, false);
-		animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24, false);
+		animation.addByPrefix('singUP', 'Dad Sing Note UP0', 24, false);
+		animation.addByPrefix('singDOWN', 'Dad Sing Note DOWN0', 24, false);
+		animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT0', 24, false);
 		dad.animation = animation;
 	}
 
@@ -88,15 +88,17 @@ class Tabi extends SongPlayer
 
 		bf.x += 125;
 
-		dad.y -= 125;
+		// dad.y -= 125;
 		dad.x -= 400;
+
+		createFrontObject();
 	}
 
 	private function createFrontObject()
 	{
 		var sumtable:FlxSprite = new FlxSprite(-600, -300).loadGraphic(Paths.image('tabi/sumtable', 'mods'));
 		sumtable.antialiasing = true;
-		sumtable.scrollFactor.set(0.9, 0.9);
+		sumtable.scrollFactor.set(0.95, 0.95);
 		playState.add(sumtable);
 	}
 
