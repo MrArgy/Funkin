@@ -30,7 +30,10 @@ class BaseSong
 
 	// characters shit
 	public var bf:PlayableCharacter;
-	public var playState:PlayState;
+	public var playState(get, never):PlayState;
+	public inline function get_playState()
+		return PlayState.instance;
+	
 	public var gf:Character;
 	public var dad:Character;
 
@@ -59,9 +62,8 @@ class BaseSong
 	}
 
 	// initalize function
-	public function init(playState:PlayState):Void
+	public function init():Void
 	{
-		this.playState = playState;
 		loadMap();
 		createCharacters();
 		initVariables();
@@ -293,15 +295,18 @@ class BaseSong
 			case 'ruv':
 				return new Ruv(675, 150, 'ruv');
 
-			case 'sarv': return new Sarv(700, 150);
+			case 'sarv':
+				return new Sarv(700, 150);
 
 			case 'lazycat':
-			return new Lazycat(700, 750);
+				return new Lazycat(700, 750);
 
 			case 'tabi':
-				return new PTabi(650, 260);
-
+				return new TabiSus(650, 260);
 			
+			case 'tabimad':
+				return new TabiMadSus(775, 150);
+	
 
 			default:
 				return getDefaultPc();

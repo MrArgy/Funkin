@@ -31,6 +31,12 @@ class Ruv extends Boyfriend
 		animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN miss', 1, false);
 	}
 
+
+	override function noteEventBF(curBeat:Int, noteData:Note)
+	{
+		playState.shakeNormal();
+	}
+
 	// create animation offset for BF
 	public override function createAnimationOffsets():Void
 	{

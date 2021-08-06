@@ -8,6 +8,11 @@ using StringTools;
 
 class PlayableCharacter extends Character
 {
+
+	public var playState(get, never):PlayState;
+	public inline function get_playState()
+		return PlayState.instance;
+
 	public function getTex():Void
 	{
 		var tex = Paths.getSparrowAtlas('characters/BoyFriend_Assets');
@@ -29,6 +34,12 @@ class PlayableCharacter extends Character
 		animation.addByPrefix('hey', 'BF HEY', 24, false);
 		animation.addByPrefix('scared', 'BF idle shaking', 24);
 	}
+
+
+	//note event shit for BF
+	public function noteEventBF(curBeat:Int, noteData:Note){}
+	public function noteEventDad(curBeat:Int, noteData:Note){}
+
 
 	override function update(elapsed:Float)
 	{

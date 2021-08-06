@@ -39,19 +39,10 @@ class SongPlayer extends BaseSong
 	public function endSongEvent(callback:Void->Void):Void{ callback(); } //end song normally
 
 	// trigger when bf note spawn
-	public function bfNoteEvent(curBeat:Int, noteData:Note):Void
-	{
-		//if playing char is ruv, shake it boy
-
-		if (bf.label == 'ruv')
-		{
-			playState.shakeNormal();
-		}
-		
-	}
+	public function bfNoteEvent(curBeat:Int, noteData:Note):Void { bf.noteEventBF(curBeat, noteData); }
 
 	// event trigger when dad hit a note
-	public function dadNoteEvent(curBeat:Int, noteData:Note):Void{}
+	public function dadNoteEvent(curBeat:Int, noteData:Note):Void{bf.noteEventDad(curBeat, noteData); }
 	
 	// update camera follow dad depending on song
 	public function updateCamFollowDad():Void{}

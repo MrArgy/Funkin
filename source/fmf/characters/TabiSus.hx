@@ -1,5 +1,7 @@
 package fmf.characters;
 
+import flixel.util.FlxColor;
+import flixel.addons.effects.FlxTrail;
 import fmf.songs.PlayableCharacter;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -8,9 +10,10 @@ import flixel.util.FlxTimer;
 
 using StringTools;
 
-class PTabi extends Boyfriend
+class TabiSus extends Boyfriend
 {
-	
+	var trail:FlxTrail;
+
 	public override function getTex():Void
 	{
 		var tex = Paths.getSparrowAtlas('tabi/TABI', 'mods');
@@ -67,5 +70,22 @@ class PTabi extends Boyfriend
 			animation.getByName('singRIGHTmiss').frames = animation.getByName('singLEFTmiss').frames;
 			animation.getByName('singLEFTmiss').frames = oldMiss;
 		}
+
+		createTrail();
 	}
+
+	private function createTrail()
+	{
+		if (FlxG.save.data.distractions)
+		{
+			trail = new FlxTrail(this, null, 1, 12, 0.85, 0.069);
+			trail.color = FlxColor.RED;
+			trail.scale.x = 5;
+			trail.scale.y = 5;
+			PlayState.instance.add(trail);
+			trail.visible = false;
+		}
+	}
+
+	
 }

@@ -272,6 +272,7 @@ class PlayState extends MusicBeatState
 			instance.destroy();
 		}
 		instance = this;
+		
 		AdMob.hideBanner();
 
 		songOffset = 0;
@@ -403,7 +404,7 @@ class PlayState extends MusicBeatState
 		if(CURRENT_SONG == 'thorns')
 		curStage = 'schoolEvil';
 
-		songPlayer.init(this);
+		songPlayer.init();
 
 		// no need create dialogue shit in freeplay, yay
 		// if (isStoryMode)

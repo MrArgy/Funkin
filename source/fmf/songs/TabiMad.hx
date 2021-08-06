@@ -146,10 +146,10 @@ class TabiMad extends Tabi
 	{
 		var animation = dad.animation;
 		animation.addByPrefix('idle', 'MadTabiIdle', 24, false);
-		animation.addByPrefix('singUP', 'MadTabiUp', 24, false);
-		animation.addByPrefix('singDOWN', 'MadTabiDown', 24, false);
-		animation.addByPrefix('singLEFT', 'MadTabiLeft', 24, false);
-		animation.addByPrefix('singRIGHT', 'MadTabiRight', 24, false);
+		animation.addByPrefix('singUP', 'MadTabiUp0', 24, false);
+		animation.addByPrefix('singDOWN', 'MadTabiDown0', 24, false);
+		animation.addByPrefix('singLEFT', 'MadTabiLeft0', 24, false);
+		animation.addByPrefix('singRIGHT', 'MadTabiRight0', 24, false);
 		dad.animation = animation;
 	}
 
@@ -174,7 +174,7 @@ class TabiMad extends Tabi
 		bf.y -= 50;
 
 		dad.x -= 650;
-		dad.y -= 50;
+		dad.y -= 150;
 
 		dad.scrollFactor.set(0.95, 0.95);
 		bf.scrollFactor.set(0.95, 0.95);
