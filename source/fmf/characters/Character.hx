@@ -73,6 +73,9 @@ class Character extends FlxSprite
 
     public function playAnimForce(anim:String, lockDuration:Float)
     {
+        if(animation.getByName(anim) == null) //no anim
+            return;
+
         if(isLockAnim) return;
 
         if (!isVisible)
@@ -84,6 +87,10 @@ class Character extends FlxSprite
 
     public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
     {
+
+        if(animation.getByName(AnimName) == null) //no anim
+            return;
+        
         if (isLockAnim)
             return;
 

@@ -1,5 +1,7 @@
 package fmf.characters;
 
+import flixel.util.FlxColor;
+import flixel.addons.effects.FlxTrail;
 import fmf.songs.PlayableCharacter;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -10,7 +12,7 @@ using StringTools;
 
 class Sarv extends Boyfriend
 {
-	
+	var trail:FlxTrail;
 	public override function getTex():Void
 	{
 		var tex = Paths.getSparrowAtlas('pc/sarv/sarv', 'mods');
@@ -32,6 +34,31 @@ class Sarv extends Boyfriend
 		animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT miss', 1, false);
 		animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN miss', 1, false);
 
+	}
+
+	override function noteEventBF(curBeat:Int, noteData:Note)
+	{
+		if (FlxG.save.data.distractions)
+		{
+			if (curBeat % 6 == 0)
+			{
+				if (FlxG.save.data.distractions)
+				{
+					trail.visible = true;
+				}
+			}
+			else if(curBeat % 16 == 0)
+			{
+				if (FlxG.save.data.distractions)
+					trail.visible = false;
+			}
+		}
+	}
+
+	override function noteEventDad(curBeat:Int, noteData:Note)
+	{
+		if (FlxG.save.data.distractions)
+			trail.visible = false;
 	}
 
 	// create animation offset for BF
@@ -68,6 +95,19 @@ class Sarv extends Boyfriend
 			animation.getByName('singLEFTmiss').frames = oldMiss;
 		}
 
+		createTrail();
+	}
+
+	private function createTrail()
+	{
+		if (FlxG.save.data.distractions)
+		{
+			trail = new FlxTrail(this, null, 4, 24, 0.3, 0.069);
+			trail.color = FlxColor.PINK;
+
+			playState.add(trail);
+			trail.visible = false;
+		}
 	}
 
 }
