@@ -34,7 +34,7 @@ class Ruv extends Boyfriend
 	override function noteEventBF(curBeat:Int, noteData:Note)
 	{
 		playState.shakeNormal();
-		PlayState.songPlayer.gf.playAnimForced("scared", 0.35);
+		PlayState.songPlayer.gf.playAnimForce("scared", 0.35);
 	}
 
 	// create animation offset for BF

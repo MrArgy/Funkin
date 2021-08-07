@@ -19,17 +19,17 @@ class GarcelloTired extends Garcello
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Garcellotired idle dance', 18, false);
+		animation.addByPrefix('idle', 'Garcellotired idle dance', 24, false);
 		animation.addByPrefix('cough', 'Garcellotired cough', 24, false);
-		animation.addByPrefix('singUP', 'Garcellotired Sing Note UP', 24, false);
-		animation.addByPrefix('singRIGHT', 'Garcellotired Sing Note RIGHT', 24, false);
-		animation.addByPrefix('singLEFT', 'Garcellotired Sing Note LEFT', 24, false);
-		animation.addByPrefix('singDOWN', 'Garcellotired Sing Note DOWN', 24, false);
+		animation.addByPrefix('singUP', 'Garcellotired Sing Note UP0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Garcellotired Sing Note RIGHT0', 24, false);
+		animation.addByPrefix('singLEFT', 'Garcellotired Sing Note LEFT0', 24, false);
+		animation.addByPrefix('singDOWN', 'Garcellotired Sing Note DOWN0', 24, false);
 
-		animation.addByPrefix('singUP-alt', 'Garcellotired Sing Note UP', 24, false);
-		animation.addByPrefix('singRIGHT-alt', 'Garcellotired Sing Note RIGHT', 24, false);
-		animation.addByPrefix('singLEFT-alt', 'Garcellotired Sing Note LEFT', 24, false);
-		animation.addByPrefix('singDOWN-alt', 'Garcellotired Sing Note DOWN', 24, false);
+		animation.addByPrefix('singUP-alt', 'Garcellotired Sing Note UP0', 24, false);
+		animation.addByPrefix('singRIGHT-alt', 'Garcellotired Sing Note RIGHT0', 24, false);
+		animation.addByPrefix('singLEFT-alt', 'Garcellotired Sing Note LEFT0', 24, false);
+		animation.addByPrefix('singDOWN-alt', 'Garcellotired Sing Note DOWN0', 24, false);
 
 		dad.animation = animation;
 	}

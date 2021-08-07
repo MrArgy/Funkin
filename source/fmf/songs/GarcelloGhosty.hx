@@ -41,10 +41,10 @@ class GarcelloGhosty extends GarcelloDead
 		var animation = dad.animation;
 
 		animation.addByPrefix('idle', 'Garcello idle dance', 18, false);
-		animation.addByPrefix('singUP', 'Garcello Sing Note UP', 24, false);
-		animation.addByPrefix('singRIGHT', 'Garcello Sing Note RIGHT', 24, false);
-		animation.addByPrefix('singLEFT', 'Garcello Sing Note LEFT', 24, false);
-		animation.addByPrefix('singDOWN', 'Garcello Sing Note DOWN', 24, false);
+		animation.addByPrefix('singUP', 'Garcello Sing Note UP0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Garcello Sing Note RIGHT0', 24, false);
+		animation.addByPrefix('singLEFT', 'Garcello Sing Note LEFT0', 24, false);
+		animation.addByPrefix('singDOWN', 'Garcello Sing Note DOWN0', 24, false);
 
 		dad.animation.addByPrefix('coolGuy', 'Garcello coolguy', 6, false);
 

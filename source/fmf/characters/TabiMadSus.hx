@@ -58,7 +58,7 @@ class TabiMadSus extends Boyfriend
 			playState.defaultCamZoom = 0.95;
 			playState.shakePrettyBig();
 
-			if (FlxG.save.data.distractions)
+			if (FlxG.save.data.distractions)	
 				trail.visible = false;
 		}
 	}

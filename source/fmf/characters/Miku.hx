@@ -19,6 +19,7 @@ class Miku extends Boyfriend
 
 	// create animation for BF
 	public override function createAnimations():Void
+	
 	{
 		animation.addByPrefix('idle', 'BF idle dance', 24, false);
 		animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);

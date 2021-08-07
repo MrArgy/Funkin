@@ -125,7 +125,7 @@ class BaseSong
 	// get GF skin
 	private function getGFTex()
 	{
-		var tex = Paths.getSparrowAtlas('gf/GF_tutorial');
+		var tex = Paths.getSparrowAtlas('gf/GF_normal');
 		gf.frames = tex;
 		// tex = null;
 	}
@@ -144,7 +144,7 @@ class BaseSong
 		animation.addByIndices('danceRight', 'GF Dancing Beat', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		animation.addByIndices('hairBlow', "GF Dancing Beat Hair blowing", [0, 1, 2, 3], "", 24);
 		animation.addByIndices('hairFall', "GF Dancing Beat Hair Landing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
-		animation.addByPrefix('scared', 'GF FEAR', 24);
+		animation.addByPrefix('scared', 'GF FEAR 0', 24);
 
 		gf.animation = animation;
 	}
@@ -173,7 +173,7 @@ class BaseSong
 	// get GF version
 	private function getGFVersion():Character
 	{
-		return new GF(400, 250);
+		return new GF(400, 200);
 	}
 
 	// create GF
@@ -306,7 +306,18 @@ class BaseSong
 			
 			case 'tabimad':
 				return new TabiMadSus(775, 150);
-	
+
+			case 'garcello':
+				return new GarcelloSus(750, 175);
+
+			case 'garcellotired':
+				return new GarcelloTiredSus(750, 175);
+
+			case 'garcellodead':
+				return new GarcelloDeadSus(750, 175);
+				
+			case 'garcelloghosty':
+				return new GarcelloGhostySus(750, 175);
 
 			default:
 				return getDefaultPc();

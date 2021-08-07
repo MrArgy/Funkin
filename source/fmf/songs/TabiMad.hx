@@ -183,9 +183,6 @@ class TabiMad extends Tabi
 		{
 			trail = new FlxTrail(dad, null, 1, 12, 0.85, 0.069);
 			trail.color = FlxColor.RED;
-			
-			trail.scale.x = 5;
-			trail.scale.y = 5;
 
 			playState.add(trail);
 			trail.visible = false;
