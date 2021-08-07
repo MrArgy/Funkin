@@ -319,6 +319,12 @@ class BaseSong
 			case 'garcelloghosty':
 				return new GarcelloGhostySus(750, 175);
 
+			case 'trickymask':
+				return new TikyMask(575, 425);
+
+			case 'tricky':
+				return new Tiky(575, 425);
+
 			default:
 				return getDefaultPc();
 		}

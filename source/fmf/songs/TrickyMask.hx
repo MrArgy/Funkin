@@ -40,28 +40,30 @@ class TrickyMask extends SongPlayer
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Idle', 18, false);
-		animation.addByPrefix('singUP', 'Sing Up', 24, false);
-		animation.addByPrefix('singRIGHT', 'Sing Right', 24, false);
-		animation.addByPrefix('singLEFT', 'Sing Left', 24, false);
-		animation.addByPrefix('singDOWN', 'Sing Down', 24, false);
+		animation.addByPrefix('idle', 'Idle', 24, false);
+		animation.addByPrefix('singUP', 'Sing Up0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Sing Right0', 24, false);
+		animation.addByPrefix('singLEFT', 'Sing Left0', 24, false);
+		animation.addByPrefix('singDOWN', 'Sing Down0', 24, false);
 		dad.animation = animation;
 	}
 
 	override function createDadAnimationOffsets():Void
 	{
-		dad.addOffset('idle', -7, -1);
-		dad.addOffset('singUP', 44, 24);
-		dad.addOffset('singRIGHT', -3, -38); 
-		dad.addOffset('singLEFT', 130, 23);
-		dad.addOffset('singDOWN', 9, -26);
+		dad.addOffset('idle', 0, 0);
+		dad.addOffset('singUP', 0, 0);
+		dad.addOffset('singRIGHT', 0, 0); 
+		dad.addOffset('singLEFT', 0, 0);
+		dad.addOffset('singDOWN', 0, 0);
 		
 		dad.x += 3;
 		dad.y -= 4;
+
 		dad.scale.x = 1.5;
 		dad.scale.y = 1.5;
 
-		dad.dance();
+		dad.playAnim('idle');
+
 
 	}
 
@@ -71,7 +73,7 @@ class TrickyMask extends SongPlayer
 		bf.x += 100;
 		bf.y += 50;
 
-		dad.y += 175;
+		dad.y += 225;
 		dad.x -= 200;
 	}
 

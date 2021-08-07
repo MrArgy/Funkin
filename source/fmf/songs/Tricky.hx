@@ -31,13 +31,15 @@ class Tricky extends TrickyMask
 	{
 			
 	
-		dad.addOffset('idle', -10, 3);
-		dad.addOffset('singRIGHT', 0, -71);
-		dad.addOffset('singLEFT', 98, -1);
-		dad.addOffset('singUP', 52, 7);
-		dad.addOffset('singDOWN', 9, -23);
+		dad.addOffset('idle', -7, 0);
+		dad.addOffset('singUP', 49, 0);
+		dad.addOffset('singRIGHT', 138, 0); 
+		dad.addOffset('singLEFT', 5, 0);
+		dad.addOffset('singDOWN', 13, 0);
+		
 
-		dad.dance();
+
+		dad.playAnim('idle');
 
 		dad.x += 10;
 		dad.y -= 4;
