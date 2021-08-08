@@ -36,18 +36,18 @@ class Sarv extends Boyfriend
 
 	}
 
-	override function noteEventBF(curBeat:Int, noteData:Note)
+	override function noteEventBF(noteData:Note)
 	{
 		if (FlxG.save.data.distractions)
 		{
-			if (curBeat % 6 == 0)
+			if (playState.curBeat % 6 == 0)
 			{
 				if (FlxG.save.data.distractions)
 				{
 					trail.visible = true;
 				}
 			}
-			else if(curBeat % 16 == 0)
+			else if(playState.curBeat % 16 == 0)
 			{
 				if (FlxG.save.data.distractions)
 					trail.visible = false;
@@ -55,7 +55,7 @@ class Sarv extends Boyfriend
 		}
 	}
 
-	override function noteEventDad(curBeat:Int, noteData:Note)
+	override function noteEventDad(noteData:Note)
 	{
 		if (FlxG.save.data.distractions)
 			trail.visible = false;

@@ -50,13 +50,12 @@ class Tiky extends Boyfriend
 		addOffset('singDOWNmiss', 0, 0);
 
 		playAnim('idle');
-		flipX = false;
 
 		this.scale.y = 1.5;
 		this.scale.x = 1.5;
 
 		// i dunno why i should do this, LOl
-		flipX = !flipX;
+		flipX = true;
 
 		// Doesn't flip for BF, since his are already in the right place???		{
 		var oldRight = animation.getByName('singRIGHT').frames;

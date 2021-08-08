@@ -22,10 +22,10 @@ class TikyHell extends Boyfriend
 	public override function createAnimations():Void
 	{
 		animation.addByPrefix('idle', 'Idle', 24, false);
-		animation.addByPrefix('singUP', 'Proper Up', 24, false);
-		animation.addByPrefix('singRIGHT', 'Proper Right', 24, false);
-		animation.addByPrefix('singLEFT', 'Proper Left', 24, false);
-		animation.addByPrefix('singDOWN', 'Proper Down', 24, false);
+		animation.addByPrefix('singUP', 'Proper Up0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Proper Right0', 24, false);
+		animation.addByPrefix('singLEFT', 'Proper Left0', 24, false);
+		animation.addByPrefix('singDOWN', 'Proper Down0', 24, false);
 
 		animation.addByPrefix('singUPmiss', 'Proper Up MISS', 1, false);
 		animation.addByPrefix('singRIGHTmiss', 'Proper Right MISS', 1, false);
@@ -54,8 +54,8 @@ class TikyHell extends Boyfriend
 		flipX = false;
 
 
-		dad.scale.x = 4;
-		dad.scale.y = 4;
+		this.scale.x = 4;
+		this.scale.y = 4;
 
 		// i dunno why i should do this, LOl
 		flipX = !flipX;

@@ -1620,7 +1620,7 @@ class PlayState extends MusicBeatState
 						case 0:
 							dad().playAnim('singLEFT' + altAnim, true);
 					}
-	
+
 					//enemy note highlight
 					if (FlxG.save.data.cpuStrums)
 					{
@@ -1647,7 +1647,7 @@ class PlayState extends MusicBeatState
 					// #end
 					
 					//trigger when dad hit a note
-					songPlayer.dadNoteEvent(curBeat, daNote);
+					songPlayer.dadNoteEvent(daNote);
 
 					dad().holdTimer = 0;
 
@@ -2566,6 +2566,9 @@ class PlayState extends MusicBeatState
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
 
+			songPlayer.playerMissNoteEvent();
+
+
 			switch (direction)
 			{
 				case 0:
@@ -2709,7 +2712,7 @@ class PlayState extends MusicBeatState
 				if (Math.abs(note.noteData) == spr.ID)
 				{
 					spr.animation.play('confirm', true);
-					songPlayer.bfNoteEvent(curBeat, note);
+					songPlayer.bfNoteEvent(note);
 				}
 				if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
 				{
@@ -2739,6 +2742,8 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 		super.stepHit();
+		songPlayer.midSongStepUpdate();
+		
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
 			resyncVocals();

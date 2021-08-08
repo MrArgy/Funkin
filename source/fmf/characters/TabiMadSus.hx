@@ -41,9 +41,9 @@ class TabiMadSus extends Boyfriend
 		animation.addByPrefix('singDOWNmiss', 'MadTabiDown MISS', 1, false);
 	}
 
-	override function noteEventBF(curBeat:Int, noteData:Note)
+	override function noteEventBF(noteData:Note)
 	{
-		if (curBeat % 6 == 0)
+		if (playState.curBeat % 6 == 0)
 		{
 			playState.defaultCamZoom = 1.15;
 			playState.shakeGenocide();
@@ -63,7 +63,7 @@ class TabiMadSus extends Boyfriend
 		}
 	}
 
-	override function noteEventDad(curBeat:Int, noteData:Note)
+	override function noteEventDad(noteData:Note)
 	{
 		playState.defaultCamZoom = defaultCamZoom;
 	}

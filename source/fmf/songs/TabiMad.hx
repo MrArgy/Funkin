@@ -192,9 +192,9 @@ class TabiMad extends Tabi
 
 	}
 
-	override function dadNoteEvent(curBeat:Int, noteData:Note)
+	override function dadNoteEvent(noteData:Note)
 	{
-		if (curBeat % 6 == 0)
+		if (playState.curBeat % 6 == 0)
 		{
 			playState.defaultCamZoom = 1.15;
 			playState.shakeGenocide();
@@ -221,9 +221,9 @@ class TabiMad extends Tabi
 		playState.camFollow.y = dad.getMidpoint().y + 50;
 	}
 
-	override function bfNoteEvent(curBeat:Int, noteData:Note)
+	override function bfNoteEvent(noteData:Note)
 	{
-		super.bfNoteEvent(curBeat, noteData);
+		super.bfNoteEvent(noteData);
 		playState.defaultCamZoom = 0.8;
 	}
 

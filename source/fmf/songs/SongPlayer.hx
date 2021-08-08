@@ -32,17 +32,20 @@ class SongPlayer extends BaseSong
 	// update function
 	public function update(elapsed:Float):Void {}
 
+	public function playerMissNoteEvent():Void {}
 	// mid song event update
 	public function midSongEventUpdate(curBeat:Int):Void{} 
+	//step event
+	public function midSongStepUpdate():Void{ bf.midSongStepUpdate(); }
 
 	// end song event
 	public function endSongEvent(callback:Void->Void):Void{ callback(); } //end song normally
 
 	// trigger when bf note spawn
-	public function bfNoteEvent(curBeat:Int, noteData:Note):Void { bf.noteEventBF(curBeat, noteData); }
+	public function bfNoteEvent(noteData:Note):Void { bf.noteEventBF(noteData); }
 
 	// event trigger when dad hit a note
-	public function dadNoteEvent(curBeat:Int, noteData:Note):Void{bf.noteEventDad(curBeat, noteData); }
+	public function dadNoteEvent(noteData:Note):Void{bf.noteEventDad(noteData); }
 	
 	// update camera follow dad depending on song
 	public function updateCamFollowDad():Void{}

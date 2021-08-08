@@ -320,10 +320,13 @@ class BaseSong
 				return new GarcelloGhostySus(750, 175);
 
 			case 'trickymask':
-				return new TikyMask(575, 425);
+				return new TikyMask(675, 360);
 
 			case 'tricky':
 				return new Tiky(850, 450);
+
+			case 'trickyhell':
+				return new TikyHell(900, 210);
 
 			default:
 				return getDefaultPc();

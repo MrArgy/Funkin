@@ -67,4 +67,19 @@ class Tricky extends TrickyMask
 		dad.animation.play('dad');
 		setMenuCharacter(dad, new CharacterSetting(-200, 25, 1));
 	}
+
+	// public override function dadNoteEvent(daNote:Note)
+	// {
+	// 	if (FlxG.random.bool(20) && !spookyRendered && !daNote.isSustainNote) // create spooky text :flushed:
+	// 	{
+	// 		var l = FlxG.random.int(0, (TrickyLinesSing.length - 1));
+	// 		var str = TrickyLinesSing[l];
+
+	// 		if (str != null)
+	// 			createSpookyText(str);
+			
+	// 	}
+	// }
+
+		
 }

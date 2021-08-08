@@ -31,7 +31,7 @@ class Ruv extends Boyfriend
 		animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN miss', 1, false);
 	}
 
-	override function noteEventBF(curBeat:Int, noteData:Note)
+	override function noteEventBF(noteData:Note)
 	{
 		playState.shakeNormal();
 		PlayState.songPlayer.gf.playAnimForce("scared", 0.35);

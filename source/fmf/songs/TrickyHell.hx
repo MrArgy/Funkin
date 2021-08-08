@@ -8,7 +8,6 @@ import fmf.characters.*;
 
 class TrickyHell extends SongPlayer
 {
-
     override function getDadTex()
 	{
 		var frames = Paths.getSparrowAtlas('clown/tiky', 'mods');
@@ -41,20 +40,20 @@ class TrickyHell extends SongPlayer
 	{
 		var animation = dad.animation;
 		animation.addByPrefix('idle', 'Idle', 24, false);
-		animation.addByPrefix('singUP', 'Proper Up', 24, false);
-		animation.addByPrefix('singRIGHT', 'Proper Right', 24, false);
-		animation.addByPrefix('singLEFT', 'Proper Left', 24, false);
-		animation.addByPrefix('singDOWN', 'Proper Down', 24, false);
+		animation.addByPrefix('singUP', 'Proper Up0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Proper Right0', 24, false);
+		animation.addByPrefix('singLEFT', 'Proper Left0', 24, false);
+		animation.addByPrefix('singDOWN', 'Proper Down0', 24, false);
 		dad.animation = animation;
 	}
 
 	override function createDadAnimationOffsets():Void
 	{
 		dad.addOffset('idle', 0, 0);
-		dad.addOffset('singUP', 108, 0);
-		dad.addOffset('singRIGHT', 12, 0);
-		dad.addOffset('singLEFT', -50, 0);
-		dad.addOffset('singDOWN', 10, 0);
+		dad.addOffset('singUP', 0, 0);
+		dad.addOffset('singRIGHT', 0, 0);
+		dad.addOffset('singLEFT', 0, 0);
+		dad.addOffset('singDOWN', 0, 0);
 
 		dad.dance();
 
@@ -99,4 +98,14 @@ class TrickyHell extends SongPlayer
 		dad.animation.play('dad');
 		setMenuCharacter(dad, new CharacterSetting(-200, 25, 1));
 	}
+
+	// override function dadNoteEvent(daNote:Note)
+	// {
+	// 	if (FlxG.random.bool(45) && !spookyRendered && !daNote.isSustainNote) // create spooky text :flushed:
+	// 	{
+	// 		createSpookyText(TrickyLinesSing[FlxG.random.int(0, TrickyLinesSing.length)]);
+	// 	}
+	// }
+
+	
 }

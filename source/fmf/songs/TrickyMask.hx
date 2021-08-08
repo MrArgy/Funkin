@@ -1,5 +1,7 @@
 package fmf.songs;
 
+import flixel.system.FlxSound;
+import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -8,13 +10,13 @@ import fmf.characters.*;
 
 class TrickyMask extends SongPlayer
 {
+	public var clown:Clown;
 
-    override function getDadTex()
+	public override function getDadTex():Void
 	{
-		var tex = Paths.getSparrowAtlas('clown/TrickyMask', 'mods');
+		var tex = Paths.getSparrowAtlas('clown/tikymask', 'mods');
 		dad.frames = tex;
 	}
-
 
 	override function loadMap()
 	{
@@ -36,36 +38,62 @@ class TrickyMask extends SongPlayer
 		fg.scale.x = 1.75;
 		playState.add(fg);
 
+		clown = new Clown();
+		clown.createStaticBG();
+
 	}
+
+	
+	override function playerMissNoteEvent()
+	{
+		if (FlxG.random.bool(4) && !clown.spookyRendered)
+			clown.createMissText(dad.x, dad.y);
+	}
+
 
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Idle', 24, false);
-		animation.addByPrefix('singUP', 'Sing Up0', 24, false);
-		animation.addByPrefix('singRIGHT', 'Sing Right0', 24, false);
-		animation.addByPrefix('singLEFT', 'Sing Left0', 24, false);
-		animation.addByPrefix('singDOWN', 'Sing Down0', 24, false);
+		animation.addByPrefix('idle', 'Idle instance 10', 24, false);
+
+		animation.addByPrefix('singUP', 'Sing Up instance 10', 24, false);
+		animation.addByPrefix('singRIGHT', 'Sing Right instance 10', 24, false);
+		animation.addByPrefix('singLEFT', 'Sing Left instance 10', 24, false);
+		animation.addByPrefix('singDOWN', 'Sing Down instance 10', 24, false);
 		dad.animation = animation;
 	}
 
 	override function createDadAnimationOffsets():Void
 	{
+	
 		dad.addOffset('idle', 0, 0);
-		dad.addOffset('singUP', 0, 0);
-		dad.addOffset('singRIGHT', 0, 0); 
-		dad.addOffset('singLEFT', 0, 0);
-		dad.addOffset('singDOWN', 0, 0);
-		
-		dad.x += 3;
-		dad.y -= 4;
-
-		dad.scale.x = 1.5;
-		dad.scale.y = 1.5;
+		dad.addOffset('singUP', 60, 17);
+		dad.addOffset('singRIGHT', 22, -48); 
+		dad.addOffset('singLEFT', 150, 25);
+		dad.addOffset('singDOWN', 33, -35);
 
 		dad.playAnim('idle');
 
 
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+		clown.update(elapsed);
+
+	}
+
+	override function midSongStepUpdate()
+	{
+		super.midSongStepUpdate();
+		clown.midSongStepUpdate();
+	}
+
+	override function dadNoteEvent(noteData:Note)
+	{
+		super.dadNoteEvent(noteData);
+		clown.noteEvent(noteData, dad.x, dad.y);
 	}
 
 	public override function createCharacters()
@@ -74,8 +102,8 @@ class TrickyMask extends SongPlayer
 		bf.x += 100;
 		bf.y += 50;
 
-		dad.y += 250;
-		dad.x -= 200;
+		dad.y += 150;
+		dad.x -= 250;
 	}
 
 	public override function getDadIcon(icon:HealthIcon)

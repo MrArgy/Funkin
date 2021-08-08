@@ -8,7 +8,6 @@ using StringTools;
 
 class PlayableCharacter extends Character
 {
-
 	public var playState(get, never):PlayState;
 	public inline function get_playState()
 		return PlayState.instance;
@@ -37,8 +36,10 @@ class PlayableCharacter extends Character
 
 
 	//note event shit for BF
-	public function noteEventBF(curBeat:Int, noteData:Note){}
-	public function noteEventDad(curBeat:Int, noteData:Note){}
+	public function noteEventBF(noteData:Note){}
+	public function noteEventDad(noteData:Note){}
+	public function midSongStepUpdate(){}
+
 
 
 	override function update(elapsed:Float)
