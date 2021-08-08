@@ -323,7 +323,7 @@ class BaseSong
 				return new TikyMask(575, 425);
 
 			case 'tricky':
-				return new Tiky(575, 425);
+				return new Tiky(850, 450);
 
 			default:
 				return getDefaultPc();

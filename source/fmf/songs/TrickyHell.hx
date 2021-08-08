@@ -40,7 +40,7 @@ class TrickyHell extends SongPlayer
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Idle', 18, false);
+		animation.addByPrefix('idle', 'Idle', 24, false);
 		animation.addByPrefix('singUP', 'Proper Up', 24, false);
 		animation.addByPrefix('singRIGHT', 'Proper Right', 24, false);
 		animation.addByPrefix('singLEFT', 'Proper Left', 24, false);
@@ -50,11 +50,11 @@ class TrickyHell extends SongPlayer
 
 	override function createDadAnimationOffsets():Void
 	{
-		dad.addOffset('idle', 0, 236);
-		dad.addOffset('singUP', 108, 13);
-		dad.addOffset('singRIGHT', 12, 156);
-		dad.addOffset('singLEFT', -50, 309);
-		dad.addOffset('singDOWN', 10, 50);
+		dad.addOffset('idle', 0, 0);
+		dad.addOffset('singUP', 108, 0);
+		dad.addOffset('singRIGHT', 12, 0);
+		dad.addOffset('singLEFT', -50, 0);
+		dad.addOffset('singDOWN', 10, 0);
 
 		dad.dance();
 

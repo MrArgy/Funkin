@@ -10,11 +10,11 @@ import flixel.util.FlxTimer;
 
 using StringTools;
 
-class Tiky extends Boyfriend
+class TikyMask extends Boyfriend
 {
 	public override function getTex():Void
 	{
-		var tex = Paths.getSparrowAtlas('clown/tricky', 'mods');
+		var tex = Paths.getSparrowAtlas('clown/TrickyMask', 'mods');
 		frames = tex;
 	}
 
@@ -42,7 +42,7 @@ class Tiky extends Boyfriend
 		addOffset('singRIGHT', 0, 0); 
 		addOffset('singLEFT', 0, 0);
 		addOffset('singDOWN', 0, 0);
-	
+
 
 		addOffset('singUPmiss', 0, 0);
 		addOffset('singRIGHTmiss', 0, 0); 
@@ -52,8 +52,9 @@ class Tiky extends Boyfriend
 		playAnim('idle');
 		flipX = false;
 
-		this.scale.y = 1.5;
+
 		this.scale.x = 1.5;
+		this.scale.y = 1.5;
 
 		// i dunno why i should do this, LOl
 		flipX = !flipX;

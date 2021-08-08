@@ -10,11 +10,11 @@ import flixel.util.FlxTimer;
 
 using StringTools;
 
-class Tiky extends Boyfriend
+class TikyHell extends Boyfriend
 {
 	public override function getTex():Void
 	{
-		var tex = Paths.getSparrowAtlas('clown/tricky', 'mods');
+		var tex = Paths.getSparrowAtlas('clown/tiky', 'mods');
 		frames = tex;
 	}
 
@@ -22,15 +22,16 @@ class Tiky extends Boyfriend
 	public override function createAnimations():Void
 	{
 		animation.addByPrefix('idle', 'Idle', 24, false);
-		animation.addByPrefix('singUP', 'Sing Up0', 24, false);
-		animation.addByPrefix('singRIGHT', 'Sing Right0', 24, false);
-		animation.addByPrefix('singLEFT', 'Sing Left0', 24, false);
-		animation.addByPrefix('singDOWN', 'Sing Down0', 24, false);
+		animation.addByPrefix('singUP', 'Proper Up', 24, false);
+		animation.addByPrefix('singRIGHT', 'Proper Right', 24, false);
+		animation.addByPrefix('singLEFT', 'Proper Left', 24, false);
+		animation.addByPrefix('singDOWN', 'Proper Down', 24, false);
 
-		animation.addByPrefix('singUPmiss', 'Sing Up MISS', 1, false);
-		animation.addByPrefix('singRIGHTmiss', 'Sing Right MISS', 1, false);
-		animation.addByPrefix('singLEFTmiss', 'Sing Left MISS', 1, false);
-		animation.addByPrefix('singDOWNmiss', 'Sing Down MISS', 1, false);
+		animation.addByPrefix('singUPmiss', 'Proper Up MISS', 1, false);
+		animation.addByPrefix('singRIGHTmiss', 'Proper Right MISS', 1, false);
+		animation.addByPrefix('singLEFTmiss', 'Proper Left MISS', 1, false);
+		animation.addByPrefix('singDOWNmiss', 'Proper Down MISS', 1, false);
+
 	}
 
 	// create animation offset for BF
@@ -42,7 +43,7 @@ class Tiky extends Boyfriend
 		addOffset('singRIGHT', 0, 0); 
 		addOffset('singLEFT', 0, 0);
 		addOffset('singDOWN', 0, 0);
-	
+
 
 		addOffset('singUPmiss', 0, 0);
 		addOffset('singRIGHTmiss', 0, 0); 
@@ -52,8 +53,9 @@ class Tiky extends Boyfriend
 		playAnim('idle');
 		flipX = false;
 
-		this.scale.y = 1.5;
-		this.scale.x = 1.5;
+
+		dad.scale.x = 4;
+		dad.scale.y = 4;
 
 		// i dunno why i should do this, LOl
 		flipX = !flipX;

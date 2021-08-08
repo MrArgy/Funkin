@@ -211,7 +211,7 @@ class PlayState extends MusicBeatState
 
 	public static var campaignScore:Int = 0;
 
-	public var defaultCamZoom:Float = 1.05;
+	public var defaultCamZoom:Float = 0.85;
 
 	public static var daPixelZoom:Float = 6;
 

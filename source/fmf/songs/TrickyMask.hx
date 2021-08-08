@@ -18,6 +18,7 @@ class TrickyMask extends SongPlayer
 
 	override function loadMap()
 	{
+		playState.defaultCamZoom = 0.85;
 		var bg:FlxSprite = new FlxSprite(-400, -200).loadGraphic(Paths.image('clown/red', 'mods'));
 		bg.antialiasing = true;
 		bg.scale.y = 1;
@@ -73,7 +74,7 @@ class TrickyMask extends SongPlayer
 		bf.x += 100;
 		bf.y += 50;
 
-		dad.y += 225;
+		dad.y += 250;
 		dad.x -= 200;
 	}
 
