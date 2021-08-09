@@ -91,6 +91,9 @@ class Mom extends SongPlayer
 		gf.addOffset('danceRight', 0);
 
 		gf.playAnim('danceRight');
+
+		gf.scrollFactor.set(0.95, 0.95);
+		gf.y -= 50;
 	}
 
 	override function getDadTex()
@@ -119,22 +122,24 @@ class Mom extends SongPlayer
 		dad.addOffset("singLEFT", 250, -23);
 		dad.addOffset("singDOWN", 20, -160);
 		dad.dance();
+
+		dad.x -= 250;
+		dad.y -= 200;
 	}
+
+	override function createBFAnimationOffsets()
+	{
+		super.createBFAnimationOffsets();
+		bf.y -= 220;
+		bf.x += 260;
+	}
+	
 
 	override function createCharacters()
 	{
 		createGF();
 		createBF();
 		createDad();
-
-		gf.scrollFactor.set(0.95, 0.95);
-		gf.y -= 50;
-
-		dad.x -= 250;
-		dad.y -= 200;
-
-		bf.y -= 220;
-		bf.x += 260;
 
 		playState.add(gf);
 		playState.add(limo);

@@ -85,7 +85,7 @@ class Kapi extends SongPlayer
 		gf.scale.x = 0.65; 
 		gf.scale.y = 0.65;
 
-		gf.y -= 25;	
+		gf.y -= 50;	
 		gf.x += 75;	
 
 	}
@@ -98,19 +98,17 @@ class Kapi extends SongPlayer
 		createDadAnimationOffsets();
 		dad.dance();
 
-    }
-
-	public override function createCharacters()
-	{
-		super.createCharacters();
-
 		dad.x += 125;
 		dad.y += 185;
 
 		dad.scale.x = 0.65;
 		dad.scale.y = 0.65;
 
-		gf.y -= 25;
+		dad.scrollFactor.set(0.95, 0.95);
+    }
+
+	override function createBFAnimationOffsets()
+	{
 
 		bf.x += 100;
 		bf.y += 50;
@@ -118,8 +116,7 @@ class Kapi extends SongPlayer
 		bf.scale.x *= 0.75;
 		bf.scale.y *= 0.75;
 
-		dad.scrollFactor.set(0.9, 0.9);
-
+		super.createBFAnimationOffsets();
 	}
 
 	public override function getDadIcon(icon:HealthIcon)

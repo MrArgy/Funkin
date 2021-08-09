@@ -197,13 +197,15 @@ class Philly extends SongPlayer
 
 		gf.x += 65;
 		gf.y += 145;
-	}
-
-	override function createCharacters()
-	{
-		super.createCharacters();
 
 		gf.y -= 125;
+
+
+	}
+
+	override function createBFAnimationOffsets()
+	{
+		super.createBFAnimationOffsets();
 		bf.x += 50;
 	}
 

@@ -117,6 +117,9 @@ class Senpai extends SongPlayer
 		gf.antialiasing = false;
 
 		gf.playAnim('danceRight');
+
+		gf.x += 150;
+		gf.y += 150;
 	}
 
 	override function createBFAnimations()
@@ -157,6 +160,9 @@ class Senpai extends SongPlayer
 		bf.antialiasing = false;
 
 		bf.flipX = true;
+
+		bf.x += 200;
+		bf.y += 220;
 	}
 
 	override function createBF()
@@ -189,6 +195,9 @@ class Senpai extends SongPlayer
 		dad.antialiasing = false;
 
 		dad.dance();
+
+		dad.x -= 200;
+		dad.y += 150;
 	}
 
 	override function midSongEventUpdate(curBeat:Int)
@@ -236,20 +245,6 @@ class Senpai extends SongPlayer
 	{
 		super.go();
 		goSprite.setGraphicSize(Std.int(goSprite.width * PlayState.daPixelZoom));
-	}
-
-	override function createCharacters()
-	{
-		super.createCharacters();
-
-		dad.x -= 200;
-		dad.y += 150;
-
-		bf.x += 200;
-		bf.y += 220;
-
-		gf.x += 150;
-		gf.y += 150;
 	}
 
 	public override function getArrowSkin(i:Int, babyArrow:FlxSprite)

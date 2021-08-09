@@ -162,22 +162,28 @@ class TabiMad extends Tabi
 		dad.addOffset("singLEFT", 60, -19);
 		dad.addOffset("singDOWN", -30, -25);
 
+		dad.x -= 950;
+		dad.y -= 150;
+
 		dad.dance();
+		dad.scrollFactor.set(0.95, 0.95);
 
 	}
 
+
+	override function createBFAnimationOffsets()
+	{
+
+		bf.x -= 550;
+		bf.y -= 50;
+		bf.scrollFactor.set(0.95, 0.95);
+
+		super.createBFAnimationOffsets();
+
+	}
 	public override function createCharacters()
 	{
 		super.createCharacters();
-
-		bf.x -= 575;
-		bf.y -= 50;
-
-		dad.x -= 650;
-		dad.y -= 150;
-
-		dad.scrollFactor.set(0.95, 0.95);
-		bf.scrollFactor.set(0.95, 0.95);
 
 		if (FlxG.save.data.distractions)
 		{
@@ -189,7 +195,6 @@ class TabiMad extends Tabi
 		}
 
 		createFrontObject();
-
 	}
 
 	override function dadNoteEvent(noteData:Note)
@@ -214,6 +219,8 @@ class TabiMad extends Tabi
 				trail.visible = false;
 
 		}
+
+		super.dadNoteEvent(noteData);
 	}
 
 	override function updateCamFollowDad()
@@ -223,8 +230,8 @@ class TabiMad extends Tabi
 
 	override function bfNoteEvent(noteData:Note)
 	{
-		super.bfNoteEvent(noteData);
 		playState.defaultCamZoom = 0.8;
+		super.bfNoteEvent(noteData);
 	}
 
 	public override function getDadIcon(icon:HealthIcon)

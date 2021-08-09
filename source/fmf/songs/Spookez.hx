@@ -68,17 +68,22 @@ class Spookez extends SongPlayer
 		
 		dad.dance();
 
+		dad.x -= 250;
+        dad.y += 50;
+
 	}
 
-
-	override function createCharacters()
+	override function createGFAnimationOffsets()
 	{
-        super.createCharacters();
-        dad.x -= 250;
-        dad.y += 50;
-        gf.y -= 125;
+		super.createGFAnimationOffsets();
+		gf.y -= 125;
+	}
+
+	override function createBFAnimationOffsets()
+	{
         bf.x += 50;
-    }
+		super.createBFAnimationOffsets();
+	}
 
 	override function midSongEventUpdate(curBeat:Int):Void
 	{

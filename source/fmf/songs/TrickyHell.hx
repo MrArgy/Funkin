@@ -6,8 +6,9 @@ import flixel.FlxSprite;
 import MenuCharacter.CharacterSetting;
 import fmf.characters.*;
 
-class TrickyHell extends SongPlayer
+class TrickyHell extends TrickyMask
 {
+
     override function getDadTex()
 	{
 		var frames = Paths.getSparrowAtlas('clown/tiky', 'mods');
@@ -34,6 +35,10 @@ class TrickyHell extends SongPlayer
 		stageFront.scale.y = 3;
 		playState.add(stageFront);
 
+		clown = new HellClown();
+		clown.createStaticBG();
+
+
 	}
 
 	override function createDadAnimations():Void
@@ -50,10 +55,10 @@ class TrickyHell extends SongPlayer
 	override function createDadAnimationOffsets():Void
 	{
 		dad.addOffset('idle', 0, 0);
-		dad.addOffset('singUP', 0, 0);
-		dad.addOffset('singRIGHT', 0, 0);
-		dad.addOffset('singLEFT', 0, 0);
-		dad.addOffset('singDOWN', 0, 0);
+		dad.addOffset('singUP', 151, -253);
+		dad.addOffset('singRIGHT', 30, -20);
+		dad.addOffset('singLEFT', 60, 0);
+		dad.addOffset('singDOWN', 70, 10);
 
 		dad.dance();
 
@@ -61,17 +66,18 @@ class TrickyHell extends SongPlayer
 		dad.scale.y = 4;
 
 		dad.x -= 500;
-		dad.y += 400;
+		dad.y += 650;
+
+		dad.x += 150;
+		dad.y -= 800;
 	}
 
-	public override function createCharacters()
+	override function createBFAnimationOffsets()
 	{
-		super.createCharacters();
 		bf.x += 100;
 		bf.y += 50;
 
-		dad.x -= 650;
-		dad.y += 150;
+		super.createBFAnimationOffsets();
 	}
 
 	public override function getDadIcon(icon:HealthIcon)
@@ -83,8 +89,9 @@ class TrickyHell extends SongPlayer
 
 	override function updateCamFollowDad()
 	{
-		super.updateCamFollowDad();
-		playState.camFollow.y = dad.getMidpoint().y - 250;
+		playState.camFollow.y = dad.getMidpoint().y + 250;
+		playState.camFollow.x = dad.getMidpoint().x;
+
 	}
 
 	public override function setDadMenuCharacter(dad:MenuCharacter)
@@ -99,13 +106,13 @@ class TrickyHell extends SongPlayer
 		setMenuCharacter(dad, new CharacterSetting(-200, 25, 1));
 	}
 
-	// override function dadNoteEvent(daNote:Note)
-	// {
-	// 	if (FlxG.random.bool(45) && !spookyRendered && !daNote.isSustainNote) // create spooky text :flushed:
-	// 	{
-	// 		createSpookyText(TrickyLinesSing[FlxG.random.int(0, TrickyLinesSing.length)]);
-	// 	}
-	// }
+	override function dadNoteEvent(noteData:Note)
+	{
+		super.dadNoteEvent(noteData);
+
+		if (FlxG.random.bool(20) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
+			clown.noteEvent(noteData, dad.x + 500, dad.y + 100);
+	}
 
 	
 }

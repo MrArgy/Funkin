@@ -14,19 +14,20 @@ class Clown
 	public inline function get_playState()
 		return PlayState.instance;
 	
-	public static var TrickyLinesSing:Array<String> = ["SUFFER","INCORRECT", "INCOMPLETE", "INSUFFICIENT", "INVALID", "CORRECTION", "MISTAKE", "REDUCE", "ERROR", "ADJUSTING", "IMPROBABLE", "IMPLAUSIBLE", "MISJUDGED"];
-	public static var TrickyLinesMiss:Array<String> = ["TERRIBLE", "WASTE", "MISS CALCULTED", "PREDICTED", "FAILURE", "DISGUSTING", "ABHORRENT", "FORESEEN", "CONTEMPTIBLE", "PROGNOSTICATE", "DISPICABLE", "REPREHENSIBLE"];
+	public  var TrickyLinesSing:Array<String> = ["SUFFER", "SUS", "IIMARKY", "NANOBIT", "INCORRECT", "INCOMPLETE", "INSUFFICIENT", "INVALID", "CORRECTION", "MISTAKE", "REDUCE", "ERROR", "ADJUSTING", "IMPROBABLE", "IMPLAUSIBLE", "MISJUDGED"];
+	public  var TrickyLinesMiss:Array<String> = ["TERRIBLE", "WASTE", "MISS CALCULTED", "PREDICTED", "FAILURE", "DISGUSTING", "ABHORRENT", "FORESEEN", "CONTEMPTIBLE", "PROGNOSTICATE", "DISPICABLE", "REPREHENSIBLE"];
 
 	public var resetSpookyText:Bool = true;
 	public var spookyText:FlxText;
 	public var spookyRendered:Bool = false;
 	public var spookySteps:Int = 0;
-	public var tstatic:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image('TrickyStatic', 'shared'), true, 320, 180);
+	public var tstatic:FlxSprite; 
 	public var stepOfLast = 0;
 
 
 	public function createStaticBG()
 	{
+		tstatic = new FlxSprite(0, 0).loadGraphic(Paths.image('TrickyStatic', 'shared'), true, 320, 180);
 		tstatic.antialiasing = true;
 		tstatic.scrollFactor.set(0,0);
 		tstatic.setGraphicSize(Std.int(tstatic.width * 8.3));
@@ -36,7 +37,6 @@ class Clown
 		tstatic.alpha = 0;
 
 		playState.add(tstatic);
-
 	}
 
 	public function new()
@@ -67,7 +67,7 @@ class Clown
 		FlxG.sound.play(Paths.sound('staticSound', 'preload'));
 		spookyText = new FlxText(FlxG.random.float(x + 40,x + 120), FlxG.random.float(y + 200, y));
 		spookyText.setFormat("Impact", 128, FlxColor.RED);
-		spookyText.size = 200;
+		spookyText.size = 100;
 		spookyText.x += 50;
 		spookyText.bold = true;
 		spookyText.text = text;
@@ -96,16 +96,14 @@ class Clown
 				playState.remove(spookyText);
 				spookyRendered = false;
 			}
+
 			tstatic.alpha = 0;
 		}
 	}
 
 	public function noteEvent(daNote:Note, x:Float, y:Float)
 	{
-		if (FlxG.random.bool(10) && !spookyRendered && !daNote.isSustainNote) // create spooky text :flushed:
-		{
-			createText(x, y);
-		}
+		createText(x, y);
 	}
 
 	public function midSongStepUpdate()

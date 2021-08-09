@@ -35,6 +35,9 @@ class Tabi extends SongPlayer
 		gf.addOffset('danceRight', 0, -9);
 
 		gf.dance();
+
+		gf.y -= 175;
+		gf.x -= 75;
 	}
 
 	override function loadMap()
@@ -76,21 +79,20 @@ class Tabi extends SongPlayer
 		dad.addOffset("singLEFT", 60, -19);
 		dad.addOffset("singDOWN", -30, -25);
 		dad.dance();
+
+		dad.x -= 400;
+	}
+
+	override function createBFAnimationOffsets()
+	{
+		bf.x += 125;
+		super.createBFAnimationOffsets();
 	}
 
 	public override function createCharacters()
 	{
-
 		super.createCharacters();
-
-		gf.y -= 175;
-		gf.x -= 75;
-
-		bf.x += 125;
-
-		// dad.y -= 125;
-		dad.x -= 400;
-
+		
 		createFrontObject();
 	}
 

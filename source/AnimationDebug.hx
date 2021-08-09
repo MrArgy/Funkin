@@ -49,9 +49,10 @@ class AnimationDebug extends FlxState
 
 			song.createDad();
 
+
 			dad = song.dad;
-			dad.screenCenter();
 			dad.debugMode = true;
+			dad.screenCenter();
 			add(dad);
 
 			char = dad;
@@ -63,11 +64,9 @@ class AnimationDebug extends FlxState
 
 			song.createBF();
 			bf = song.bf;
-			
-			bf.screenCenter();
 			bf.debugMode = true;
+			bf.screenCenter();
 			add(bf);
-
 			char = bf;
 			bf.flipX = true;
 		}

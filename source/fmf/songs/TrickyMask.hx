@@ -74,7 +74,8 @@ class TrickyMask extends SongPlayer
 
 		dad.playAnim('idle');
 
-
+		dad.y += 150;
+		dad.x -= 250;
 	}
 
 	override function update(elapsed:Float)
@@ -93,17 +94,17 @@ class TrickyMask extends SongPlayer
 	override function dadNoteEvent(noteData:Note)
 	{
 		super.dadNoteEvent(noteData);
-		clown.noteEvent(noteData, dad.x, dad.y);
+
+		if (FlxG.random.bool(10) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
+			clown.noteEvent(noteData, dad.x, dad.y);
 	}
 
-	public override function createCharacters()
+
+	override function createBFAnimationOffsets()
 	{
-		super.createCharacters();
+		super.createBFAnimationOffsets();
 		bf.x += 100;
 		bf.y += 50;
-
-		dad.y += 150;
-		dad.x -= 250;
 	}
 
 	public override function getDadIcon(icon:HealthIcon)

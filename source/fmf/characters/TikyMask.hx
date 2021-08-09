@@ -21,9 +21,11 @@ class TikyMask extends Boyfriend
 		var tex = Paths.getSparrowAtlas('clown/tikymask', 'mods');
 		var tex2 = Paths.getSparrowAtlas('clown/tikymask_miss', 'mods');
 
-		for (frame in tex2.frames){
+		for (frame in tex2.frames)
+		{
 			tex.pushFrame(frame);
 		}
+
 		frames = tex;
 	}
 
@@ -40,7 +42,8 @@ class TikyMask extends Boyfriend
 
 	override function noteEventBF(noteData:Note)
 	{
-		clown.noteEvent(noteData, x - 200, y);
+		if (FlxG.random.bool(10) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
+			clown.noteEvent(noteData, x - 240, y);
 	}
 
 	// create animation for BF
@@ -54,7 +57,7 @@ class TikyMask extends Boyfriend
 		animation.addByPrefix('singDOWN', 'Sing Down instance 10', 24, false);
 
 		animation.addByPrefix('singUPmiss', 'Sing Up instance MISS', 1, false);
-		animation.addByPrefix('singRIGHTmiss', 'Sing Right instance MISS', 1, false);
+		animation.addByPrefix('singsRIGHTmiss', 'Sing Right instance MISS', 1, false);
 		animation.addByPrefix('singLEFTmiss', 'Sing Left instance MISS', 1, false);
 		animation.addByPrefix('singDOWNmiss', 'Sing Down instance MISS', 1, false);
 	}
@@ -62,7 +65,7 @@ class TikyMask extends Boyfriend
 	// create animation offset for BF
 	public override function createAnimationOffsets():Void
 	{
-	
+
 		flipX = true;
 
 		addOffset('idle', 0, 0);
@@ -80,9 +83,6 @@ class TikyMask extends Boyfriend
 
 		clown = new Clown();
 		clown.createStaticBG();
-		
-		// i dunno why i should do this, LOl
-	
 	}
 
 

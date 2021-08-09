@@ -305,7 +305,7 @@ class BaseSong
 				return new TabiSus(650, 260);
 			
 			case 'tabimad':
-				return new TabiMadSus(775, 150);
+				return new TabiMadSus(775, 135);
 
 			case 'garcello':
 				return new GarcelloSus(750, 175);
@@ -323,10 +323,10 @@ class BaseSong
 				return new TikyMask(675, 360);
 
 			case 'tricky':
-				return new Tiky(850, 450);
+				return new Tiky(750, 525);
 
 			case 'trickyhell':
-				return new TikyHell(900, 210);
+				return new TikyHell(1000, 0);
 
 			default:
 				return getDefaultPc();
@@ -348,6 +348,14 @@ class BaseSong
 	{
 		bf = getVersion();
 		bf.createCharacter();
+
+		//fuck it, we just want offset
+		createBFAnimationOffsets();
+
+		//dumb event call after created playable character
+		bf.characterCreatedEvent();
+
+
 	}
 
 	private function createCustomBF():Void
@@ -357,6 +365,9 @@ class BaseSong
 		getBFTex();
 		createBFAnimations();
 		createBFAnimationOffsets();
+
+		bf.characterCreatedEvent();
+
 	}
 
 	// get texture of bf and set into bf itself

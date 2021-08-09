@@ -267,18 +267,12 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		if (instance != null)
-		{
-			instance.destroy();
-		}
+
 		instance = this;
 		
 		AdMob.hideBanner();
 
 		songOffset = 0;
-
-		// if (FlxG.save.data.fpsCap > 290)
-		// 	(cast(Lib.current.getChildAt(0), Main)).setFPSCap(800);
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();

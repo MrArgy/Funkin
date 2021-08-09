@@ -153,9 +153,9 @@ class Agoti extends SongPlayer
 
     }
 
-	public override function createCharacters()
+	override function createBFAnimationOffsets()
 	{
-		super.createCharacters();
+		super.createBFAnimationOffsets();
 		bf.x += 100;
 		bf.y += 50;
 	}

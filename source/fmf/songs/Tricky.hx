@@ -11,42 +11,36 @@ class Tricky extends TrickyMask
 
     override function getDadTex()
 	{
-		var tex = Paths.getSparrowAtlas('clown/tricky', 'mods');
+		var tex = Paths.getSparrowAtlas('clown/tikyangry', 'mods');
 		dad.frames = tex;
 	}
-
 
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Idle', 24, false);
-		animation.addByPrefix('singUP', 'Sing Up0', 24, false);
-		animation.addByPrefix('singRIGHT', 'Sing Right0', 24, false);
-		animation.addByPrefix('singLEFT', 'Sing Left0', 24, false);
-		animation.addByPrefix('singDOWN', 'Sing Down0', 24, false);
+		animation.addByPrefix('idle', 'Idle instance 10', 24, false);
+		animation.addByPrefix('singUP', 'Sing Up instance 10', 24, false);
+		animation.addByPrefix('singRIGHT', 'Sing Right instance 10', 24, false);
+		animation.addByPrefix('singLEFT', 'Sing Left instance 10', 24, false);
+		animation.addByPrefix('singDOWN', 'Sing Down instance 10', 24, false);
 		dad.animation = animation;
 	}
 
 	override function createDadAnimationOffsets():Void
 	{
-			
-	
-		dad.addOffset('idle', 0, 0);
-		dad.addOffset('singUP', 0, 0);
-		dad.addOffset('singRIGHT', 0, 0); 
-		dad.addOffset('singLEFT', 0, 0);
-		dad.addOffset('singDOWN', 0, 0);
-		
-
+		dad.addOffset('idle', 0, 4);
+		dad.addOffset('singUP', 65, -1);
+		dad.addOffset('singRIGHT', 27, -65); 
+		dad.addOffset('singLEFT', 101, 0);
+		dad.addOffset('singDOWN', 15, -15);
 
 		dad.playAnim('idle');
 
-		dad.x -= 150;
+		dad.x += 100;
+		dad.y += 175;
 
-		dad.scale.x = 1.5;
-		dad.scale.y = 1.5;
-
-
+		dad.scale.x = 2;
+		dad.scale.y = 2;
 	}
 
 	public override function getDadIcon(icon:HealthIcon)
@@ -68,18 +62,13 @@ class Tricky extends TrickyMask
 		setMenuCharacter(dad, new CharacterSetting(-200, 25, 1));
 	}
 
-	// public override function dadNoteEvent(daNote:Note)
-	// {
-	// 	if (FlxG.random.bool(20) && !spookyRendered && !daNote.isSustainNote) // create spooky text :flushed:
-	// 	{
-	// 		var l = FlxG.random.int(0, (TrickyLinesSing.length - 1));
-	// 		var str = TrickyLinesSing[l];
-
-	// 		if (str != null)
-	// 			createSpookyText(str);
-			
-	// 	}
-	// }
+	public override function dadNoteEvent(daNote:Note)
+	{
+		if (FlxG.random.bool(20) && !clown.spookyRendered && !daNote.isSustainNote) // create spooky text :flushed:
+		{
+			clown.noteEvent(daNote, dad.x - 100, dad.y - 200);	
+		}
+	}
 
 		
 }

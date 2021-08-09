@@ -39,6 +39,7 @@ class PlayableCharacter extends Character
 	public function noteEventBF(noteData:Note){}
 	public function noteEventDad(noteData:Note){}
 	public function midSongStepUpdate(){}
+	public function characterCreatedEvent(){}
 
 
 

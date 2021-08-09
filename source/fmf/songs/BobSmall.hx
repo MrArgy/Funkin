@@ -58,24 +58,26 @@ class BobSmall extends SongPlayer
 		dad.addOffset("singDOWN", -14, -8);
 		dad.dance();
 
-	}
-
-	override function createCharacters()
-	{
-		super.createCharacters();
-
 
 		dad.scale.x = 0.75;
 		dad.scale.y = 0.75;
 
-		gf.y -= 150;
-
-
 		dad.x -= 300;
 		dad.y += 350;
 	
+	}
+
+	override function createBFAnimationOffsets()
+	{
+		super.createBFAnimationOffsets();
 		bf.y -= 150;
 		bf.x += 200;
+	}
+
+	override function createGFAnimationOffsets()
+	{
+		super.createGFAnimationOffsets();
+		gf.y -= 150;
 	}
 
 	override function updateCamFollowBF()
@@ -90,7 +92,6 @@ class BobSmall extends SongPlayer
 
 		playState.camFollow.y = dad.getGraphicMidpoint().y - 200;
 		playState.camFollow.x = dad.getGraphicMidpoint().x + 350;
-
 
 	}
 

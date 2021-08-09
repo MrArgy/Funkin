@@ -136,7 +136,6 @@ class WinterHorrorland extends SongPlayer
 		super.createCharacters();
 
 		dad.x -= 550;
-		// dad.y += 0;
 
 		gf.scale.x = 2;
 		gf.scale.y = 2;
