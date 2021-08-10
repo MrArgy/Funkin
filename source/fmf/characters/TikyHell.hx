@@ -1,5 +1,6 @@
 package fmf.characters;
 
+import fmf.songs.HellClown;
 import flixel.math.FlxPoint;
 import fmf.songs.Clown;
 import flixel.util.FlxColor;
@@ -79,7 +80,7 @@ class TikyHell extends TikyMask
 			animation.getByName('singLEFTmiss').frames = oldMiss;
 		}
 
-		clown = new Clown();
+		clown = new HellClown();
 		clown.createStaticBG();
 	}
 
@@ -98,9 +99,7 @@ class TikyHell extends TikyMask
 		if (FlxG.random.bool(45) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
 			clown.noteEvent(noteData, x - 300, y - 200);
 
-	
 		biggeTiky();
-
 	}
 
 

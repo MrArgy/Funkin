@@ -1,5 +1,6 @@
 package fmf.characters;
 
+import fmf.songs.TrickyMask;
 import flixel.util.FlxColor;
 import flixel.addons.effects.FlxTrail;
 import fmf.songs.PlayableCharacter;
@@ -7,10 +8,11 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.util.FlxTimer;
+import fmf.songs.ExClown;
 
 using StringTools;
 
-class TikyEx extends Boyfriend
+class TikyEx extends TikyMask
 {
 	public override function getTex():Void
 	{
@@ -52,10 +54,6 @@ class TikyEx extends Boyfriend
 		playAnim('idle');
 		flipX = false;
 
-
-		this.scale.x = 1.5;
-		this.scale.y = 1.5;
-
 		// i dunno why i should do this, LOl
 		flipX = !flipX;
 
@@ -72,8 +70,32 @@ class TikyEx extends Boyfriend
 			animation.getByName('singLEFTmiss').frames = oldMiss;
 		}
 
+		clown = new ExClown();
+		clown.createStaticBG();
+
 	}
 
+	override function characterCreatedEvent()
+	{
+		var hole = new FlxSprite(0, 0).loadGraphic(Paths.image('clown/fourth/Spawnhole_Ground_BACK', 'mods'));
+		hole.antialiasing = true;
+		hole.x = this.x;
+		hole.y = this.y + 500;
+		hole.flipX = true;
+
+		hole.scale.y = 1.5;
+		hole.scale.x = 1;
+		playState.add(hole);
+	}
+
+	override function noteEventBF(noteData:Note)
+	{
+
+		if (FlxG.random.bool(60) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
+			clown.noteEvent(noteData, x - 300, y - 50);
+
+	}
+	
 
 	
 }
