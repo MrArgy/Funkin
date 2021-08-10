@@ -108,10 +108,10 @@ class TrickyHell extends TrickyMask
 
 	override function dadNoteEvent(noteData:Note)
 	{
-		super.dadNoteEvent(noteData);
-
 		if (FlxG.random.bool(20) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
 			clown.noteEvent(noteData, dad.x + 500, dad.y + 100);
+	
+		super.dadNoteEvent(noteData);
 	}
 
 	

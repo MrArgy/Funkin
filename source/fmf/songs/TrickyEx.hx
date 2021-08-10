@@ -1,12 +1,14 @@
 package fmf.songs;
 
+
+import fmf.songs.ExClown;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import MenuCharacter.CharacterSetting;
 import fmf.characters.*;
 
-class TrickyEx extends SongPlayer
+class TrickyEx extends TrickyMask
 {
 
     override function getDadTex()
@@ -33,6 +35,11 @@ class TrickyEx extends SongPlayer
 		fg.scale.y = 1;
 		fg.scale.x = 1;
 		playState.add(fg);
+
+
+		clown = new ExClown();
+		clown.createStaticBG();
+
 	}
 
 	override function getGFVersion():Character
@@ -51,39 +58,48 @@ class TrickyEx extends SongPlayer
 		gf.animation.addByPrefix('danceRight', 'GF Ex Tricky', 24, true);
 	}
 
-	override function createBFAnimationOffsets()
+	override function createGFAnimationOffsets()
 	{
-		gf.addOffset('danceRight', -140, -153);
+		super.createGFAnimationOffsets();
+		gf.addOffset('danceRight', 0, 0);
 		gf.playAnim('danceRight');
+
+		gf.y += 50;
+		gf.scrollFactor.set(0.95, 0.95);
 	}
 
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
 		animation.addByPrefix('idle', 'Idle', 18, false);
-		animation.addByPrefix('singUP', 'Sing Up', 24, false);
-		animation.addByPrefix('singRIGHT', 'Sing Right', 24, false);
-		animation.addByPrefix('singLEFT', 'Sing Left', 24, false);
-		animation.addByPrefix('singDOWN', 'Sing Down', 24, false);
+		animation.addByPrefix('singUP', 'Sing Up0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Sing Right0', 24, false);
+		animation.addByPrefix('singLEFT', 'Sing Left0', 24, false);
+		animation.addByPrefix('singDOWN', 'Sing Down0', 24, false);
 		dad.animation = animation;
 	}
 
 	override function createDadAnimationOffsets():Void
 	{
-		dad.addOffset('idle');
-		dad.addOffset('idle', -5, -2);
-		dad.addOffset('singUP', -73, 29);
-		dad.addOffset('singRIGHT', -220, -20);
-		dad.addOffset('singLEFT', -104, 0);
-		dad.addOffset('singDOWN', -139, -130);
+		dad.addOffset('idle', -10, 0);
+		dad.addOffset('singUP', -83, 19);
+		dad.addOffset('singRIGHT', -278, 10);
+		dad.addOffset('singLEFT', -124, -10);
+		dad.addOffset('singDOWN', -169, -10);
 
 		dad.dance();
 		
 		dad.scale.x = 1.25;
 		dad.scale.y = 1.25;
 
-		dad.x -= 100;
-		dad.y += 200;
+		dad.x -= 500;
+		dad.y += 35;
+	}
+
+	override function createBFAnimationOffsets()
+	{
+		super.createBFAnimationOffsets();
+		bf.x -= 150;
 	}
 
 	public override function createCharacters()
@@ -93,13 +109,10 @@ class TrickyEx extends SongPlayer
 		createBF();
 		createDad();
 
-		gf.scrollFactor.set(0.95, 0.95);
 
 		playState.add(gf);
 		playState.add(bf);
 		
-		dad.x -= 450;
-		dad.y += 100;
 
 		var hole = new FlxSprite(0, 0).loadGraphic(Paths.image('clown/fourth/Spawnhole_Ground_BACK', 'mods'));
 		hole.antialiasing = true;
@@ -112,6 +125,16 @@ class TrickyEx extends SongPlayer
 
 	}
 
+	public override function dadNoteEvent(daNote:Note)
+	{
+		if (FlxG.random.bool(60) && !clown.spookyRendered && !daNote.isSustainNote) // create spooky text :flushed:
+		{
+			clown.noteEvent(daNote, dad.x - 100, dad.y - 50);
+		}
+
+		super.dadNoteEvent(daNote);
+	}
+
 
 	public override function getDadIcon(icon:HealthIcon)
 	{
@@ -120,15 +143,4 @@ class TrickyEx extends SongPlayer
 		icon.animation.play("dad");
 	}
 
-	public override function setDadMenuCharacter(dad:MenuCharacter)
-	{
-		super.setDadMenuCharacter(dad);
-
-		var frames = Paths.getSparrowAtlas('whitty/whitty', 'mods');
-		dad.frames = frames;
-
-		dad.animation.addByPrefix('dad', "Whitty idle dance BLACK LINE", 24);
-		dad.animation.play('dad');
-		setMenuCharacter(dad, new CharacterSetting(-200, 25, 1));
-	}
 }

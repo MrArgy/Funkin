@@ -14,7 +14,7 @@ class Clown
 	public inline function get_playState()
 		return PlayState.instance;
 	
-	public  var TrickyLinesSing:Array<String> = ["SUFFER", "SUS", "IIMARKY", "NANOBIT", "INCORRECT", "INCOMPLETE", "INSUFFICIENT", "INVALID", "CORRECTION", "MISTAKE", "REDUCE", "ERROR", "ADJUSTING", "IMPROBABLE", "IMPLAUSIBLE", "MISJUDGED"];
+	public  var TrickyLinesSing:Array<String> = ["SUFFER", "TIKY", "SUS", "IIMARKY", "NANOBIT", "INCORRECT", "INCOMPLETE", "INSUFFICIENT", "INVALID", "CORRECTION", "MISTAKE", "REDUCE", "ERROR", "ADJUSTING", "IMPROBABLE", "IMPLAUSIBLE", "MISJUDGED"];
 	public  var TrickyLinesMiss:Array<String> = ["TERRIBLE", "WASTE", "MISS CALCULTED", "PREDICTED", "FAILURE", "DISGUSTING", "ABHORRENT", "FORESEEN", "CONTEMPTIBLE", "PROGNOSTICATE", "DISPICABLE", "REPREHENSIBLE"];
 
 	public var resetSpookyText:Bool = true;

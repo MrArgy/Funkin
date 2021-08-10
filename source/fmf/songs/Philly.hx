@@ -205,8 +205,8 @@ class Philly extends SongPlayer
 
 	override function createBFAnimationOffsets()
 	{
-		super.createBFAnimationOffsets();
 		bf.x += 50;
+		super.createBFAnimationOffsets();
 	}
 
 	override function midSongEventUpdate(curBeat:Int):Void

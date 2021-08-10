@@ -68,6 +68,8 @@ class Tricky extends TrickyMask
 		{
 			clown.noteEvent(daNote, dad.x - 100, dad.y - 200);	
 		}
+
+		super.dadNoteEvent(daNote);
 	}
 
 		

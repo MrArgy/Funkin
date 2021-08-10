@@ -170,7 +170,6 @@ class TabiMad extends Tabi
 
 	}
 
-
 	override function createBFAnimationOffsets()
 	{
 

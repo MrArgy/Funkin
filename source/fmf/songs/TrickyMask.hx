@@ -93,10 +93,10 @@ class TrickyMask extends SongPlayer
 
 	override function dadNoteEvent(noteData:Note)
 	{
-		super.dadNoteEvent(noteData);
-
 		if (FlxG.random.bool(10) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
 			clown.noteEvent(noteData, dad.x, dad.y);
+
+		super.dadNoteEvent(noteData);
 	}
 
 

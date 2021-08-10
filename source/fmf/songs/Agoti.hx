@@ -155,9 +155,9 @@ class Agoti extends SongPlayer
 
 	override function createBFAnimationOffsets()
 	{
-		super.createBFAnimationOffsets();
 		bf.x += 100;
 		bf.y += 50;
+		super.createBFAnimationOffsets();
 	}
 
 	public override function getDadIcon(icon:HealthIcon)
