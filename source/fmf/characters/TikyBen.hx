@@ -100,10 +100,8 @@ class TikyBen extends TikyHell
 
 	override function noteEventBF(noteData:Note)
 	{
-
 		if (FlxG.random.bool(70) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
 			clown.noteEvent(noteData, x, y + 100);
-
 	}
 
 	
