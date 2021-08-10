@@ -40,16 +40,15 @@ class TikyEx extends TikyMask
 	{
 	
 		addOffset('idle', 0, 0);
-		addOffset('singUP', 0, 0);
-		addOffset('singRIGHT', 0, 0); 
-		addOffset('singLEFT', 0, 0);
-		addOffset('singDOWN', 0, 0);
+		addOffset('singUP', 40, 0);
+		addOffset('singRIGHT', 80, 0); 
+		addOffset('singLEFT', 190, 0);
+		addOffset('singDOWN', 107, 0);
 
-
-		addOffset('singUPmiss', 0, 0);
-		addOffset('singRIGHTmiss', 0, 0); 
-		addOffset('singLEFTmiss', 0, 0);
-		addOffset('singDOWNmiss', 0, 0);
+		addOffset('singUPmiss', 40, 0);
+		addOffset('singRIGHTmiss', 80, 0); 
+		addOffset('singLEFTmiss', 190, 0);
+		addOffset('singDOWNmiss', 107, 0);
 
 		playAnim('idle');
 		flipX = false;

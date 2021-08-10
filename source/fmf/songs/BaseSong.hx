@@ -331,6 +331,9 @@ class BaseSong
 			case 'trickyex':
 				return new TikyEx(650, 350);
 
+			case 'trickyben':
+				return new TikyBen(900, -300);
+
 			default:
 				return getDefaultPc();
 		}

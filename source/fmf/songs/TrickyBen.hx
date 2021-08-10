@@ -37,41 +37,39 @@ class TrickyBen extends TrickyHell
 		stageFront.scale.y = 3;
 		playState.add(stageFront);
 
+
+		clown = new BenClown();
+		clown.createStaticBG();
+
 	}
 
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
 		animation.addByPrefix('idle', 'Phase 3 Tricky Idle', 18, false);
-		animation.addByPrefix('singUP', 'Proper Up', 24, false);
-		animation.addByPrefix('singRIGHT', 'Proper Right', 24, false);
-		animation.addByPrefix('singLEFT', 'Proper Left', 24, false);
-		animation.addByPrefix('singDOWN', 'Proper Down', 24, false);
+		animation.addByPrefix('singUP', 'Proper Up0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Proper Right0', 24, false);
+		animation.addByPrefix('singLEFT', 'Proper Left0', 24, false);
+		animation.addByPrefix('singDOWN', 'Proper Down0', 24, false);
 		dad.animation = animation;
 	}
 
 	override function createDadAnimationOffsets():Void
 	{
-		dad.addOffset('idle', 0, 226);
-		dad.addOffset('singUP', 148, 233);
-		dad.addOffset('singRIGHT', 452, -194);
-		dad.addOffset('singLEFT', -70, 339);
-		dad.addOffset('singDOWN', 500, -30);
-
-		dad.dance();
+		dad.addOffset('idle', 0, 296);
+		dad.addOffset('singUP', 148, -277);
+		dad.addOffset('singRIGHT', 392, 176);
+		dad.addOffset('singLEFT', -70, 199);
+		dad.addOffset('singDOWN', 460, 250);
 
 		dad.dance();
 
 		dad.scale.x = 4;
 		dad.scale.y = 4;
-	}
-
-	public override function createCharacters()
-	{
-		super.createCharacters();
 
 		dad.y -= 150;
-		dad.x -= 700;
+		dad.x -= 1000;
+
 	}
 
 	public override function getDadIcon(icon:HealthIcon)
@@ -83,4 +81,13 @@ class TrickyBen extends TrickyHell
 		icon.scale.y = 0.5;
 		icon.y -= 25;
 	}
+
+	override function dadNoteEvent(noteData:Note)
+	{
+		if (FlxG.random.bool(65) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
+			clown.noteEvent(noteData, dad.x + 500, dad.y + 100);
+
+		super.dadNoteEvent(noteData);
+	}
+
 }
