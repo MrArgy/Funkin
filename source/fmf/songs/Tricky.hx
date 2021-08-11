@@ -36,8 +36,8 @@ class Tricky extends TrickyMask
 
 		dad.playAnim('idle');
 
-		dad.x += 100;
-		dad.y += 175;
+		dad.x -= 125;
+		dad.y += 325;
 
 		dad.scale.x = 2;
 		dad.scale.y = 2;

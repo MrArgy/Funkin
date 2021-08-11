@@ -56,17 +56,18 @@ class TikyBen extends TikyHell
 	public override function createAnimationOffsets():Void
 	{
 	
-		addOffset('idle', 0, 0);
+		addOffset('idle', 0, 79);
 
-		addOffset('singUP', -22, -146);
-		addOffset('singRIGHT', 22, -18);
-		addOffset('singLEFT', -110, -21);
-		addOffset('singDOWN', -120, -15);
+		addOffset('singUP', -2, -24);
+		addOffset('singRIGHT', -1, 76);
+		addOffset('singLEFT', -1, 59);
+		addOffset('singDOWN', -2, 75);
 
-		addOffset('singUPmiss', -22, -146);
-		addOffset('singRIGHTmiss', 22, -18);
-		addOffset('singLEFTmiss', -110, -21);
-		addOffset('singDOWNmiss', -120, -15);
+		addOffset('singUPmiss', -2, -24);
+		addOffset('singRIGHTmiss', -1, 76);
+		addOffset('singLEFTmiss', -1, 59);
+		addOffset('singDOWNmiss', -2, 75);
+
 
 
 		playAnim('idle');

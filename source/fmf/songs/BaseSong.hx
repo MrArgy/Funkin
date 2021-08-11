@@ -332,7 +332,20 @@ class BaseSong
 				return new TikyEx(650, 350);
 
 			case 'trickyben':
-				return new TikyBen(900, -300);
+				return new TikyBen(900, -250);
+
+			case 'agoti':
+				return new AgotiSus(850, 475);
+
+			case 'agoticrazy':
+				return new AgotiCrazySus(750, 300);
+
+			case 'whitty':
+				return new WhittySus(700, 150);
+
+			case 'whittycrazy':
+				return new WhittyCrazySus(700, 200);
+
 
 			default:
 				return getDefaultPc();

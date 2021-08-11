@@ -1,4 +1,4 @@
-package fmf.songs;
+	package fmf.songs;
 
 import flixel.FlxSprite;
 import MenuCharacter.CharacterSetting;

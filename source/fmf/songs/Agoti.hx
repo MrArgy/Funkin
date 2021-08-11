@@ -68,7 +68,7 @@ class Agoti extends SongPlayer
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Agoti_Idle', 18, false);
+		animation.addByPrefix('idle', 'Agoti_Idle', 24, false);
 		animation.addByPrefix('singUP', 'Agoti_Up', 24, false);
 		animation.addByPrefix('singRIGHT', 'Agoti_Right', 24, false);
 		animation.addByPrefix('singLEFT', 'Agoti_Left', 24, false);

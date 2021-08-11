@@ -87,27 +87,27 @@ class AgotiCrazy extends Agoti
 	override function createDadAnimations():Void
 	{
 		var animation = dad.animation;
-		animation.addByPrefix('idle', 'Angry_Agoti_Idle', 18, false);
-		animation.addByPrefix('singUP', 'Angry_Agoti_Up', 24, false);
-		animation.addByPrefix('singRIGHT', 'Angry_Agoti_Right', 24, false);
-		animation.addByPrefix('singLEFT', 'Angry_Agoti_Left', 24, false);
-		animation.addByPrefix('singDOWN', 'Angry_Agoti_Down', 24, false);
+		animation.addByPrefix('idle', 'Angry_Agoti_Idle', 24, false);
+		animation.addByPrefix('singUP', 'Angry_Agoti_Up0', 24, false);
+		animation.addByPrefix('singRIGHT', 'Angry_Agoti_Right0', 24, false);
+		animation.addByPrefix('singLEFT', 'Angry_Agoti_Left0', 24, false);
+		animation.addByPrefix('singDOWN', 'Angry_Agoti_Down0', 24, false);
 		dad.animation = animation;
 	}
 
 	override function createDadAnimationOffsets():Void
 	{
 	
-		dad.addOffset('idle',0, 16);
-		dad.addOffset('singUP', 32, 157);
-		dad.addOffset('singRIGHT', 122, 8);
-		dad.addOffset('singLEFT', 41, -32);
-		dad.addOffset('singDOWN', 1, -104);
+		dad.addOffset('idle',0, 0);
+		dad.addOffset('singUP', 40, 0);
+		dad.addOffset('singRIGHT', 120, 0);
+		dad.addOffset('singLEFT', 40, 0);
+		dad.addOffset('singDOWN', 0, 0);
 
 		dad.dance();
 		dad.scale.x = 2;
 		dad.scale.y = 2;
-		dad.y += 250;
+		dad.y += 160;
 		
 	}
 
