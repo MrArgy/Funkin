@@ -75,7 +75,7 @@ class SelectionState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		storeLabel = new FlxText(10, 10, 0, "INVENTORY", 36);
+		storeLabel = new FlxText(10, 10, 0, "CUSTOMIZATION", 36);
 		storeLabel.setFormat("VCR OSD Mono", 32);
 
 		storeLabel.screenCenter(X);
@@ -176,7 +176,7 @@ class SelectionState extends MusicBeatState
 
 	function loadWeekBG(curWeek:Int)
 	{
-		yellowBG.loadGraphic(Paths.image('inventory')); 
+		yellowBG.loadGraphic(Paths.image('configuration')); 
 	}
 
 	override function update(elapsed:Float)

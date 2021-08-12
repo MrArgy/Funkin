@@ -32,7 +32,7 @@ class PcItem extends FlxSpriteGroup
 
 		pcId = id;
 
-		character = new FlxSprite().loadGraphic(Paths.image('inventory/characters/' +  PcManager.pcList[pcId].name.toLowerCase()));
+		character = new FlxSprite().loadGraphic(Paths.image('configuration/characters/' +  PcManager.pcList[pcId].name.toLowerCase()));
 		character.y -= 200;
 		character.setGraphicSize(Std.int(0.5 * character.width));
 		character.antialiasing = true;
