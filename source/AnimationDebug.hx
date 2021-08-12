@@ -68,7 +68,7 @@ class AnimationDebug extends FlxState
 			bf.screenCenter();
 			add(bf);
 			char = bf;
-			bf.flipX = true;
+			// bf.flipX = true;
 		}
 
 		dumbTexts = new FlxTypedGroup<FlxText>();

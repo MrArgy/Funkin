@@ -118,6 +118,9 @@ class BaseSong
 		playState.add(gf);
 		playState.add(dad);
 		playState.add(bf);
+
+		bf.characterAddedEvent();
+
 	}
 
 	//---------------------------------------------------------------------------------------------------------
@@ -287,7 +290,10 @@ class BaseSong
 				return new Daddy(700, 150);
 
 			case "iimarky":
-				return new IIMarky(700, 400);
+				return new IIMarky(700, 425);
+
+			case "kaique":
+				return new Kaique(700, 510);
 
 			case 'littleman':
 				return new Littleman(700, 725);

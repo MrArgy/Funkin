@@ -1,26 +1,32 @@
-package fmf.songs;
+package fmf.characters;
 
-import MenuCharacter.CharacterSetting;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import fmf.songs.PlayableCharacter;
+import flixel.FlxG;
 import flixel.FlxSprite;
-import fmf.characters.*;
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.util.FlxTimer;
+
+import fmf.songs.KaiqueClown;
 
 using StringTools;
 
-class PlayableCharacter extends Character
+class Kaique extends TikyMask
 {
-	public var playState(get, never):PlayState;
-	public inline function get_playState()
-		return PlayState.instance;
+	private var defaultCamZoom:Float;
 
-	public function getTex():Void
+	public override function getTex():Void
 	{
-		var tex = Paths.getSparrowAtlas('characters/BoyFriend_Assets');
+		var tex = Paths.getSparrowAtlas('pc/kaique/kaique', 'mods');
 		frames = tex;
 	}
 
 	// create animation for BF
-	public function createAnimations():Void
+	public override function createAnimations():Void
 	{
+		defaultCamZoom = playState.defaultCamZoom;
+
 		animation.addByPrefix('idle', 'BF idle dance', 24, false);
 		animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
 		animation.addByPrefix('singRIGHT', 'BF NOTE LEFT0', 24, false);
@@ -33,53 +39,48 @@ class PlayableCharacter extends Character
 		animation.addByPrefix('hey', 'BF HEY', 24, false);
 		animation.addByPrefix('scared', 'BF idle shaking', 24);
 	}
-
-
-	//note event shit for BF
-	public function noteEventBF(noteData:Note){}
-	public function noteEventDad(noteData:Note){}
-	public function midSongStepUpdate(){}
-	public function characterCreatedEvent(){}
-	public function characterAddedEvent(){}
-
-
-
-	override function update(elapsed:Float)
+	
+	override function noteEventBF(noteData:Note)
 	{
-		if (animation.curAnim.name.startsWith('sing'))
-		{
-			holdTimer += elapsed;
-		}
-		else
-			holdTimer = 0;
+		if (FlxG.random.bool(35) && !clown.spookyRendered && !noteData.isSustainNote) // create spooky text :flushed:
+			clown.noteEvent(noteData, x, y);
 
-		if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && !debugMode)
-		{
-			playAnim('idle', true, false, 10);
-		}
+		playState.shakeMinimal();
 
-		if (animation.curAnim.name.startsWith('sing'))
-		{
-			holdTimer += elapsed;
-		}
-		super.update(elapsed);
+
+		if(playState.curBeat % 6 == 0)
+			PlayState.songPlayer.gf.playAnimForce("cheer", 0.1);
+
+		super.noteEventBF(noteData);
+		
+	}
+
+	override function noteEventDad(noteData:Note)
+	{
+		if (playState.bfTurn)
+			return;
+
+		playState.defaultCamZoom = defaultCamZoom;
+
+		super.noteEventDad(noteData);
 	}
 
 	// create animation offset for BF
-	public function createAnimationOffsets():Void
+	public override function createAnimationOffsets():Void
 	{
 		addOffset('idle', -6, -1);
-		addOffset("singUP", -56, 30);
-		addOffset("singRIGHT", -51, -8);
-		addOffset("singLEFT", 1, -7);
-		addOffset("singDOWN", -17, -53);
+		addOffset("singUP", -17, -2);
+		addOffset("singRIGHT", -17, -1);
+		addOffset("singLEFT", -4, 0);
+		addOffset("singDOWN", -7, -3);
 
-		addOffset("singUPmiss", -48, 29);
-		addOffset("singRIGHTmiss", -8, 24);
-		addOffset("singLEFTmiss", -48, -18);
-		addOffset("singDOWNmiss", -13, -27);
-		addOffset("hey", -6, 4);
-		addOffset('scared', -7, 0);
+		addOffset("singUPmiss", -17, -2);
+		addOffset("singRIGHTmiss", -17, -1);
+		addOffset("singLEFTmiss", -4, 0);
+		addOffset("singDOWNmiss", -7, -3);
+
+		addOffset("hey", -6, -1);
+		addOffset('scared', -6, -1);
 
 		playAnim('idle');
 		flipX = true;
@@ -100,13 +101,13 @@ class PlayableCharacter extends Character
 			animation.getByName('singRIGHTmiss').frames = animation.getByName('singLEFTmiss').frames;
 			animation.getByName('singLEFTmiss').frames = oldMiss;
 		}
+
+		this.scale.x = 0.25;
+		this.scale.y = 0.25;
+
+		clown = new KaiqueClown();
+		clown.createStaticBG();
 	}
 
-	// create BF
-	public function createCharacter():Void
-	{
-		getTex();
-		createAnimations();
-		createAnimationOffsets();
-	}
+
 }
