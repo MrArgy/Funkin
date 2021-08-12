@@ -253,7 +253,8 @@ class MainMenuState extends MusicBeatState
 	function goToState()
 	{
 		var daChoice:String = optionShit[curSelected];
-
+		FlxG.switchState(new SelectionState());
+		return;
 		switch (daChoice)
 		{
 			case 'story mode':
