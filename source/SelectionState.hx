@@ -166,8 +166,6 @@ class SelectionState extends MusicBeatState
 
 		changeDifficulty(0);
 
-		trace("Line 165");
-
 		Controller.init(this, FULL, A_B);
 
 
