@@ -83,7 +83,7 @@ class TitleState extends MusicBeatState
 
 		super.create();
 
-		FlxG.save.bind('save2', 'data');
+		FlxG.save.bind('save35', 'data');
 
 		KadeEngineData.initSave();
 

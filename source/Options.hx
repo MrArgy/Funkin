@@ -93,7 +93,12 @@ class PcOption extends Option
         acceptValues = true;
     }
 
-    static public var pcList:Array<String> = ['Boyfriend','TrickyMask', 'Whitty', 'WhittyCrazy', 'Agoti', 'AgotiCrazy', 'TrickyBen', 'TrickyEx', 'TrickyHell', 'Tricky','Garcello', 'GarcelloTired', 'GarcelloDead', 'GarcelloGhosty', "TabiMad", 'Ruv', 'Sarv', 'Littleman', 'Pico', 'Mom', 'Dad', 'Kaique', 'IIMarky'];
+	static public var pcList(get, never):Array<PcData>;
+    static inline function get_pcList()
+    {
+        return PcManager.pcList;
+    }
+
     
     public override function press():Bool
     {
@@ -142,7 +147,7 @@ class PcOption extends Option
     private var getPc(get, never):String;
     private inline function get_getPc():String
     {
-        return pcList[FlxG.save.data.pcId];
+        return pcList[FlxG.save.data.pcId].name;
     }
 
 }

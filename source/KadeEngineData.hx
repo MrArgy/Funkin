@@ -3,8 +3,39 @@ import flixel.FlxG;
 
 class KadeEngineData
 {
+
     public static function initSave()
     {
+
+		if (FlxG.save.data.initPc == null)
+		{
+            FlxG.save.data.initPc = true;
+            var pcData:Array<Int> = new Array<Int>();
+
+            //push data to array
+			for (i in 0...PcManager.pcList.length)
+			{
+                pcData.push(0);
+            } 
+
+            FlxG.save.data.pcData = pcData;
+        }
+		else
+		{
+			var different:Int = Std.int(PcManager.pcList.length - FlxG.save.data.pcData.length);
+			if (different > 0) //in case update new pc
+			{
+                var pcData:Array<Int> = FlxG.save.data.pcData;
+
+				for (i in 0...different)
+				{
+                    pcData.push(0);
+                }
+
+                FlxG.save.data.pcData = pcData;
+            }
+        }
+
         if (FlxG.save.data.showDadNote == null)
         {
             FlxG.save.data.showDadNote = false;
@@ -49,12 +80,12 @@ class KadeEngineData
 
         if (FlxG.save.data.skinId == null)
         {
-            FlxG.save.data.skinId = 1;
+            FlxG.save.data.skinId = 0;
         }
 
         if (FlxG.save.data.vfxId == null)
         {
-            FlxG.save.data.vfxId = 1;
+            FlxG.save.data.vfxId = 0;
         }
 
         if (FlxG.save.data.newInput == null)

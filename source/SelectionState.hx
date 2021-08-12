@@ -38,7 +38,7 @@ class SelectionState extends MusicBeatState
 
 	var grpWeekText:FlxTypedGroup<SelectionItem>;
 
-	var grpCharacters:FlxTypedGroup<CharacterSelectionItem>;
+	var grpCharacters:FlxTypedGroup<PcItem>;
 
 
 	var grpWeekCharacters:FlxTypedGroup<MenuCharacter>;
@@ -46,6 +46,13 @@ class SelectionState extends MusicBeatState
 	var grpLocks:FlxTypedGroup<FlxSprite>;
 	
 	var yellowBG:FlxSprite;
+
+	public static var pcData(get, never):Array<Int>;
+	static inline function get_pcData():Array<Int>
+	{
+		return FlxG.save.data.pcData;
+	} 
+
 
 	override function create()
 	{
@@ -73,6 +80,10 @@ class SelectionState extends MusicBeatState
 
 		storeLabel.screenCenter(X);
 		
+
+		//load data babe
+		currentPc = FlxG.save.data.pcId;
+
 		
 
 		var rankText:FlxText = new FlxText(0, 10);
@@ -97,7 +108,7 @@ class SelectionState extends MusicBeatState
 
 		grpWeekCharacters = new FlxTypedGroup<MenuCharacter>();
 
-		grpCharacters = new FlxTypedGroup<CharacterSelectionItem>();
+		grpCharacters = new FlxTypedGroup<PcItem>();
 
 		grpLocks = new FlxTypedGroup<FlxSprite>();
 		add(grpLocks);
@@ -118,9 +129,10 @@ class SelectionState extends MusicBeatState
 			// weekThing.updateHitbox();
 		}
 
-		for (i in 0...PcOption.pcList.length)
+		for (i in 0...PcManager.pcList.length)
 		{
-			var weekThing:CharacterSelectionItem = new CharacterSelectionItem(yellowBG.x + yellowBG.width + 100 * i, 0,  PcOption.pcList[i]);
+			var unlocked = pcData[i] >= PcManager.pcList[i].cost;
+			var weekThing:PcItem = new PcItem(i, yellowBG.x + yellowBG.width + 100 * i, 0);
 
 			weekThing.y = yellowBG.y + 175;
 
@@ -157,6 +169,7 @@ class SelectionState extends MusicBeatState
 		trace("Line 165");
 
 		Controller.init(this, FULL, A_B);
+
 
 		super.create();
 	}
@@ -270,24 +283,24 @@ class SelectionState extends MusicBeatState
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 
-	var curDifficulty:Int;
+	var currentPc:Int;
 	function changeDifficulty(change:Int = 0):Void
 	{
-		curDifficulty += change;
+		currentPc += change;
 
-		if (curDifficulty < 0)
-			curDifficulty = PcOption.pcList.length - 1;
-		if (curDifficulty > PcOption.pcList.length - 1)
-			curDifficulty = 0;
+		if (currentPc < 0)
+			currentPc = PcManager.pcList.length - 1;
+		if (currentPc > PcManager.pcList.length - 1)
+			currentPc = 0;
 
 		var bullShit:Int = 0;
 
 		for (item in grpCharacters.members)
 		{
-			item.targetX = bullShit - curDifficulty;
+			item.targetX = bullShit - currentPc;
 			if (item.targetX == Std.int(0))
 			{
-				item.color = FlxColor.WHITE;
+				item.color = item.isUnlocked ? FlxColor.GREEN :  FlxColor.WHITE;
 				item.alpha = 1;
 			}
 			else
@@ -298,8 +311,6 @@ class SelectionState extends MusicBeatState
 
 			bullShit++;
 		}
-
-
 
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 

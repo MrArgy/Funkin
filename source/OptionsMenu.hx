@@ -27,21 +27,6 @@ class OptionsMenu extends MusicBeatState
     var curSelected:Int = 0;
 
     var options:Array<OptionCategory> = [
-        new OptionCategory("Characters",
-        [
-            new PcOption("Select your playable character")
-        ]),
-        
-        new OptionCategory("Skins",
-        [
-            new SkinOption("Select your skin theme")
-        ]),
-
-        new OptionCategory("Effects",
-        [
-            new VFXOption("Select your virtual notes effect")
-        ]),
-        
         new OptionCategory("Graphics", 
         [
             new GFGraphicOption("Set visible of Girlfriend"),
@@ -49,7 +34,7 @@ class OptionsMenu extends MusicBeatState
             new ArrowGraphicOption("Set visible of Enemy notes"),
             new ComboGraphicOption("Set visible of Combo")
         ]),
-
+        
         new OptionCategory("Controls", 
         [
             new MobileControl("Adjust control on mobile"),

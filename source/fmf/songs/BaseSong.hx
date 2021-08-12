@@ -276,7 +276,7 @@ class BaseSong
 	// set BF difference behaviour
 	private function getVersion():PlayableCharacter
 	{
-		var pcName:String = PcOption.pcList[FlxG.save.data.pcId];
+		var pcName:String = PcManager.pcList[FlxG.save.data.pcId].name;
 
 		switch (pcName.toLowerCase())
 		{
