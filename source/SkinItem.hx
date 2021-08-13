@@ -8,34 +8,46 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 
-class PcItem extends Item
+class SkinItem extends Item
 {
 	
 	override function getItemData():ItemData
 	{
-		return PcManager.pcList[id];
+		return SkinManager.skinList[id];
 	}
 
 	override function getUnlockedTime():Int
 	{
-		return SelectionState.pcData[id];
+		return SelectionState.skinData[id];
 	}
 
 	override function isSelected():Bool
 	{
-		return FlxG.save.data.pcId == id;
+		return FlxG.save.data.skinId == id;
 	}
 
 	override function getFolder():String
 	{
-		return "characters";
+		return "arrows";
+	}
+
+	override function createItemReview()
+	{
+		itemReview = new FlxSprite().loadGraphic(Paths.image('configuration/' + getFolder() + '/' + getItemData().name));
+		itemReview.y -= 200;
+		itemReview.x -= 75;
+		itemReview.setGraphicSize(Std.int(0.35 * itemReview.width));
+		itemReview.antialiasing = true;
+
+		add(itemReview);
 	}
 
 	override function unlock()
 	{
 		var skinData = SelectionState.skinData;
-		skinData[id] ++;
+		skinData[id]++;
 
 		FlxG.save.data.skinData = skinData;
-	}
+	}	
+
 }

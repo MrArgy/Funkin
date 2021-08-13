@@ -7,34 +7,11 @@ class KadeEngineData
     public static function initSave()
     {
 
-		if (FlxG.save.data.initPc == null)
-		{
-            FlxG.save.data.initPc = true;
-            var pcData:Array<Int> = new Array<Int>();
+	
+        initSkinData();
+        initVfxData();
+        initPcData();
 
-            //push data to array
-			for (i in 0...PcManager.pcList.length)
-			{
-                pcData.push(0);
-            } 
-
-            FlxG.save.data.pcData = pcData;
-        }
-		else
-		{
-			var different:Int = Std.int(PcManager.pcList.length - FlxG.save.data.pcData.length);
-			if (different > 0) //in case update new pc
-			{
-                var pcData:Array<Int> = FlxG.save.data.pcData;
-
-				for (i in 0...different)
-				{
-                    pcData.push(0);
-                }
-
-                FlxG.save.data.pcData = pcData;
-            }
-        }
 
         if (FlxG.save.data.showDadNote == null)
         {
@@ -175,4 +152,104 @@ class KadeEngineData
 
         (cast(Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
     }
+
+
+	private  static function initPcData()
+	{
+		if (FlxG.save.data.initPc == null)
+		{
+			FlxG.save.data.initPc = true;
+			var pcData:Array<Int> = new Array<Int>();
+
+			// push data to array
+			for (i in 0...PcManager.pcList.length)
+			{
+				pcData.push(0);
+			}
+
+			FlxG.save.data.pcData = pcData;
+		}
+		else
+		{
+			var different:Int = Std.int(PcManager.pcList.length - FlxG.save.data.pcData.length);
+			if (different > 0) // in case update new pc
+			{
+				var pcData:Array<Int> = FlxG.save.data.pcData;
+
+				for (i in 0...different)
+				{
+					pcData.push(0);
+				}
+
+				FlxG.save.data.pcData = pcData;
+			}
+		}
+	}
+
+	private static function initSkinData()
+	{
+		if (FlxG.save.data.initSkin == null)
+		{
+			FlxG.save.data.initSkin = true;
+			var skinData:Array<Int> = new Array<Int>();
+
+			// push data to array
+			for (i in 0...SkinManager.skinList.length)
+			{
+				skinData.push(0);
+			}
+
+			FlxG.save.data.skinData = skinData;
+		}
+		else
+		{
+			var different:Int = Std.int(SkinManager.skinList.length - FlxG.save.data.skinData.length);
+			if (different > 0) // in case update new pc
+			{
+				var skinData:Array<Int> = FlxG.save.data.skinData;
+
+				for (i in 0...different)
+				{
+					skinData.push(0);
+				}
+
+				FlxG.save.data.skinData = skinData;
+			}
+		}
+    
+    }
+
+	private static function initVfxData()
+	{
+		if (FlxG.save.data.initVfx == null)
+		{
+			FlxG.save.data.initVfx = true;
+			var vfxData:Array<Int> = new Array<Int>();
+
+			// push data to array
+			for (i in 0...VfxManager.vfxList.length)
+			{
+				vfxData.push(0);
+			}
+
+			FlxG.save.data.vfxData = vfxData;
+		}
+		else
+		{
+			var different:Int = Std.int(VfxManager.vfxList.length - FlxG.save.data.vfxData.length);
+			if (different > 0) // in case update new pc
+			{
+				var vfxData:Array<Int> = FlxG.save.data.vfxData;
+
+				for (i in 0...different)
+				{
+					vfxData.push(0);
+				}
+
+				FlxG.save.data.vfxData = vfxData;
+			}
+		}
+        
+    }
+
 }

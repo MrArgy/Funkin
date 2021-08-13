@@ -1,5 +1,6 @@
 package;
 
+import flixel.group.FlxSpriteGroup;
 import Options.PcOption;
 import extension.admob.AdMob;
 import fmf.songs.*;
@@ -30,9 +31,14 @@ class SelectionState extends MusicBeatState
 {
 	var storeLabel:FlxText;
 
-	var options:Array<String> = ['Play', 'Characters', "Effects"];
+	var options:Array<String> = ['Play', 'Characters', "Notes", "Effects", "Exit"];
 
-	var curWeek:Int = 0;
+	var curSelection:Int = 0;
+	
+	var curPc:Int;
+	var curVfx:Int;
+	var curSkin:Int;
+
 
 	var txtTracklist:FlxText;
 
@@ -40,18 +46,39 @@ class SelectionState extends MusicBeatState
 
 	var grpCharacters:FlxTypedGroup<PcItem>;
 
+	var grpVfxs:FlxTypedGroup<VfxItem>;
 
-	var grpWeekCharacters:FlxTypedGroup<MenuCharacter>;
+	var grpSkins:FlxTypedGroup<SkinItem>;
+
+	var grpOverview:FlxTypedGroup<Item>;
 
 	var grpLocks:FlxTypedGroup<FlxSprite>;
 	
 	var yellowBG:FlxSprite;
+
+	var selectedPc:PcItem;
+	var selectedVfx:VfxItem;
+	var selectedSkin:SkinItem;
+
 
 	public static var pcData(get, never):Array<Int>;
 	static inline function get_pcData():Array<Int>
 	{
 		return FlxG.save.data.pcData;
 	} 
+
+	public static var skinData(get, never):Array<Int>;
+	static inline function get_skinData():Array<Int>
+	{
+		return FlxG.save.data.skinData;
+	} 
+
+	public static var vfxData(get, never):Array<Int>;
+	static inline function get_vfxData():Array<Int>
+	{
+		return FlxG.save.data.vfxData;
+	} 
+
 
 
 	override function create()
@@ -81,10 +108,12 @@ class SelectionState extends MusicBeatState
 		storeLabel.screenCenter(X);
 		
 
-		//load data babe
-		currentPc = FlxG.save.data.pcId;
+		//load datas babe
 
-		
+		curPc = FlxG.save.data.pcId;
+		curVfx = FlxG.save.data.vfxId;
+		curSkin  = FlxG.save.data.skinId;
+
 
 		var rankText:FlxText = new FlxText(0, 10);
 		rankText.text = 'RANK: GREAT';
@@ -97,21 +126,19 @@ class SelectionState extends MusicBeatState
 
 		loadWeekBG(0);
 
-		// .makeGraphic(FlxG.width, 400, 0xFFF9CF51);
-
-
 		grpWeekText = new FlxTypedGroup<SelectionItem>();
 		add(grpWeekText);
 
 		var blackBarThingie:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 56, FlxColor.BLACK);
 		add(blackBarThingie);
 
-		grpWeekCharacters = new FlxTypedGroup<MenuCharacter>();
 
 		grpCharacters = new FlxTypedGroup<PcItem>();
+		grpVfxs = new FlxTypedGroup<VfxItem>();
+		grpSkins = new FlxTypedGroup<SkinItem>();
+		grpOverview = new FlxTypedGroup<Item>();
 
-		grpLocks = new FlxTypedGroup<FlxSprite>();
-		add(grpLocks);
+
 
 
 		trace("Line 70");
@@ -131,7 +158,6 @@ class SelectionState extends MusicBeatState
 
 		for (i in 0...PcManager.pcList.length)
 		{
-			var unlocked = pcData[i] >= PcManager.pcList[i].cost;
 			var weekThing:PcItem = new PcItem(i, yellowBG.x + yellowBG.width + 100 * i, 0);
 
 			weekThing.y = yellowBG.y + 175;
@@ -141,6 +167,46 @@ class SelectionState extends MusicBeatState
 			// weekThing.updateHitbox();
 		}
 	
+
+		//create vfx
+		for (i in 0...VfxManager.vfxList.length)
+		{
+			var weekThing:VfxItem = new VfxItem(i, yellowBG.x + yellowBG.width + 100 * i, 0);
+
+			weekThing.y = yellowBG.y + 175;
+
+			grpVfxs.add(weekThing);
+			weekThing.antialiasing = true;
+			// weekThing.updateHitbox();
+		}
+		
+		//create skin
+		for (i in 0...SkinManager.skinList.length)
+		{
+			var weekThing:SkinItem = new SkinItem(i, yellowBG.x + yellowBG.width + 100 * i, 0);
+
+			weekThing.y = yellowBG.y + 175;
+
+			grpSkins.add(weekThing);
+			weekThing.antialiasing = true;
+			// weekThing.updateHitbox();
+		}
+
+		selectedPc = new PcItem(curPc, yellowBG.x + yellowBG.width, 0);
+		selectedPc.y = yellowBG.y + 175;
+		selectedPc.antialiasing = true;
+
+		selectedSkin = new SkinItem(curSkin, yellowBG.x + yellowBG.width + 100, 0);
+		selectedSkin.y = yellowBG.y + 175;
+		selectedSkin.antialiasing = true;
+
+		selectedVfx = new VfxItem(curVfx, yellowBG.x + yellowBG.width + 200, 0);
+		selectedVfx.y = yellowBG.y + 175;
+		selectedVfx.antialiasing = true;
+
+		grpOverview.add(selectedPc);
+		grpOverview.add(selectedSkin);
+		grpOverview.add(selectedVfx);
 
 
 		add(yellowBG);
@@ -160,19 +226,21 @@ class SelectionState extends MusicBeatState
 		// add(rankText);
 		add(storeLabel);
 
-		add(grpWeekCharacters);
 		add(grpCharacters);
+		add(grpVfxs);
+		add(grpSkins);
 
+		add(grpOverview);
 
-		changeDifficulty(0);
-
+		changeSelection(0);
+		changeItem(0);
 		Controller.init(this, FULL, A_B);
 
 
 		super.create();
 	}
 
-	function loadWeekBG(curWeek:Int)
+	function loadWeekBG(curSelection:Int)
 	{
 		yellowBG.loadGraphic(Paths.image('configuration')); 
 	}
@@ -180,32 +248,25 @@ class SelectionState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 
-		// FlxG.watch.addQuick('font', storeLabel.font);
-
-		grpLocks.forEach(function(lock:FlxSprite)
-		{
-			lock.y = grpWeekText.members[lock.ID].y;
-		});
-
 		if (!movedBack)
 		{
 			if (!selectedWeek)
 			{
 				if (Controller.UP_P)
 				{
-					changeWeek(-1);
+					changeSelection(-1);
 				}
 
 				if (Controller.DOWN_P)
 				{
-					changeWeek(1);
+					changeSelection(1);
 				}
 
 
 				if (Controller.RIGHT_P)
-					changeDifficulty(1);
+					changeItem(1);
 				if (Controller.LEFT_P)
-					changeDifficulty(-1);
+					changeItem(-1);
 
 
 				
@@ -233,43 +294,72 @@ class SelectionState extends MusicBeatState
 
 	function selectWeek()
 	{
-		if (stopspamming == false)
+		if (options[curSelection].toLowerCase() == 'play')
 		{
+			//go babe
 			FlxG.sound.play(Paths.sound('confirmMenu'));
-
-			grpWeekText.members[curWeek].startFlashing();
-			grpWeekCharacters.members[1].animation.play('bfConfirm');
-			stopspamming = true;
+			new FlxTimer().start(1, function(tmr:FlxTimer)
+			{
+				LoadingState.loadAndSwitchState(new PlayState(), true);
+			});
+		}
+		else
+		{
+			//chamge it to play menu
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+			curSelection = 0;
+			changeSelection(0);
 		}
 
-		PlayState.storyPlaylist = SongManager.songs[curWeek].copySongList;
-		PlayState.playingSong = SongManager.songs[curWeek];
-
-		PlayState.isStoryMode = true;
-		selectedWeek = true;
-
-		var diffic = "";
-
-		new FlxTimer().start(1, function(tmr:FlxTimer)
-		{
-			LoadingState.loadAndSwitchState(new PlayState(), true);
-		});
+	
 	}
 
-	function changeWeek(change:Int = 0):Void
-	{
-		curWeek += change;
+//---------------------------------------- DETECT OPTION -----------------------------------
 
-		if (curWeek >= options.length)
-			curWeek = 0;
-		if (curWeek < 0)
-			curWeek = options.length - 1;
+	private function isOverview():Bool
+	{
+		return curSelection == 0;
+	}
+
+	private function isPc():Bool
+	{
+		return curSelection == 1;
+	}
+
+	private function isSkin():Bool
+	{
+		return curSelection == 2;
+	}
+
+	private function isVfx():Bool
+	{
+		return curSelection == 3;
+	}
+
+//--------------------------------------------------------------------------------------------
+
+	function updateRender()
+	{
+		grpOverview.visible = isOverview();
+		grpCharacters.visible = isPc();
+		grpSkins.visible = isSkin();
+		grpVfxs.visible = isVfx();
+	}
+
+	function changeSelection(change:Int = 0):Void
+	{
+		curSelection += change;
+
+		if (curSelection >= options.length)
+			curSelection = 0;
+		if (curSelection < 0)
+			curSelection = options.length - 1;
 
 		var bullShit:Int = 0;
 
 		for (item in grpWeekText.members)
 		{
-			item.targetY = bullShit - curWeek;
+			item.targetY = bullShit - curSelection;
 			if (item.targetY == Std.int(0))
 				item.alpha = 1;
 			else
@@ -279,26 +369,106 @@ class SelectionState extends MusicBeatState
 
 		// get first song in the selected week
 		FlxG.sound.play(Paths.sound('scrollMenu'));
+		
+		changeItem(0);
+		updateRender();
+
 	}
 
-	var currentPc:Int;
-	function changeDifficulty(change:Int = 0):Void
+	function changeItem(change:Int = 0):Void
 	{
-		currentPc += change;
+		switch (curSelection)
+		{
+			case 0:
+				updateOverview();
+			
+			case 1:
+				changePc(change);
+			
+			case 2:
+				changeSkin(change);
+			
+			case 3:
+				changeVfx(change);
+		}
 
-		if (currentPc < 0)
-			currentPc = PcManager.pcList.length - 1;
-		if (currentPc > PcManager.pcList.length - 1)
-			currentPc = 0;
 
+	}
+
+	private function updateOverview()
+	{
+		var bullShit:Int = 0;
+		for (item in grpCharacters.members)
+		{
+			item.targetX = bullShit;
+			if (item.targetX == Std.int(0))
+			{
+				item.color = item.isUnlocked ? FlxColor.GREEN : FlxColor.WHITE;
+				item.alpha = 1;
+			}
+			else
+			{
+				item.color = FlxColor.BLACK;
+				item.alpha = 0.1;
+			}
+			bullShit++;
+		}
+	}
+
+	private function changePc(change:Int)
+	{
+		curPc += change;
+
+		if (curPc < 0)
+			curPc = PcManager.pcList.length - 1;
+		if (curPc > PcManager.pcList.length - 1)
+			curPc = 0;
+
+		FlxG.sound.play(Paths.sound('scrollMenu'));
+
+		updatePc();
+
+	}
+	private function changeSkin(change:Int)
+	{
+		curSkin += change;
+
+		if (curSkin < 0)
+			curSkin = SkinManager.skinList.length - 1;
+
+		if (curSkin > SkinManager.skinList.length - 1)
+			curSkin = 0;
+
+		FlxG.sound.play(Paths.sound('scrollMenu'));
+
+		updateSkin();
+	}
+
+	private function changeVfx(change:Int)
+	{
+		curVfx += change;
+
+		if (curVfx < 0)
+			curVfx = VfxManager.vfxList.length - 1;
+
+		if (curVfx > VfxManager.vfxList.length - 1)
+			curVfx = 0;
+
+		FlxG.sound.play(Paths.sound('scrollMenu'));
+
+		updateVfx();
+	}
+
+	private function updatePc()
+	{
 		var bullShit:Int = 0;
 
 		for (item in grpCharacters.members)
 		{
-			item.targetX = bullShit - currentPc;
+			item.targetX = bullShit - curPc;
 			if (item.targetX == Std.int(0))
 			{
-				item.color = item.isUnlocked ? FlxColor.GREEN :  FlxColor.WHITE;
+				item.color = item.isUnlocked ? FlxColor.GREEN : FlxColor.WHITE;
 				item.alpha = 1;
 			}
 			else
@@ -309,8 +479,50 @@ class SelectionState extends MusicBeatState
 
 			bullShit++;
 		}
-
-		FlxG.sound.play(Paths.sound('scrollMenu'));
-
 	}
+
+	private function updateSkin()
+	{
+		var bullShit:Int = 0;
+
+		for (item in grpSkins.members)
+		{
+			item.targetX = bullShit - curSkin;
+			if (item.targetX == Std.int(0))
+			{
+				item.color = item.isUnlocked ? FlxColor.GREEN : FlxColor.WHITE;
+				item.alpha = 1;
+			}
+			else
+			{
+				item.color = FlxColor.BLACK;
+				item.alpha = 0.1;
+			}
+
+			bullShit++;
+		}
+	}
+
+	private function updateVfx()
+	{
+		var bullShit:Int = 0;
+
+		for (item in grpVfxs.members)
+		{
+			item.targetX = bullShit - curVfx;
+			if (item.targetX == Std.int(0))
+			{
+				item.color = item.isUnlocked ? FlxColor.GREEN : FlxColor.WHITE;
+				item.alpha = 1;
+			}
+			else
+			{
+				item.color = FlxColor.BLACK;
+				item.alpha = 0.1;
+			}
+
+			bullShit++;
+		}
+	}
+
 }

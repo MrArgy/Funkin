@@ -1,7 +1,7 @@
 package;
 
 
-class SkinManage
+class SkinManager
 {
 	static public var skinList:Array<SkinData> = 
 	[
@@ -56,7 +56,7 @@ class SkinManage
 		new SkinData
 		({
 			name: 'agoti',
-			cost: 3s
+			cost: 3
 		}),
 		
 	];

@@ -8,34 +8,36 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 
-class PcItem extends Item
+class VfxItem extends Item
 {
-	
+
 	override function getItemData():ItemData
 	{
-		return PcManager.pcList[id];
+		return VfxManager.vfxList[id];
 	}
 
 	override function getUnlockedTime():Int
 	{
-		return SelectionState.pcData[id];
+		return SelectionState.vfxData[id];
 	}
 
 	override function isSelected():Bool
 	{
-		return FlxG.save.data.pcId == id;
+		return FlxG.save.data.vfxId == id;
 	}
 
 	override function getFolder():String
 	{
-		return "characters";
+		return "effects";
 	}
 
 	override function unlock()
 	{
-		var skinData = SelectionState.skinData;
-		skinData[id] ++;
+		var vfxData = SelectionState.vfxData;
+		vfxData[id]++;
 
-		FlxG.save.data.skinData = skinData;
+		FlxG.save.data.vfxData = vfxData;
 	}
+
+
 }
