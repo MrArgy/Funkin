@@ -29,15 +29,19 @@ using StringTools;
 
 class SelectionState extends MusicBeatState
 {
+	static public var instance:SelectionState;
+
+	var selectedItem:Item;
+
 	var storeLabel:FlxText;
 
 	var options:Array<String> = ['Play', 'Characters', "Notes", "Effects"];
 
 	var curSelection:Int = 0;
 	
-	var curPc:Int;
-	var curVfx:Int;
-	var curSkin:Int;
+	public var curPc:Int;
+	public var curVfx:Int;
+	public var curSkin:Int;
 
 
 	var txtTracklist:FlxText;
@@ -47,11 +51,11 @@ class SelectionState extends MusicBeatState
 
 	var grpWeekText:FlxTypedGroup<SelectionItem>;
 
-	var grpCharacters:FlxTypedGroup<PcItem>;
+	public var grpPcs:FlxTypedGroup<PcItem>;
 
-	var grpVfxs:FlxTypedGroup<VfxItem>;
+	public var grpVfxs:FlxTypedGroup<VfxItem>;
 
-	var grpSkins:FlxTypedGroup<SkinItem>;
+	public var grpSkins:FlxTypedGroup<SkinItem>;
 
 
 	var grpLocks:FlxTypedGroup<FlxSprite>;
@@ -61,7 +65,6 @@ class SelectionState extends MusicBeatState
 	var selectedPc:PcItem;
 	var selectedVfx:VfxItem;
 	var selectedSkin:SkinItem;
-
 
 	public static var pcData(get, never):Array<Int>;
 	static inline function get_pcData():Array<Int>
@@ -85,6 +88,8 @@ class SelectionState extends MusicBeatState
 
 	override function create()
 	{
+
+		instance = this;
 
 		AdMob.hideBanner();
 
@@ -135,7 +140,7 @@ class SelectionState extends MusicBeatState
 		add(blackBarThingie);
 
 
-		grpCharacters = new FlxTypedGroup<PcItem>();
+		grpPcs = new FlxTypedGroup<PcItem>();
 		grpVfxs = new FlxTypedGroup<VfxItem>();
 		grpSkins = new FlxTypedGroup<SkinItem>();
 
@@ -163,11 +168,22 @@ class SelectionState extends MusicBeatState
 
 			weekThing.y = yellowBG.y + 175;
 
-			grpCharacters.add(weekThing);
+			grpPcs.add(weekThing);
 			weekThing.antialiasing = true;
 			// weekThing.updateHitbox();
 		}
-	
+
+		// create skin
+		for (i in 0...SkinManager.skinList.length)
+		{
+			var weekThing:SkinItem = new SkinItem(i, yellowBG.x + yellowBG.width + 100 * i, 0);
+
+			weekThing.y = yellowBG.y + 175;
+
+			grpSkins.add(weekThing);
+			weekThing.antialiasing = true;
+			// weekThing.updateHitbox();
+		}
 
 		//create vfx
 		for (i in 0...VfxManager.vfxList.length)
@@ -181,17 +197,7 @@ class SelectionState extends MusicBeatState
 			// weekThing.updateHitbox();
 		}
 		
-		//create skin
-		for (i in 0...SkinManager.skinList.length)
-		{
-			var weekThing:SkinItem = new SkinItem(i, yellowBG.x + yellowBG.width + 100 * i, 0);
 
-			weekThing.y = yellowBG.y + 175;
-
-			grpSkins.add(weekThing);
-			weekThing.antialiasing = true;
-			// weekThing.updateHitbox();
-		}
 
 		selectedPc = new PcItem(curPc, yellowBG.x + yellowBG.width - 200, 0);
 		selectedPc.y = yellowBG.y + 175;
@@ -236,7 +242,7 @@ class SelectionState extends MusicBeatState
 		// add(rankText);
 		add(storeLabel);
 
-		add(grpCharacters);
+		add(grpPcs);
 		add(grpVfxs);
 		add(grpSkins);
 
@@ -253,7 +259,7 @@ class SelectionState extends MusicBeatState
 		
 		Controller.init(this, FULL, A_B);
 
-
+        AdMob.onInterstitialEvent = onRewarded;
 
 		super.create();
 	}
@@ -293,7 +299,7 @@ class SelectionState extends MusicBeatState
 
 			if (Controller.ACCEPT)
 			{
-				selectWeek();
+				select();
 			}
 		}
 
@@ -311,7 +317,7 @@ class SelectionState extends MusicBeatState
 	var selectedWeek:Bool = false;
 	var stopspamming:Bool = false;
 
-	function selectWeek()
+	function select()
 	{
 		if (options[curSelection].toLowerCase() == 'play')
 		{
@@ -324,15 +330,49 @@ class SelectionState extends MusicBeatState
 		}
 		else
 		{
-			//chamge it to play menu
-			FlxG.sound.play(Paths.sound('scrollMenu'));
-			curSelection = 0;
-			changeSelection(0);
+			selectedItem = null;
+			switch (curSelection)
+			{
+				case 1:
+					selectedItem = grpPcs.members[curPc];
+				
+				case 2:
+					selectedItem = grpSkins.members[curSkin];
+
+				case 3:
+					selectedItem = grpVfxs.members[curVfx];
+			}
+
+			trace('ah: ' + selectedItem);
+
+			if (selectedItem == null || selectedItem.isUnlocked)
+			{
+				// chamge it to play menu
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+				curSelection = 0;
+				changeSelection(0);
+			}
+			else
+			{
+				trace('try unlock babe');
+				// try unlock it babe
+				AdMob.showRewardVideo();
+				#if !mobile
+				onRewarded("shit");
+				#end
+
+			}
 		}
 
 	
 	}
 
+	function onRewarded(shitReward)
+	{
+		if(selectedItem != null)
+			selectedItem.unlock();
+	}
+	
 //---------------------------------------- DETECT OPTION -----------------------------------
 
 	private function isOverview():Bool
@@ -359,7 +399,7 @@ class SelectionState extends MusicBeatState
 
 	function updateRender()
 	{
-		grpCharacters.visible = isPc();
+		grpPcs.visible = isPc();
 		grpSkins.visible = isSkin();
 		grpVfxs.visible = isVfx();
 	}
@@ -413,6 +453,13 @@ class SelectionState extends MusicBeatState
 
 	}
 
+	public function updatePcReview()
+	{
+		selectedPc.id = FlxG.save.data.pcId;
+		selectedPc.updateUnlockStatus();
+		selectedPc.createItemReview();
+	}
+
 	private function updateOverview()
 	{
 
@@ -449,6 +496,8 @@ class SelectionState extends MusicBeatState
 
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 
+		grpPcs.members[curPc].trySelect();
+
 		updatePc();
 
 	}
@@ -463,6 +512,8 @@ class SelectionState extends MusicBeatState
 			curSkin = 0;
 
 		FlxG.sound.play(Paths.sound('scrollMenu'));
+
+		grpSkins.members[curSkin].trySelect();
 
 		updateSkin();
 	}
@@ -479,6 +530,8 @@ class SelectionState extends MusicBeatState
 
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 
+		grpVfxs.members[curVfx].trySelect();
+
 		updateVfx();
 	}
 
@@ -486,7 +539,7 @@ class SelectionState extends MusicBeatState
 	{
 		var bullShit:Int = 0;
 
-		for (item in grpCharacters.members)
+		for (item in grpPcs.members)
 		{
 			item.targetX = bullShit - curPc;
 			if (item.targetX == Std.int(0))

@@ -48,6 +48,8 @@ class SkinItem extends Item
 		skinData[id]++;
 
 		FlxG.save.data.skinData = skinData;
+
+		super.unlock();
 	}	
 
 }

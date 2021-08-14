@@ -33,9 +33,29 @@ class PcItem extends Item
 
 	override function unlock()
 	{
-		var skinData = SelectionState.skinData;
-		skinData[id] ++;
+		var pcData = SelectionState.pcData;
+		pcData[id] ++;
 
-		FlxG.save.data.skinData = skinData;
+		FlxG.save.data.pcData = pcData;
+		FlxG.save.flush();
+
+		super.unlock();
+
+		trySelect();
+	}
+
+	override function trySelect()
+	{
+		if (isUnlocked)
+		{
+			//get curPc 
+			var curPc = FlxG.save.data.pcId;
+			FlxG.save.data.pcId = id;
+
+			SelectionState.instance.grpPcs.members[curPc].updateState();
+
+			refresh();
+			SelectionState.instance.updatePcReview();
+		}
 	}
 }

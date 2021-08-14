@@ -37,6 +37,8 @@ class VfxItem extends Item
 		vfxData[id]++;
 
 		FlxG.save.data.vfxData = vfxData;
+
+		super.unlock();
 	}
 
 	override function createItemReview()

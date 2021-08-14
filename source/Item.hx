@@ -25,8 +25,10 @@ class Item extends FlxSpriteGroup
 
 	public var video:FlxSprite;
 
-	var id:Int;
+	public var id:Int;
 
+
+	public function trySelect(){}
 
 	public function deactiveTexts()
 	{
@@ -57,7 +59,11 @@ class Item extends FlxSpriteGroup
 		return 'itemType';
 	}
 
-	public function unlock() {}
+	public function unlock()
+	{
+		trace('unlock shit fuck you!');
+		refresh();
+	}
 
 	public function refresh()
 	{
@@ -75,8 +81,11 @@ class Item extends FlxSpriteGroup
 		updateState();
 	}
 
-	private function createItemReview()
+	public function createItemReview()
 	{
+		if (itemReview != null)
+			remove(itemReview);
+
 		itemReview = new FlxSprite().loadGraphic(Paths.image('configuration/' + getFolder() +   '/' +  getItemData().name));
 		itemReview.y -= 200;
 		itemReview.setGraphicSize(Std.int(0.5 * itemReview.width));
@@ -85,6 +94,15 @@ class Item extends FlxSpriteGroup
 		add(itemReview);
 	}
 
+	public function updateUnlockStatus()
+	{
+		var unlockedTime:Int = getUnlockedTime();
+		var cost:Int = getItemData().cost;
+
+		isUnlocked = unlockedTime >= cost;
+	}
+
+
 	public function new(id:Int, x:Float, y:Float)
 	{
 		super(x, y);
@@ -92,6 +110,7 @@ class Item extends FlxSpriteGroup
 		this.id = id;
 
 		createItemReview();
+		updateUnlockStatus();
 
 		itemLabel = new FlxText(90, -175, getItemData().name.toUpperCase(), 36);
 		itemLabel.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
@@ -111,12 +130,8 @@ class Item extends FlxSpriteGroup
 		video.antialiasing = true;
 		add(video);
 
-
 		var unlockedTime:Int = getUnlockedTime();
 		var cost:Int = getItemData().cost;
-
-		isUnlocked = unlockedTime >= cost;
-
 
 		unlockAmount = new FlxText(120, 140, unlockedTime + "/" + cost, 36);
 		unlockAmount.setFormat("VCR OSD Mono", 32, CENTER);
