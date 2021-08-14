@@ -1,5 +1,6 @@
 package;
 
+import haxe.rtti.CType.Path;
 import flixel.group.FlxSpriteGroup;
 import Options.PcOption;
 import extension.admob.AdMob;
@@ -43,6 +44,8 @@ class SelectionState extends MusicBeatState
 	public var curVfx:Int;
 	public var curSkin:Int;
 
+	var frame:FlxSprite;
+
 
 	var txtTracklist:FlxText;
 
@@ -83,8 +86,6 @@ class SelectionState extends MusicBeatState
 	{
 		return FlxG.save.data.vfxData;
 	} 
-
-
 
 	override function create()
 	{
@@ -139,15 +140,9 @@ class SelectionState extends MusicBeatState
 		var blackBarThingie:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 56, FlxColor.BLACK);
 		add(blackBarThingie);
 
-
 		grpPcs = new FlxTypedGroup<PcItem>();
 		grpVfxs = new FlxTypedGroup<VfxItem>();
 		grpSkins = new FlxTypedGroup<SkinItem>();
-
-
-
-
-		trace("Line 70");
 
 		for (i in 0...options.length)
 		{
@@ -200,7 +195,7 @@ class SelectionState extends MusicBeatState
 
 
 		selectedPc = new PcItem(curPc, yellowBG.x + yellowBG.width - 200, 0);
-		selectedPc.y = yellowBG.y + 175;
+		selectedPc.y = yellowBG.y + 220;
 		selectedPc.antialiasing = true;
 
 		selectedSkin = new SkinItem(curSkin, yellowBG.x + yellowBG.width - 100, 0);
@@ -234,9 +229,14 @@ class SelectionState extends MusicBeatState
 
 		txtTracklist.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
 
-		txtTapToStart = new FlxText(0, 0, 0, "Press 'A' to start!");
+		txtTapToStart = new FlxText(-50, 0, 0, "Press 'A' to start!");
 		txtTapToStart.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER);
 
+		frame = new FlxSprite(-75, -100).loadGraphic(Paths.image("configuration/frames/800033"));
+		frame.setGraphicSize(Std.int(frame.width * 1.5));
+		frame.antialiasing = false;
+
+		add(frame);
 
 		add(txtTracklist);
 		// add(rankText);
@@ -252,6 +252,10 @@ class SelectionState extends MusicBeatState
 
 
 		add(txtTapToStart);
+
+		updateVfxReview();
+		updatePcReview();	
+		updateSkinReview();
 
 		changeSelection(0);
 		changeItem(0);
@@ -460,6 +464,20 @@ class SelectionState extends MusicBeatState
 		selectedPc.createItemReview();
 	}
 
+	public function updateSkinReview()
+	{
+		selectedSkin.id = FlxG.save.data.skinId;
+		selectedSkin.updateUnlockStatus();
+		selectedSkin.createItemReview(0.35);
+	}
+	
+	public function updateVfxReview()
+	{
+		selectedVfx.id = FlxG.save.data.vfxId;
+		selectedVfx.updateUnlockStatus();
+		selectedVfx.createItemReview(0.35);
+	}
+	
 	private function updateOverview()
 	{
 
@@ -468,20 +486,25 @@ class SelectionState extends MusicBeatState
 		selectedPc.itemReview.visible = isOverview();
 		selectedSkin.itemReview.visible = isOverview();
 		selectedVfx.itemReview.visible = isOverview();
+
+		frame.visible = isOverview();
+
+
 		txtTapToStart.visible = isOverview();
 
+		// hardcoding, ah shit here we go again
 
-		// //hardcoding, ah shit here we go again
+		selectedSkin.itemReview.y = selectedPc.y - 190;
 
-		// selectedSkin.itemReview.x = selectedPc.x - 75;
-		selectedSkin.itemReview.y = selectedPc.y - 200;
-		// selectedVfx.itemReview.x = selectedPc.x - 75;
-		selectedVfx.itemReview.y = selectedSkin.y - 400;
-		selectedVfx.selectedText.visible = false;
+		selectedVfx.itemReview.x = selectedPc.x - 105;
+		selectedVfx.itemReview.y = selectedPc.y - 390;
 
-		txtTapToStart.x = selectedPc.x;
-		txtTapToStart.y = selectedPc.y + 175;
+		txtTapToStart.x = selectedPc.x + 5;
+		txtTapToStart.y = selectedPc.y + 140;
 
+
+		frame.x = selectedPc.x + 60;
+		frame.y = selectedPc.y - 160;
 
 	}
 

@@ -51,10 +51,12 @@ class PcItem extends Item
 			//get curPc 
 			var curPc = FlxG.save.data.pcId;
 			FlxG.save.data.pcId = id;
+			FlxG.save.flush();
 
 			SelectionState.instance.grpPcs.members[curPc].updateState();
 
 			refresh();
+
 			SelectionState.instance.updatePcReview();
 		}
 	}

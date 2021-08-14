@@ -31,12 +31,14 @@ class SkinItem extends Item
 		return "arrows";
 	}
 
-	override function createItemReview()
+	override function createItemReview(size:Float = 0.35)
 	{
+		disposeItemReivew();
+
 		itemReview = new FlxSprite().loadGraphic(Paths.image('configuration/' + getFolder() + '/' + getItemData().name));
 		itemReview.y -= 100;
 		itemReview.x -= 75;
-		itemReview.setGraphicSize(Std.int(0.35 * itemReview.width));
+		itemReview.setGraphicSize(Std.int(size * itemReview.width));
 		itemReview.antialiasing = true;
 
 		add(itemReview);
@@ -48,8 +50,29 @@ class SkinItem extends Item
 		skinData[id]++;
 
 		FlxG.save.data.skinData = skinData;
+		FlxG.save.flush();
 
 		super.unlock();
+		
+		trySelect();
 	}	
+
+	override function trySelect()
+	{
+		if (isUnlocked)
+		{
+			// get curPc
+			var curSkin = FlxG.save.data.skinId;
+			FlxG.save.data.skinId = id;
+			FlxG.save.flush();
+
+			SelectionState.instance.grpSkins.members[curSkin].updateState();
+
+			refresh();
+
+			SelectionState.instance.updateSkinReview();
+		}
+	}
+
 
 }

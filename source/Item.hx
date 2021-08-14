@@ -81,17 +81,22 @@ class Item extends FlxSpriteGroup
 		updateState();
 	}
 
-	public function createItemReview()
+	public function createItemReview(size:Float = 0.5)
 	{
-		if (itemReview != null)
-			remove(itemReview);
+		disposeItemReivew();
 
 		itemReview = new FlxSprite().loadGraphic(Paths.image('configuration/' + getFolder() +   '/' +  getItemData().name));
 		itemReview.y -= 200;
-		itemReview.setGraphicSize(Std.int(0.5 * itemReview.width));
+		itemReview.setGraphicSize(Std.int(size * itemReview.width));
 		itemReview.antialiasing = true;
 
 		add(itemReview);
+	}
+
+	private function disposeItemReivew()
+	{
+		if (itemReview != null)
+			remove(itemReview);
 	}
 
 	public function updateUnlockStatus()

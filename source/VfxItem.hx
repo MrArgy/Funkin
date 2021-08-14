@@ -37,17 +37,42 @@ class VfxItem extends Item
 		vfxData[id]++;
 
 		FlxG.save.data.vfxData = vfxData;
+		FlxG.save.flush();
 
 		super.unlock();
+
+		trySelect();
+
 	}
 
-	override function createItemReview()
+
+	override function trySelect()
 	{
+		if (isUnlocked)
+		{
+			// get curVfx
+
+			var vfxId = FlxG.save.data.vfxId;
+			FlxG.save.data.vfxId = id;
+			FlxG.save.flush();
+
+			SelectionState.instance.grpVfxs.members[vfxId].updateState();
+
+			refresh();
+
+			SelectionState.instance.updateVfxReview();
+		}
+	}
+
+	override function createItemReview(size:Float = 0.5)
+	{
+		disposeItemReivew();
+		
 		itemReview = new FlxSprite().loadGraphic(Paths.image('configuration/' + getFolder() + '/' + getItemData().name));
 		itemReview.y -= 250;
 		itemReview.x -= 100;
 
-		itemReview.setGraphicSize(Std.int(0.5 * itemReview.width));
+		itemReview.setGraphicSize(Std.int(size * itemReview.width));
 		itemReview.antialiasing = true;
 
 		add(itemReview);
