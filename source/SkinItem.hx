@@ -34,7 +34,7 @@ class SkinItem extends Item
 	override function createItemReview()
 	{
 		itemReview = new FlxSprite().loadGraphic(Paths.image('configuration/' + getFolder() + '/' + getItemData().name));
-		itemReview.y -= 200;
+		itemReview.y -= 100;
 		itemReview.x -= 75;
 		itemReview.setGraphicSize(Std.int(0.35 * itemReview.width));
 		itemReview.antialiasing = true;

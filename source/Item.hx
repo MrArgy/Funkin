@@ -21,9 +21,21 @@ class Item extends FlxSpriteGroup
 	public var unlockAmount:FlxText;
 	public var selectedText:FlxText;
 
+	public var itemLabel:FlxText;
+
 	public var video:FlxSprite;
 
 	var id:Int;
+
+
+	public function deactiveTexts()
+	{
+		unlockText.visible = false;
+		selectedText.visible = false;
+		video.visible = false;
+		itemLabel.visible = false;
+		unlockAmount.visible = false;
+	}
 
 	public function getItemData():ItemData
 	{
@@ -81,6 +93,12 @@ class Item extends FlxSpriteGroup
 
 		createItemReview();
 
+		itemLabel = new FlxText(90, -175, getItemData().name.toUpperCase(), 36);
+		itemLabel.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
+		add(itemLabel);
+
+
+
 		unlockText = new FlxText(90, 100, "UNLOCK", 36);
 		unlockText.setFormat("VCR OSD Mono", 32);
 
@@ -112,6 +130,10 @@ class Item extends FlxSpriteGroup
 
 		updateState();
 	}
+
+	
+
+
 
 	public function updateState()
 	{

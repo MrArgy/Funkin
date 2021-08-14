@@ -39,5 +39,18 @@ class VfxItem extends Item
 		FlxG.save.data.vfxData = vfxData;
 	}
 
+	override function createItemReview()
+	{
+		itemReview = new FlxSprite().loadGraphic(Paths.image('configuration/' + getFolder() + '/' + getItemData().name));
+		itemReview.y -= 250;
+		itemReview.x -= 100;
+
+		itemReview.setGraphicSize(Std.int(0.5 * itemReview.width));
+		itemReview.antialiasing = true;
+
+		add(itemReview);
+	}
+		
+
 
 }

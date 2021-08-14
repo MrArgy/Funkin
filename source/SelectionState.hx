@@ -31,7 +31,7 @@ class SelectionState extends MusicBeatState
 {
 	var storeLabel:FlxText;
 
-	var options:Array<String> = ['Play', 'Characters', "Notes", "Effects", "Exit"];
+	var options:Array<String> = ['Play', 'Characters', "Notes", "Effects"];
 
 	var curSelection:Int = 0;
 	
@@ -42,6 +42,9 @@ class SelectionState extends MusicBeatState
 
 	var txtTracklist:FlxText;
 
+	var txtTapToStart:FlxText;
+
+
 	var grpWeekText:FlxTypedGroup<SelectionItem>;
 
 	var grpCharacters:FlxTypedGroup<PcItem>;
@@ -50,7 +53,6 @@ class SelectionState extends MusicBeatState
 
 	var grpSkins:FlxTypedGroup<SkinItem>;
 
-	var grpOverview:FlxTypedGroup<Item>;
 
 	var grpLocks:FlxTypedGroup<FlxSprite>;
 	
@@ -136,7 +138,6 @@ class SelectionState extends MusicBeatState
 		grpCharacters = new FlxTypedGroup<PcItem>();
 		grpVfxs = new FlxTypedGroup<VfxItem>();
 		grpSkins = new FlxTypedGroup<SkinItem>();
-		grpOverview = new FlxTypedGroup<Item>();
 
 
 
@@ -192,21 +193,26 @@ class SelectionState extends MusicBeatState
 			// weekThing.updateHitbox();
 		}
 
-		selectedPc = new PcItem(curPc, yellowBG.x + yellowBG.width, 0);
+		selectedPc = new PcItem(curPc, yellowBG.x + yellowBG.width - 200, 0);
 		selectedPc.y = yellowBG.y + 175;
 		selectedPc.antialiasing = true;
 
-		selectedSkin = new SkinItem(curSkin, yellowBG.x + yellowBG.width + 100, 0);
+		selectedSkin = new SkinItem(curSkin, yellowBG.x + yellowBG.width - 100, 0);
 		selectedSkin.y = yellowBG.y + 175;
 		selectedSkin.antialiasing = true;
 
-		selectedVfx = new VfxItem(curVfx, yellowBG.x + yellowBG.width + 200, 0);
+		selectedVfx = new VfxItem(curVfx, yellowBG.x + yellowBG.width, 0);
 		selectedVfx.y = yellowBG.y + 175;
 		selectedVfx.antialiasing = true;
 
-		grpOverview.add(selectedPc);
-		grpOverview.add(selectedSkin);
-		grpOverview.add(selectedVfx);
+
+
+		selectedPc.deactiveTexts();
+		selectedVfx.deactiveTexts();
+		selectedSkin.deactiveTexts();
+
+		// gd(selectedVfx);
+
 
 
 		add(yellowBG);
@@ -222,6 +228,10 @@ class SelectionState extends MusicBeatState
 
 		txtTracklist.setBorderStyle(OUTLINE, 0xFF000000, 3, 1);
 
+		txtTapToStart = new FlxText(0, 0, 0, "Press 'A' to start!");
+		txtTapToStart.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER);
+
+
 		add(txtTracklist);
 		// add(rankText);
 		add(storeLabel);
@@ -230,11 +240,19 @@ class SelectionState extends MusicBeatState
 		add(grpVfxs);
 		add(grpSkins);
 
-		add(grpOverview);
+		add(selectedPc);
+		add(selectedSkin);
+		add(selectedVfx);
+
+
+		add(txtTapToStart);
 
 		changeSelection(0);
 		changeItem(0);
+
+		
 		Controller.init(this, FULL, A_B);
+
 
 
 		super.create();
@@ -247,6 +265,7 @@ class SelectionState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		updateOverview();
 
 		if (!movedBack)
 		{
@@ -340,7 +359,6 @@ class SelectionState extends MusicBeatState
 
 	function updateRender()
 	{
-		grpOverview.visible = isOverview();
 		grpCharacters.visible = isPc();
 		grpSkins.visible = isSkin();
 		grpVfxs.visible = isVfx();
@@ -397,22 +415,27 @@ class SelectionState extends MusicBeatState
 
 	private function updateOverview()
 	{
-		var bullShit:Int = 0;
-		for (item in grpCharacters.members)
-		{
-			item.targetX = bullShit;
-			if (item.targetX == Std.int(0))
-			{
-				item.color = item.isUnlocked ? FlxColor.GREEN : FlxColor.WHITE;
-				item.alpha = 1;
-			}
-			else
-			{
-				item.color = FlxColor.BLACK;
-				item.alpha = 0.1;
-			}
-			bullShit++;
-		}
+
+		updateRender();
+
+		selectedPc.itemReview.visible = isOverview();
+		selectedSkin.itemReview.visible = isOverview();
+		selectedVfx.itemReview.visible = isOverview();
+		txtTapToStart.visible = isOverview();
+
+
+		// //hardcoding, ah shit here we go again
+
+		// selectedSkin.itemReview.x = selectedPc.x - 75;
+		selectedSkin.itemReview.y = selectedPc.y - 200;
+		// selectedVfx.itemReview.x = selectedPc.x - 75;
+		selectedVfx.itemReview.y = selectedSkin.y - 400;
+		selectedVfx.selectedText.visible = false;
+
+		txtTapToStart.x = selectedPc.x;
+		txtTapToStart.y = selectedPc.y + 175;
+
+
 	}
 
 	private function changePc(change:Int)
