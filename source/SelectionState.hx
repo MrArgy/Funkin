@@ -44,7 +44,6 @@ class SelectionState extends MusicBeatState
 	public var curVfx:Int;
 	public var curSkin:Int;
 
-	var frame:FlxSprite;
 
 
 	var txtTracklist:FlxText;
@@ -195,7 +194,7 @@ class SelectionState extends MusicBeatState
 
 
 		selectedPc = new PcItem(curPc, yellowBG.x + yellowBG.width - 200, 0);
-		selectedPc.y = yellowBG.y + 220;
+		selectedPc.y = yellowBG.y + 175;
 		selectedPc.antialiasing = true;
 
 		selectedSkin = new SkinItem(curSkin, yellowBG.x + yellowBG.width - 100, 0);
@@ -232,11 +231,7 @@ class SelectionState extends MusicBeatState
 		txtTapToStart = new FlxText(-50, 0, 0, "Press 'A' to start!");
 		txtTapToStart.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER);
 
-		frame = new FlxSprite(-75, -100).loadGraphic(Paths.image("configuration/frames/800033"));
-		frame.setGraphicSize(Std.int(frame.width * 1.5));
-		frame.antialiasing = false;
 
-		add(frame);
 
 		add(txtTracklist);
 		// add(rankText);
@@ -487,24 +482,18 @@ class SelectionState extends MusicBeatState
 		selectedSkin.itemReview.visible = isOverview();
 		selectedVfx.itemReview.visible = isOverview();
 
-		frame.visible = isOverview();
-
 
 		txtTapToStart.visible = isOverview();
 
 		// hardcoding, ah shit here we go again
 
-		selectedSkin.itemReview.y = selectedPc.y - 190;
+		selectedSkin.itemReview.y = selectedPc.y - 200;
 
 		selectedVfx.itemReview.x = selectedPc.x - 105;
-		selectedVfx.itemReview.y = selectedPc.y - 390;
+		selectedVfx.itemReview.y = selectedPc.y - 400;
 
 		txtTapToStart.x = selectedPc.x + 5;
 		txtTapToStart.y = selectedPc.y + 140;
-
-
-		frame.x = selectedPc.x + 60;
-		frame.y = selectedPc.y - 160;
 
 	}
 
