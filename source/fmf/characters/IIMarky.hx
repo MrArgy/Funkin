@@ -66,19 +66,19 @@ class IIMarky extends Boyfriend
 	// create animation offset for BF
 	public override function createAnimationOffsets():Void
 	{
-		addOffset('idle', -6, -1);
-		addOffset("singUP", -16, -2);
-		addOffset("singRIGHT", -16, 0);
-		addOffset("singLEFT", -4, 0);
-		addOffset("singDOWN", -7, 1);
+		addOffset('idle', -7, -2);
+		addOffset("singUP", -46, -2);
+		addOffset("singRIGHT", -46, -1);
+		addOffset("singLEFT", -1, -20);
+		addOffset("singDOWN", -15, -44);
 
-		addOffset("singUPmiss", -16, -2);
-		addOffset("singRIGHTmiss", -16, 0);
-		addOffset("singLEFTmiss", -4, 0);
-		addOffset("singDOWNmiss", -7, 1);
+		addOffset("singUPmiss", -46, -2);
+		addOffset("singRIGHTmiss", -46, -1);
+		addOffset("singLEFTmiss", -1, -20);
+		addOffset("singDOWNmiss", -15, -44);
 
-		addOffset("hey", -6, -1);
-		addOffset('scared', -16, -2);
+		addOffset("hey", -7, -2);
+		addOffset('scared', -7, -2);
 
 		playAnim('idle');
 		flipX = true;
