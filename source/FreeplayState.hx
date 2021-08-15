@@ -250,28 +250,28 @@ class FreeplayState extends MusicBeatState
 		{
 			// pre lowercasing the song name (update)
 
-			if (songs[curSelected].firstSong)
-			{
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-				AdMob.showInterstitial(60);
-				playLevel();
-			}
-			else
-			{
-				// try show video
+			// if (songs[curSelected].firstSong)
+			// {
+			FlxG.sound.play(Paths.sound('confirmMenu'));
+			AdMob.showInterstitial(60);
+			playLevel();
+			// }
+			// else
+			// {
+			// 	// try show video
 
-				var showVideoSuccess = AdMob.showRewardVideo();
+			// 	var showVideoSuccess = AdMob.showRewardVideo();
 
-				#if !mobile
-				playLevel();
-				#end
-				// showVideoSuccess = true;
-				// #end
-				// if(showVideoSuccess)
-				// {
-				// 	playLevel();
-				// }
-			}
+			// 	#if !mobile
+			// 	playLevel();
+			// 	#end
+			// 	// showVideoSuccess = true;
+			// 	// #end
+			// 	// if(showVideoSuccess)
+			// 	// {
+			// 	// 	playLevel();
+			// 	// }
+			// }
 		}
 	}
 
@@ -388,13 +388,14 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...iconArray.length)
 		{			
-			var unlocked:Bool =  songs[i].firstSong;
+			//all unlocked, hail kdorado
+			var unlocked:Bool = true; //songs[i].firstSong;
 			iconArray[i].alpha = unlocked ? 0.6 : 0;
 			videoArray[i].alpha = unlocked ? 0 : 0.6;
 
 		}
 
-		var unlocked:Bool =  songs[curSelected].firstSong;
+		var unlocked:Bool =  true; // songs[curSelected].firstSong;
 
 		iconArray[curSelected].alpha = unlocked ? 1 : 0;
 		videoArray[curSelected].alpha = unlocked ? 0 : 1;

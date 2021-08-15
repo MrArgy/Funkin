@@ -170,6 +170,7 @@ class GameOverSubstate extends MusicBeatSubstate
 					{
 						FlxG.resetState();
 					}, PlayState.instance.camHUD);
+                                    
 
                 case "Exit to menu":
 

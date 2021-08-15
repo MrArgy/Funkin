@@ -20,7 +20,7 @@ class VictorySubState extends MusicBeatSubstate
 {
     var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-    var menuItems:Array<String> = ['Next Song', 'Exit to menu'];
+    var menuItems:Array<String> = ['Next Song','Customization', 'Exit to menu'];
     var curSelected:Int = 0;
 
     var pauseMusic:FlxSound;
@@ -139,12 +139,21 @@ class VictorySubState extends MusicBeatSubstate
                 case "Next Song":
 					PlayState.instance.gameNa();
                     AdMob.showInterstitial(60);
-                    // FlxG.sound.play(Paths.music('gameOverEnd'));
+
                     LoadingState.createBlackFadeIn(this, function()
 					{
 						FlxG.resetState();
 					}, PlayState.instance.camHUD);
 				          
+
+				case 'Customization':
+                    PlayState.instance.gameNa();
+                    AdMob.showInterstitial(60);
+
+                    LoadingState.createBlackFadeIn(this, function()
+					{
+                        FlxG.switchState(new SelectionState());
+					}, PlayState.instance.camHUD);
 
                 case "Exit to menu":
 					PlayState.instance.gameNa();

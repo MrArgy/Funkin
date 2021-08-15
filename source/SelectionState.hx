@@ -103,8 +103,7 @@ class SelectionState extends MusicBeatState
 
 		if (FlxG.sound.music != null)
 		{
-			if (!FlxG.sound.music.playing)
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('breakfast'));
 		}
 
 		persistentUpdate = persistentDraw = true;
