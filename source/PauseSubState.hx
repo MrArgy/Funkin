@@ -23,7 +23,7 @@ class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Exit to menu'];
+	var menuItems:Array<String> = ['Resume', 'Customization', 'Restart Song', 'Exit to menu'];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
@@ -202,23 +202,22 @@ class PauseSubState extends MusicBeatSubstate
 					{
 						FlxG.resetState();
 					});
+
+				case 'Customization':
+					PlayState.instance.gameNa();
+					close();
+					PlayState.instance.restorePad();
+
+					PlayState.instance.switchState(function()
+					{
+						FlxG.switchState(new SelectionState());
+					});
 					
 				case "Exit to menu":
 					PlayState.instance.gameNa();
 					close();
 					PlayState.instance.restorePad();
 
-					#if windows
-					if (PlayState.luaModchart != null)
-					{
-						PlayState.luaModchart.die();
-						PlayState.luaModchart = null;
-					}
-					#end
-
-					if (FlxG.save.data.fpsCap > 290)
-						(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
-					
 					PlayState.instance.switchState(function()
 					{
 						FlxG.switchState(new MainMenuState());

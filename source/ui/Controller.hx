@@ -84,6 +84,13 @@ class Controller
 	}
 
 
+	public static var C_P(get, never):Bool;
+    static inline function get_C_P()
+	{
+		return _pad.buttonC.justPressed;
+	}
+
+
 	// LEFT SIDE, hold ARROW SHIT
 	public static var DOWN(get, never):Bool;
     static inline function get_DOWN()

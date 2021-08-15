@@ -306,7 +306,14 @@ class SelectionState extends MusicBeatState
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
-			FlxG.switchState(new MainMenuState());
+			if (PlayState.isStoryMode)
+			{
+				FlxG.switchState(new StoryMenuState());
+			}
+			else
+			{
+				FlxG.switchState(new FreeplayState());
+			}
 		}
 
 		super.update(elapsed);
@@ -353,7 +360,8 @@ class SelectionState extends MusicBeatState
 			}
 			else
 			{
-				trace('try unlock babe');
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+
 				// try unlock it babe
 				AdMob.showRewardVideo();
 				#if !mobile

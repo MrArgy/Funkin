@@ -310,7 +310,8 @@ class FreeplayState extends MusicBeatState
 		PlayState.isStoryMode = false;
 		PlayState.storyDifficulty = curDifficulty;
 		PlayState.storyWeek = songs[curSelected].week;
-		LoadingState.loadAndSwitchState(new PlayState());
+
+		LoadingState.loadAndSwitchState(new SelectionState());
 	}
 
 	function changeDiff(change:Int = 0)
